@@ -179,9 +179,7 @@
             <div class="info-window-icons">
 
               <img src="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/CreditCheck.png?raw=true">
-
               <img src="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/CashCheck.png?raw=true" alt="Image 2">
-
               <img src="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/PhoneX.png?raw=true" alt="Image 3">
 
             </div>
@@ -218,10 +216,112 @@
         });
       });
 
-      const eaton_info = '';
-      eaton.on('click', function () {});
-      const greene_info = '';
-      greene.on('click', function () {});
+      const eaton_info = `
+        <div class="info-window-content">
+          <div class="info-window-image">
+
+              <img src="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Amos%20Eaton/AmosEatonDrink.jpg?raw=true" alt="Logo 1" class="active">
+
+            <div class="carousel-controls">
+              <button class="prev">&lt;</button>
+              <button class="next">&gt;</button>
+            </div>
+          </div>
+          <div class="info-window-text">
+            <div class="info-window-title">Amos Eaton</div>
+            <div class="info-window-icons">
+
+              <img src="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/CreditCheck.png?raw=true">
+              <img src="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/CashCheck.png?raw=true" alt="Image 2">
+              <img src="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/PhoneX.png?raw=true" alt="Image 3">
+
+            </div>
+            <div class="info-window-subtitle">This machine accepts cash and credit cards.</div>
+          </div>
+        </div>
+      `;
+
+      eaton.on('click', function () {
+        const infoWindow = L.popup({maxWidth: 500})
+          .setLatLng([42.730310, -73.682501])
+          .setContent(eaton_info)
+          .openOn(map);
+
+        const images = document.querySelectorAll('.info-window-image img');
+        const prevButton = document.querySelector('.prev');
+        const nextButton = document.querySelector('.next');
+        let currentIndex = 0;
+
+        function showImage(index) {
+          images.forEach((img, i) => {
+            img.classList.toggle('active', i === index);
+          });
+        }
+
+        prevButton.addEventListener('click', () => {
+          currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
+          showImage(currentIndex);
+        });
+
+        nextButton.addEventListener('click', () => {
+          currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
+          showImage(currentIndex);
+        });
+      });
+
+      const greene_info =  `
+        <div class="info-window-content">
+          <div class="info-window-image">
+
+              <img src="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Greene/GreeneDrink.jpg?raw=true" alt="Logo 1" class="active">
+              <img src="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Greene/GreeneSnack.jpg?raw=true" alt="Logo 2">
+
+            <div class="carousel-controls">
+              <button class="prev">&lt;</button>
+              <button class="next">&gt;</button>
+            </div>
+          </div>
+          <div class="info-window-text">
+            <div class="info-window-title">Greene Building</div>
+            <div class="info-window-icons">
+
+              <img src="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/CreditCheck.png?raw=true">
+              <img src="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/CashCheck.png?raw=true" alt="Image 2">
+              <img src="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/PhoneX.png?raw=true" alt="Image 3">
+
+            </div>
+            <div class="info-window-subtitle">This machine accepts cash and credit cards.</div>
+          </div>
+        </div>
+      `;
+
+      greene.on('click', function () {
+        const infoWindow = L.popup({maxWidth: 500})
+          .setLatLng([42.730136, -73.681213])
+          .setContent(greene_info)
+          .openOn(map);
+
+        const images = document.querySelectorAll('.info-window-image img');
+        const prevButton = document.querySelector('.prev');
+        const nextButton = document.querySelector('.next');
+        let currentIndex = 0;
+
+        function showImage(index) {
+          images.forEach((img, i) => {
+            img.classList.toggle('active', i === index);
+          });
+        }
+
+        prevButton.addEventListener('click', () => {
+          currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
+          showImage(currentIndex);
+        });
+
+        nextButton.addEventListener('click', () => {
+          currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
+          showImage(currentIndex);
+        });
+      });
     }
 
     document.addEventListener('DOMContentLoaded', function () {
