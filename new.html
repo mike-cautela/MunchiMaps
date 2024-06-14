@@ -3,7 +3,6 @@
 <head>
   <link rel="icon" type="image/x-icon" href="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/CookieFavicon.png?raw=true">
   <title>MunchiMaps</title>
-  <link rel="stylesheet" href="MunchiMaps_stylesheet.css"/>
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 </head>
@@ -32,6 +31,22 @@
          <img src="https://raw.githubusercontent.com/mike-cautela/MunchiMaps/4503fa54fa4ee7f582e531d6c77ef53732eb74c7/MunchiMaps%20Assets/MenuIcons/crosshair.svg" alt="Location">
       </button>
     </div>
+
+    <!-- Add the help button -->
+  <div class="help-button" onclick="openHelp()">
+    <img src="https://raw.githubusercontent.com/TheGoodKevin/MunchiMaps/3e2bb190597a4fe6bb1975ad6dc4416c4f8b8e52/MunchiMaps%20Assets/MenuIcons/help-circle.svg" alt="Help">
+  </div>
+
+  <!-- Add the help popup -->
+  <div id="help-popup" class="help-popup">
+    <div class="help-content">
+      <span class="close" onclick="closeHelp()">&times;</span>
+      <h2>How to Use MunchiMaps:</h2>
+      <p>Look at the MunchiMap to find the nearest Vending Machine near you!</p>
+      <p>Make sure to check to see if the machine sells Snacks and/or drinks</p>
+      <p>add logo icons and explain each one???</p>
+    </div>
+  </div>
 
     <div id="popup-search" class="popup-container">
     <div class="popup">
@@ -329,6 +344,22 @@
     });
   </script>
    <script>
+    function openHelp() {
+      document.getElementById("help-popup").style.display = "block";
+    }
+
+    function closeHelp() {
+      document.getElementById("help-popup").style.display = "none";
+    }
+
+    // Close the help popup if the user clicks outside of the help content
+    window.onclick = function(event) {
+      const popup = document.getElementById("help-popup");
+      if (event.target === popup) {
+        popup.style.display = "none";
+      }
+    }
+
     function openPopup(id) {
       document.getElementById('popup-' + id.toLowerCase()).style.display = 'block';
     }
