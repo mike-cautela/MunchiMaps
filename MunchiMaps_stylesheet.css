@@ -48,7 +48,6 @@ html, body {
 
 
 
-
   .button:hover .button-img {
     
 }
@@ -235,7 +234,7 @@ html, body {
     position: relative;
     height: 300px; 
     width: 200px; 
-    
+    flex-shrink: 0;
     margin-right: 10px;
   }
   .info-window-image img {
