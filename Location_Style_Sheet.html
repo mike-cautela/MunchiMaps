@@ -1,0 +1,145 @@
+
+
+
+
+body{
+  background: url(https://cldup.com/Vl8C-VKQJ6-2000x2000.png) #123D68; 
+  background-size:cover;
+
+}
+
+.dot{
+  margin: auto auto;
+  width: 300px;
+  height: 300px;
+  position: relative;
+}
+
+
+.centraldot{
+  width: 6px;
+  height: 6px;
+  background: rgba(32,150,243,1);
+  border-radius: 30px;
+  position: absolute;
+  left:147px;
+  top:147px;
+  animation: animationDotCentral linear 3s;
+  transform-origin: 50% 50%;
+  animation-fill-mode:forwards;
+  animation-iteration-count: infinite;
+}
+
+
+.wave{
+  width: 260px;
+  height: 260px;
+  background: rgba(32,150,243,0.4);
+  border-radius: 200px;
+  position: absolute;
+  left:20px;
+  top:20px;
+  opacity: 0;
+  animation: animationWave cubic-bezier(0,.54,.53,1) 3s;
+  transform-origin: 50% 50%;
+  animation-fill-mode:forwards;
+  animation-delay:0.9s;
+  animation-iteration-count: infinite;
+}
+
+.wave2{
+  width: 260px;
+  height: 260px;
+  background: rgba(32,150,243,0.4);
+  border-radius: 200px;
+  position: absolute;
+  left:20px;
+  top:20px;
+  opacity: 0;
+  animation: animationWave cubic-bezier(0,.54,.53,1) 3s;
+  transform-origin: 50% 50%;
+  animation-fill-mode:forwards;
+  animation-delay:1.07s;
+  animation-iteration-count: infinite;
+}
+
+
+@keyframes animationDotCentral{
+  
+  0% {
+    transform:  scale(0) ;
+    opacity: 0;
+  }
+ 
+  5% {
+    transform:  scale(2) ;
+  }
+  
+  10% {
+    transform:  scale(0.90) ;
+    opacity: 1;
+  }
+
+
+  11% {
+    transform:  scale(1.50) ;
+  }
+
+  12% {
+    transform:  scale(1.00) ;
+  }
+ 
+  28% {
+    background: rgba(32,150,243,1);
+  }
+  
+  29% {
+    background: rgba(255,255,255,1);
+  }
+
+  31% {
+    background: rgba(32,150,243,1);
+  }
+
+  33% {
+    background: rgba(255,255,255,1);
+  }
+
+  35% {
+    background: rgba(32,150,243,1);
+  }
+
+  90%{
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes animationWave{
+  0% {
+      opacity: 0;
+      transform:  scale(0.00);
+  }
+
+  1% {
+    opacity: 1;
+  }
+
+  10% {
+    background: rgba(32,150,243,0.4);
+  }
+
+  100% {
+    transform:  scale(1) ;
+    background: rgba(32,150,243,0.0);
+   }
+}
+
+
+
+
+
+
