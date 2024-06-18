@@ -2,40 +2,24 @@
 <html>
 <head>
   <link rel="icon" type="image/x-icon" href="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/CookieFavicon.png?raw=true">
-  <title>MunchiMaps</title>
+ 
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <link rel="stylesheet" href="MunchiMaps_stylesheet.css" />
+  <link rel="stylesheet" href="Location_Style_Sheet.css" />
+  <link rel="stylesheet" href="loading_animation_stylesheet.css" />
+
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 </head>
 <body>
   <div class="logo-title">
     <img src="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/MunchiMaps%20Logos/MunchiMapsCroppedLogo.png?raw=true" alt="MunchiMaps">
   </div>
+   <!-- Add the help button -->
+  <div class="help-button" onclick="openHelp()">
+    <img src="https://raw.githubusercontent.com/mike-cautela/MunchiMaps/main/MunchiMaps%20Assets/MenuIcons/help-circle-grey.svg" alt="Help" class="help-button-img">
+  </div>
   <div id="map-container">
     <div id="map"></div>
-  </div>
-   <div id="buttons-container">
-    <!---- Contains all buttons at bottom of screen -->
-      <button class="button" onclick="openPopup('Search')">
-        <img src="https://raw.githubusercontent.com/mike-cautela/MunchiMaps/4503fa54fa4ee7f582e531d6c77ef53732eb74c7/MunchiMaps%20Assets/MenuIcons/search.svg" alt="Search">
-      </button>
-      <button class="button" onclick="openPopup('List')">
-         <img src="https://raw.githubusercontent.com/mike-cautela/MunchiMaps/4503fa54fa4ee7f582e531d6c77ef53732eb74c7/MunchiMaps%20Assets/MenuIcons/list.svg" alt="List">
-      </button>
-      <button class="button" onclick="openPopup('Report')">
-         <img src="https://raw.githubusercontent.com/mike-cautela/MunchiMaps/4503fa54fa4ee7f582e531d6c77ef53732eb74c7/MunchiMaps%20Assets/MenuIcons/alert-triangle.svg" alt="Report">
-      </button>
-      <button class="button" onclick="openPopup('Review')">
-         <img src="https://raw.githubusercontent.com/mike-cautela/MunchiMaps/4503fa54fa4ee7f582e531d6c77ef53732eb74c7/MunchiMaps%20Assets/MenuIcons/smile.svg" alt="Review">
-      </button>
-      <button class="button" onclick="openPopup('Location')">
-         <img src="https://raw.githubusercontent.com/mike-cautela/MunchiMaps/4503fa54fa4ee7f582e531d6c77ef53732eb74c7/MunchiMaps%20Assets/MenuIcons/crosshair.svg" alt="Location">
-      </button>
-    </div>
-
-    <!-- Add the help button -->
-  <div class="help-button" onclick="openHelp()">
-    <img src="https://raw.githubusercontent.com/TheGoodKevin/MunchiMaps/3e2bb190597a4fe6bb1975ad6dc4416c4f8b8e52/MunchiMaps%20Assets/MenuIcons/help-circle.svg" alt="Help">
   </div>
 
   <!-- Add the help popup -->
@@ -51,14 +35,10 @@
 
     <div id="popup-search" class="popup-container">
     <div class="popup">
-      <div>Search</div>
+      
+        <img src="https://raw.githubusercontent.com/mike-cautela/MunchiMaps/main/MunchiMaps%20Assets/MenuIcons/loader.svg" alt="loading...">
+        <div>Updating Map...</div>
       <div class="popup-close" onclick="closePopup('Search')">X</div>
-    </div>
-  </div>
-  <div id="popup-list" class="popup-container">
-    <div class="popup">
-      <div>List</div>
-      <div class="popup-close" onclick="closePopup('List')">X</div>
     </div>
   </div>
   <div id="popup-report" class="popup-container">
@@ -73,13 +53,6 @@
       <div class="popup-close" onclick="closePopup('Review')">X</div>
     </div>
   </div>
-  <div id="popup-location" class="popup-container">
-    <div class="popup">
-      <div>Location</div>
-      <div class="popup-close" onclick="closePopup('Location')">X</div>
-    </div>
-</div>
-
     
   <script>
 
@@ -87,27 +60,91 @@
     function initMap() {
       const map = L.map('map').setView([42.72941085967446, -73.6792590320996], 17);
 
+
+      var currentMarker = null;  // Variable to keep track of the current marker
+
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  detectRetina: true,
+   maxZoom: 50
+
       }).addTo(map);
+
+        var locationDot = L.divIcon({
+            className: 'custom-icon',
+            html: '<div class="location-circle"></div><div class="location-dot"></div>',
+            iconSize: [40, 40],
+            iconAnchor: [1, 3]  // Center the icon
+        });
+
+        // Function to handle location found
+            function onLocationFound(e) {
+                console.log("Location found: ", e.latlng);
+
+                // Remove the old marker if it exists
+                if (currentMarker) {
+                    map.removeLayer(currentMarker);
+                }
+
+                // Add a new marker
+                currentMarker = L.marker(e.latlng, {icon: locationDot}).addTo(map).bindPopup("You are here").openPopup();
+                map.setView(e.latlng, 18); // Center the map on the user's location
+            }
+
+            // Function to handle location errors
+            function onLocationError(e) {
+                console.log("Location error: ", e.message);
+                alert(e.message);
+            }
+
+            // Initial location finding
+            map.locate({
+                setView: true,
+                maxZoom: 18,
+                watch: false
+            }).on('locationfound', onLocationFound).on('locationerror', onLocationError);
+
+            // Define the centerMap function
+            function centerMap(){
+                map.locate({
+                    setView: true,
+                    maxZoom: 18,
+                    watch: false
+                }).on('locationfound', onLocationFound).on('locationerror', onLocationError);
+            }
+
+            var button = document.getElementById("Location");
+            if (button) {
+                console.log("Button found, adding event listener");
+                button.addEventListener("click", centerMap);
+            } else {
+                console.log("Button not found");
+            }
+
+
+      //Puts the zoom in bottom left corner
+      map.zoomControl.setPosition('bottomleft');
 
       //Gets the icon for vending machines available from github.
       const foodanddrink = L.icon({
         iconUrl: 'https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/Food&Drink.png?raw=true',
-        iconSize: [100, 50],
+        iconSize: [80, 50],
         iconAnchor: [50, 25]
+        
       });
 
       const food = L.icon({
         iconUrl: 'https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/Food.png?raw=true',
         iconSize: [50, 50],
         iconAnchor: [50, 25]
+        
       });
 
       const drink = L.icon({
         iconUrl: 'https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/Drink.png?raw=true',
         iconSize: [50, 50],
         iconAnchor: [50, 25]
+        
       });
 
       //Marker locations. 
@@ -115,7 +152,6 @@
       const jrowl = L.marker([42.7288, -73.6804], { icon: foodanddrink }).addTo(map);
       const eaton = L.marker([42.730310, -73.682501], { icon: drink}).addTo(map);
       const greene = L.marker([42.730136, -73.681213], { icon: foodanddrink }).addTo(map);
-      const academy = L.marker([42.727497, -73.678723], { icon: foodanddrink }).addTo(map);
 
       //Contains all images for Folsom + icons 
       const infoWindowContent = `
@@ -339,61 +375,6 @@
           showImage(currentIndex);
         });
       });
-
-      const academy_info = `
-        <div class="info-window-content">
-          <div class="info-window-image">
-
-              <img src="https://github.com/wfang4285/MunchiMaps-FORK/blob/main/MunchiMaps%20Assets/Academy%20Hall/AcademyHallDrink.jpg?raw=true" alt="Logo 1" class="active">
-              <img src="https://github.com/wfang4285/MunchiMaps-FORK/blob/main/MunchiMaps%20Assets/Academy%20Hall/AcademyHallSnack.jpg?raw=true" alt="Logo 2">
-
-            <div class="carousel-controls">
-              <button class="prev">&lt;</button>
-              <button class="next">&gt;</button>
-            </div>
-          </div>
-          <div class="info-window-text">
-            <div class="info-window-title">JROWL</div>
-            <div class="info-window-icons">
-
-              <img src="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/CreditCheck.png?raw=true">
-              <img src="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/CashCheck.png?raw=true" alt="Image 2">
-              <img src="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/PhoneX.png?raw=true" alt="Image 3">
-              <img src="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/PhoneCheck.png?raw=true" alt="Image 4">
-
-            </div>
-            <div class="info-window-subtitle">These machines accept cash and credit cards. The beverage machine also accepts tap to pay.</div>
-          </div>
-        </div>
-      `;
-
-      academy.on('click', function () {
-        const infoWindow = L.popup({maxWidth: 500})
-          .setLatLng([42.727497, -73.678723])
-          .setContent(academy_info)
-          .openOn(map);
-
-        const images = document.querySelectorAll('.info-window-image img');
-        const prevButton = document.querySelector('.prev');
-        const nextButton = document.querySelector('.next');
-        let currentIndex = 0;
-
-        function showImage(index) {
-          images.forEach((img, i) => {
-            img.classList.toggle('active', i === index);
-          });
-        }
-
-        prevButton.addEventListener('click', () => {
-          currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-          showImage(currentIndex);
-        });
-
-        nextButton.addEventListener('click', () => {
-          currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-          showImage(currentIndex);
-        });
-      });
     }
 
     document.addEventListener('DOMContentLoaded', function () {
@@ -425,6 +406,24 @@
   document.getElementById('popup-' + id.toLowerCase()).style.display = 'none';
 }
   </script>
+
+
+   <div id="buttons-container">
+    <!---- Contains all buttons at bottom of screen -->
+      <button class="button" onclick="openPopup('Search')">
+        <img src="https://raw.githubusercontent.com/mike-cautela/MunchiMaps/main/MunchiMaps%20Assets/MenuIcons/search-grey.svg" alt="Search" class="button-img">
+      </button>
+      
+      <button class="button" onclick="openPopup('Report')">
+         <img src="https://raw.githubusercontent.com/mike-cautela/MunchiMaps/main/MunchiMaps%20Assets/MenuIcons/alert-triangle-grey.svg" alt="Report" class="button-img">
+      </button>
+      <button class="button" onclick="openPopup('Review')">
+         <img src="https://raw.githubusercontent.com/mike-cautela/MunchiMaps/main/MunchiMaps%20Assets/MenuIcons/smile-grey.svg" alt="Review" class="button-img">
+      </button>
+      <button class="button" id="Location">
+         <img src="https://raw.githubusercontent.com/mike-cautela/MunchiMaps/main/MunchiMaps%20Assets/MenuIcons/crosshair-grey.svg" alt="Location" class="button-img">
+      </button>
+    </div>
 </body>
 </html>
 
