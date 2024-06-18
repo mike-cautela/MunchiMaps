@@ -451,12 +451,19 @@
     }
 
     function openPopup(id) {
+      closeAllPopups();
       document.getElementById('popup-' + id.toLowerCase()).style.display = 'block';
     }
 
     function closePopup(id) {
   document.getElementById('popup-' + id.toLowerCase()).style.display = 'none';
 }
+  //Closes all popups when user clicks on second popup. 
+  function closeAllPopups() {
+    document.querySelectorAll('.popup-container').forEach((popup) => {
+      popup.style.display = 'none';
+    });
+  }
   </script>
 
 
