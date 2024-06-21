@@ -14,24 +14,61 @@
   <div class="logo-title">
     <img src="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/MunchiMaps%20Logos/MunchiMapsCroppedLogo.png?raw=true" alt="MunchiMaps">
   </div>
-   <!-- Add the help button -->
-  <div class="help-button" onclick="openHelp()">
-    <img src="https://raw.githubusercontent.com/mike-cautela/MunchiMaps/main/MunchiMaps%20Assets/MenuIcons/help-circle-grey.svg" alt="Help" class="help-button-img">
-  </div>
+   
   <div id="map-container">
     <div id="map"></div>
   </div>
 
-  <!-- Add the help popup -->
+  <!-- Add the help button -->
+  <div class="help-button" onclick="openHelp()">
+    <img src="https://raw.githubusercontent.com/mike-cautela/MunchiMaps/main/MunchiMaps%20Assets/MenuIcons/help-circle-grey.svg" alt="Help" class="help-button-img">
+  </div>
+
   <div id="help-popup" class="help-popup">
     <div class="help-content">
-      <span class="close" onclick="closeHelp()">&times;</span>
-      <h2>How to Use MunchiMaps:</h2>
-      <p>Look at the MunchiMap to find the nearest Vending Machine near you!</p>
-      <p>Make sure to check to see if the machine sells Snacks and/or drinks</p>
-      <p>add logo icons and explain each one???</p>
-    </div>
-  </div>
+        <span class="close" onclick="closeHelp()">&times;</span>
+        <h2>How to Use MunchiMaps:</h2>
+        <p>Look at the MunchiMap to find the nearest Vending Machine near you!</p>
+        <p>Make sure to check to see if the machine sells Snacks and/or drinks</p>
+
+        <h3>Button Icons:</h3>
+        <div class="icons-description">
+            <div class="icon-item">
+                <svg class="help-icon" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 45.79 40.21">
+                    <defs>
+                        <style>
+                            .cls-1 {
+                                fill: none;
+                                stroke: #626262;
+                                stroke-linecap: round;
+                                stroke-linejoin: round;
+                                stroke-width: 4px;
+                            }
+                        </style>
+                    </defs>
+                    <path class="cls-1" d="M19.48,3.93L2.54,32.21c-1.1,1.91-.45,4.36,1.46,5.46.6.34,1.27.53,1.96.54h33.88c2.21-.02,3.98-1.83,3.96-4.04,0-.69-.19-1.36-.54-1.96L26.32,3.93c-1.15-1.89-3.61-2.49-5.49-1.35-.55.33-1.01.8-1.35,1.35Z"/>
+                    <line class="cls-1" x1="22.9" y1="14.21" x2="22.9" y2="22.21"/>
+                    <line class="cls-1" x1="22.9" y1="30.21" x2="22.92" y2="30.21"/>
+                </svg>
+
+        <!-- <h3>Map Key:</h3>
+        <div class="map-key">
+            <div class="icon-item">
+                <img src="path/to/snack-icon.png" alt="Snack Icon" class="map-icon">
+                <p>Snack Icon: Indicates vending machines that sell snacks.</p>
+            </div>
+            <div class="icon-item">
+                <img src="path/to/drink-icon.png" alt="Drink Icon" class="map-icon">
+                <p>Drink Icon: Indicates vending machines that sell drinks.</p>
+            </div>
+            <div class="icon-item">
+                <img src="path/to/both-icon.png" alt="Both Icon" class="map-icon">
+                <p>Both Icon: Indicates vending machines that sell both snacks and drinks.</p>
+            </div>
+            <!-- Add more map key items as needed -->
+        </div>
+    </div> -->
+</div>
 
     <div id="popup-search" class="popup-container">
     <div class="popup">
