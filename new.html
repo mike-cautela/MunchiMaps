@@ -377,6 +377,28 @@ const infoWindowContent = `
             </div>
             <div class="info-window-subtitle">This machine accepts cash and credit cards.</div>
           </div>
+          <!-- Draft review function for the vending machine -->
+          <div class="review-section">
+            <h3>Reviews</h3>
+            <div class="reviews">
+              <!-- Existing reviews will be appended here -->
+            </div>
+            <h4>Write a Review</h4>
+            <form class="submit-review">
+              <textarea id="review-text" placeholder="Write your review here..." required></textarea>
+              <div class="rating">
+                <label for="rating">Rating:</label>
+                <select id="rating">
+                  <option value="5">5 Stars</option>
+                  <option value="4">4 Stars</option>
+                  <option value="3">3 Stars</option>
+                  <option value="2">2 Stars</option>
+                  <option value="1">1 Star</option>
+                </select>
+              </div>
+              <button type="submit">Submit</button>
+            </form>
+          </div>
         </div>
       `;
 
@@ -405,6 +427,28 @@ const infoWindowContent = `
         nextButton.addEventListener('click', () => {
           currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
           showImage(currentIndex);
+        });
+        
+        //review section javascript
+        const submitReview = document.querySelector('.submit-review');
+        const reviewsContainer = document.querySelector('.reviews');
+
+        reviewForm.addEventListener('submit', (event) => {
+          event.preventDefault();
+          const reviewText = document.getElementById('review-text').value;
+          const rating = document.getElementById('rating').value;
+
+          // Append new review to the reviews container
+          const reviewElement = document.createElement('div');
+          reviewElement.classList.add('review');
+          reviewElement.innerHTML = `
+            <p>${reviewText}</p>
+            <p>Rating: ${'★'.repeat(rating)}${'☆'.repeat(5 - rating)}</p>
+          `;
+          reviewsContainer.appendChild(reviewElement);
+
+          // Clear the form
+          reviewForm.reset();
         });
       });
     }
