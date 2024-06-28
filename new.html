@@ -37,10 +37,80 @@
 
     <div id="popup-search" class="popup-container">
     <div class="popup">
-      
-        <img src="https://raw.githubusercontent.com/mike-cautela/MunchiMaps/main/MunchiMaps%20Assets/MenuIcons/loader.svg" alt="loading...">
-        <div>Updating Map...</div>
-      <div class="popup-close" onclick="closePopup('Search')">X</div>
+        <div class = "search-bar">
+          <input type ="search" id="searchInput">
+          <div id="searchResult" class="result"></div>
+        </div>
+        <script>
+          //Temporary buildings list 
+          var buildings = [
+                  {name: 'Folsom Library', drink: true, food: true},
+                  {name: 'Sharp Hall', drink: true, food: true},
+                  {name: 'Rensselaer Student Union', drink: true, food: true},
+                  {name: 'Quadrangle Complex', drink: true, food: false},
+                  {name: 'Darrin Communication Center', drink: true, food: true},
+                  {name: 'Woorhees Computing Center', drink: true, food: true},
+                  {name: 'Amos Eaton Hall', drink: true, food: false},
+                  {name: 'Mueller Center', drink: true, food: true},
+                  {name: 'j Erik Jonsson Engineering Center', drink: true, food: true},
+                  {name: 'Russell Sage Laboratory', drink: true, food: true},
+                  {name: 'Jonsson-Rowland Science Center', drink: true, food: true},
+                  {name: 'Pittsburgh Building', drink: true, food: true},
+                  {name: 'Warren Hall', drink: true, food: false},
+                  {name: 'Greene Building', drink: true, food: true},
+                  {name: 'Davison Hall', drink: true, food: false},
+                  {name: 'RPI Public Safety', drink: true, food: false},
+                  {name: 'North Hall', drink: true, food: true},
+                  {name: 'West Hall', drink: true, food: false}
+          ];
+          
+          //Building sort
+          buildings.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
+          console.log(buildings);
+        
+          //Search function 
+          function search(){
+              var searchTerm = document.getElementById('searchInput').value.trim().toLowerCase();
+              var filtered = [];
+  
+              buildings.forEach(function(building){
+                  if(filter(building, searchTerm)){
+                      filtered.push(building);
+                  }
+              });
+  
+              displayResults(filtered);
+          }
+  
+          //Filter through the list
+          function filter(item, searchTerm){
+              return item.name.toLowerCase().startsWith(searchTerm);
+          }
+  
+          //Display results
+          function displayResults(results){
+              var resultContainer = document.getElementById('searchResult');
+              resultContainer.innerHTML = '';
+              
+              if (results.length > 0) {
+                  var resultList = document.createElement('ul');
+                  
+                  results.forEach(function(item) {
+                      var listItem = document.createElement('li');
+                      listItem.textContent = item.name;
+                      resultList.appendChild(listItem);
+                  });
+                  
+                  resultContainer.appendChild(resultList);
+              } 
+              else {
+                  resultContainer.textContent = 'No results found';
+              }
+          }
+  
+          document.getElementById('searchInput').addEventListener('input', search);
+        </script>
+        <div class="popup-close" onclick="closePopup('Search')">X</div>
     </div>
   </div>
   <div id="popup-report" class="popup-container">
