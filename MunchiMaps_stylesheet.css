@@ -345,7 +345,74 @@ html, body {
     background-color: #0056b3;
   }
   
+/*search bar*/
+.search-bar {
+    position: fixed;
+    top: 48%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    z-index: 1000;
+    width: 465px; 
+    height: 500px; 
+    font-family: 'Courier New'; 
+    font-weight: bold;
+}
 
+/*search bar input*/
+.search-bar input[type="search"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+    font-family: 'Courier New';
+    margin-bottom: 10px;
+}
+
+/*search bar results*/
+.result {
+    width: 100%;
+    max-width: 600px;
+    max-height: 420px;
+    overflow-y: auto;
+    margin-top: 20px;
+}
+
+.result ul {
+    list-style-type: none;
+    font-family: 'Courier New';
+    padding: 0;
+    margin: 0;
+}
+
+.result ul li {
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    background-color: white;
+    transition: box-shadow 0.3s;
+    font-family: 'Courier New';
+}
+
+.result ul li:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.result ul li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 18px;
+    font-family: 'Courier New';
+}
+
+.result ul li a:hover {
+    text-decoration: underline;
+}
+   
+  
 
    
   
