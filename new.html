@@ -7,8 +7,10 @@
   <link rel="stylesheet" href="MunchiMaps_stylesheet.css" />
   <link rel="stylesheet" href="Location_Style_Sheet.css" />
   <link rel="stylesheet" href="loading_animation_stylesheet.css" />
-
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="script.js" ></script>
+
+  
 </head>
 <body>
   <div class="logo-title">
@@ -77,10 +79,80 @@
 
     <div id="popup-search" class="popup-container">
     <div class="popup">
-      
-        <img src="https://raw.githubusercontent.com/mike-cautela/MunchiMaps/main/MunchiMaps%20Assets/MenuIcons/loader.svg" alt="loading...">
-        <div>Updating Map...</div>
-      <div class="popup-close" onclick="closePopup('Search')">X</div>
+        <div class = "search-bar">
+          <input type ="search" id="searchInput">
+          <div id="searchResult" class="result"></div>
+        </div>
+        <script>
+          //Temporary buildings list 
+          var buildings = [
+                  {name: 'Folsom Library', drink: true, food: true},
+                  {name: 'Sharp Hall', drink: true, food: true},
+                  {name: 'Rensselaer Student Union', drink: true, food: true},
+                  {name: 'Quadrangle Complex', drink: true, food: false},
+                  {name: 'Darrin Communication Center', drink: true, food: true},
+                  {name: 'Woorhees Computing Center', drink: true, food: true},
+                  {name: 'Amos Eaton Hall', drink: true, food: false},
+                  {name: 'Mueller Center', drink: true, food: true},
+                  {name: 'j Erik Jonsson Engineering Center', drink: true, food: true},
+                  {name: 'Russell Sage Laboratory', drink: true, food: true},
+                  {name: 'Jonsson-Rowland Science Center', drink: true, food: true},
+                  {name: 'Pittsburgh Building', drink: true, food: true},
+                  {name: 'Warren Hall', drink: true, food: false},
+                  {name: 'Greene Building', drink: true, food: true},
+                  {name: 'Davison Hall', drink: true, food: false},
+                  {name: 'RPI Public Safety', drink: true, food: false},
+                  {name: 'North Hall', drink: true, food: true},
+                  {name: 'West Hall', drink: true, food: false}
+          ];
+          
+          //Building sort
+          buildings.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
+          console.log(buildings);
+        
+          //Search function 
+          function search(){
+              var searchTerm = document.getElementById('searchInput').value.trim().toLowerCase();
+              var filtered = [];
+  
+              buildings.forEach(function(building){
+                  if(filter(building, searchTerm)){
+                      filtered.push(building);
+                  }
+              });
+  
+              displayResults(filtered);
+          }
+  
+          //Filter through the list
+          function filter(item, searchTerm){
+              return item.name.toLowerCase().startsWith(searchTerm);
+          }
+  
+          //Display results
+          function displayResults(results){
+              var resultContainer = document.getElementById('searchResult');
+              resultContainer.innerHTML = '';
+              
+              if (results.length > 0) {
+                  var resultList = document.createElement('ul');
+                  
+                  results.forEach(function(item) {
+                      var listItem = document.createElement('li');
+                      listItem.textContent = item.name;
+                      resultList.appendChild(listItem);
+                  });
+                  
+                  resultContainer.appendChild(resultList);
+              } 
+              else {
+                  resultContainer.textContent = 'No results found';
+              }
+          }
+  
+          document.getElementById('searchInput').addEventListener('input', search);
+        </script>
+        <div class="popup-close" onclick="closePopup('Search')">X</div>
     </div>
   </div>
   <div id="popup-report" class="popup-container">
@@ -98,389 +170,7 @@
     
   <script>
 
-    //initializes the map
-    function initMap() {
-      const map = L.map('map').setView([42.72941085967446, -73.6792590320996], 17);
-
-
-      var currentMarker = null;  // Variable to keep track of the current marker
-
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  detectRetina: true,
-   maxZoom: 50
-
-      }).addTo(map);
-
-        var locationDot = L.divIcon({
-            className: 'custom-icon',
-            html: '<div class="location-circle"></div><div class="location-dot"></div>',
-            iconSize: [40, 40],
-            iconAnchor: [1, 3]  // Center the icon
-        });
-
-        // Function to handle location found
-            function onLocationFound(e) {
-                console.log("Location found: ", e.latlng);
-
-                // Remove the old marker if it exists
-                if (currentMarker) {
-                    map.removeLayer(currentMarker);
-                }
-
-                // Add a new marker
-                currentMarker = L.marker(e.latlng, {icon: locationDot}).addTo(map).bindPopup("You are here").openPopup();
-                map.setView(e.latlng, 18); // Center the map on the user's location
-            }
-
-            // Function to handle location errors
-            function onLocationError(e) {
-                console.log("Location error: ", e.message);
-                alert(e.message);
-            }
-
-            // Initial location finding
-            map.locate({
-                setView: true,
-                maxZoom: 18,
-                watch: false
-            }).on('locationfound', onLocationFound).on('locationerror', onLocationError);
-
-            // Define the centerMap function
-            function centerMap(){
-                map.locate({
-                    setView: true,
-                    maxZoom: 18,
-                    watch: false
-                }).on('locationfound', onLocationFound).on('locationerror', onLocationError);
-            }
-
-            var button = document.getElementById("Location");
-            if (button) {
-                console.log("Button found, adding event listener");
-                button.addEventListener("click", centerMap);
-            } else {
-                console.log("Button not found");
-            }
-
-
-      //Puts the zoom in bottom left corner
-      map.zoomControl.setPosition('bottomleft');
-
-      //Gets the icon for vending machines available from github.
-      const foodanddrink = L.icon({
-        iconUrl: 'https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/Food&Drink.png?raw=true',
-        iconSize: [80, 50],
-        iconAnchor: [50, 25]
-        
-      });
-
-      const food = L.icon({
-        iconUrl: 'https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/Food.png?raw=true',
-        iconSize: [50, 50],
-        iconAnchor: [50, 25]
-        
-      });
-
-      const drink = L.icon({
-        iconUrl: 'https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/Drink.png?raw=true',
-        iconSize: [50, 50],
-        iconAnchor: [50, 25]
-        
-      });
-
-      //Marker locations. 
-      const folsom = L.marker([42.7294361078206, -73.68252684056829], { icon: foodanddrink }).addTo(map);
-      const jrowl = L.marker([42.7288, -73.6804], { icon: foodanddrink }).addTo(map);
-      const eaton = L.marker([42.730310, -73.682501], { icon: drink}).addTo(map);
-      const greene = L.marker([42.730136, -73.681213], { icon: foodanddrink }).addTo(map);
-
-      
-      //generating the description based on image that it is given
-      function generatedescription(image1, image2, image3) {
-        let results = ["This vending machine accepts: "];
-        
-        if (image1 === "https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/CreditCheck.png?raw=true") {
-            results.push("card");
-        } else if (image1 === "https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/CreditX.png?raw=true") {
-            results.push("");
-        }
-        
-        if (image2 === "https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/CashCheck.png?raw=true") {
-            if (image1 === "https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/CreditX.png?raw=true") {
-                results.push("cash");
-            } else {
-                results.push(", cash");
-            }
-        } else if (image2 === "https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/CashX.png?raw=true") {
-            results.push("");
-        }
-        
-        if (image3 === "https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/PhoneCheck.png?raw=true") {
-            if (image1 === "https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/CreditX.png?raw=true" && image2 === "https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/CashX.png?raw=true") {
-                results.push("wireless payments");
-            } else {
-                results.push(", wireless payments");
-            }
-        } else if (image3 === "https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/PhoneX.png?raw=true.png") {
-            results.push("");
-        }
-        return results.join("");
-    }
-
-      //Contains all images for Folsom + icons 
-      // Variable containing the dynamic content
-const image1 = "https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/CreditCheck.png?raw=true";
-const image2 = "https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/CashCheck.png?raw=true";
-const image3 = "https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/PhoneX.png?raw=true";
-
-const description = generatedescription(image1, image2, image3);
-
-// Info window content using template literal
-const infoWindowContent = `
-    <div class="info-window-content">
-        <div class="info-window-image">
-            <img src="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Folsom/FolsomDrink1.jpg?raw=true" alt="Logo 1" class="active">
-            <img src="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Folsom/FolsomDrink2.jpg?raw=true" alt="Logo 2">
-            <img src="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Folsom/FolsomFood1.jpg?raw=true" alt="Logo 3">
-            <div class="carousel-controls">
-                <button class="prev">&lt;</button>
-                <button class="next">&gt;</button>
-            </div>
-        </div>
-        <div class="info-window-text">
-            <div class="info-window-title">Folsom Library</div>
-            <div class="info-window-icons">
-                <img src="${image1}">
-                <img src="${image2}" alt="Image 2">
-                <img src="${image3}" alt="Image 3">
-            </div>
-            <div class="info-window-subtitle">${description}</div>
-        </div>
-    </div>`;
-
-      //Function to open the info window at Folsom Location
-      folsom.on('click', function () {
-        const infoWindow = L.popup({maxWidth: 500})
-          .setLatLng([42.7294361078206, -73.68252684056829])
-          .setContent(infoWindowContent)
-          .openOn(map);
-
-          //Handles image selector for Folsom Location
-        const images = document.querySelectorAll('.info-window-image img');
-        const prevButton = document.querySelector('.prev');
-        const nextButton = document.querySelector('.next');
-        let currentIndex = 0;
-
-        function showImage(index) {
-          images.forEach((img, i) => {
-            img.classList.toggle('active', i === index);
-          });
-        }
-
-        prevButton.addEventListener('click', () => {
-          currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-          showImage(currentIndex);
-        });
-
-        nextButton.addEventListener('click', () => {
-          currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-          showImage(currentIndex);
-        });
-      });
-
-      const jrowl_info = `
-        <div class="info-window-content">
-          <div class="info-window-image">
-
-              <img src="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/JROWL/JROWLDrink.jpg?raw=true" alt="Logo 1" class="active">
-              <img src="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/JROWL/JROWLSnack.jpg?raw=true" alt="Logo 2">
-
-            <div class="carousel-controls">
-              <button class="prev">&lt;</button>
-              <button class="next">&gt;</button>
-            </div>
-          </div>
-          <div class="info-window-text">
-            <div class="info-window-title">JROWL</div>
-            <div class="info-window-icons">
-
-              <img src="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/CreditCheck.png?raw=true">
-              <img src="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/CashCheck.png?raw=true" alt="Image 2">
-              <img src="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/PhoneX.png?raw=true" alt="Image 3">
-
-            </div>
-            <div class="info-window-subtitle">This machine accepts cash and credit cards.</div>
-          </div>
-        </div>
-      `;
-
-      jrowl.on('click', function () {
-        const infoWindow = L.popup({maxWidth: 500})
-          .setLatLng([42.7288, -73.6804])
-          .setContent(jrowl_info)
-          .openOn(map);
-
-        const images = document.querySelectorAll('.info-window-image img');
-        const prevButton = document.querySelector('.prev');
-        const nextButton = document.querySelector('.next');
-        let currentIndex = 0;
-
-        function showImage(index) {
-          images.forEach((img, i) => {
-            img.classList.toggle('active', i === index);
-          });
-        }
-
-        prevButton.addEventListener('click', () => {
-          currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-          showImage(currentIndex);
-        });
-
-        nextButton.addEventListener('click', () => {
-          currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-          showImage(currentIndex);
-        });
-      });
-
-      const eaton_info = `
-        <div class="info-window-content">
-          <div class="info-window-image">
-
-              <img src="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Amos%20Eaton/AmosEatonDrink.jpg?raw=true" alt="Logo 1" class="active">
-
-            <div class="carousel-controls">
-              <button class="prev">&lt;</button>
-              <button class="next">&gt;</button>
-            </div>
-          </div>
-          <div class="info-window-text">
-            <div class="info-window-title">Amos Eaton</div>
-            <div class="info-window-icons">
-
-              <img src="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/CreditCheck.png?raw=true">
-              <img src="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/CashCheck.png?raw=true" alt="Image 2">
-              <img src="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/PhoneX.png?raw=true" alt="Image 3">
-
-            </div>
-            <div class="info-window-subtitle">This machine accepts cash and credit cards.</div>
-          </div>
-        </div>
-      `;
-
-      eaton.on('click', function () {
-        const infoWindow = L.popup({maxWidth: 500})
-          .setLatLng([42.730310, -73.682501])
-          .setContent(eaton_info)
-          .openOn(map);
-
-        const images = document.querySelectorAll('.info-window-image img');
-        const prevButton = document.querySelector('.prev');
-        const nextButton = document.querySelector('.next');
-        let currentIndex = 0;
-
-        function showImage(index) {
-          images.forEach((img, i) => {
-            img.classList.toggle('active', i === index);
-          });
-        }
-
-        prevButton.addEventListener('click', () => {
-          currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-          showImage(currentIndex);
-        });
-
-        nextButton.addEventListener('click', () => {
-          currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-          showImage(currentIndex);
-        });
-      });
-
-      const greene_info =  `
-        <div class="info-window-content">
-          <div class="info-window-image">
-
-              <img src="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Greene/GreeneDrink.jpg?raw=true" alt="Logo 1" class="active">
-              <img src="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Greene/GreeneSnack.jpg?raw=true" alt="Logo 2">
-
-            <div class="carousel-controls">
-              <button class="prev">&lt;</button>
-              <button class="next">&gt;</button>
-            </div>
-          </div>
-          <div class="info-window-text">
-            <div class="info-window-title">Greene Building</div>
-            <div class="info-window-icons">
-
-              <img src="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/CreditCheck.png?raw=true">
-              <img src="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/CashCheck.png?raw=true" alt="Image 2">
-              <img src="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/PhoneX.png?raw=true" alt="Image 3">
-
-            </div>
-            <div class="info-window-subtitle">This machine accepts cash and credit cards.</div>
-          </div>
-        </div>
-      `;
-
-      greene.on('click', function () {
-        const infoWindow = L.popup({maxWidth: 500})
-          .setLatLng([42.730136, -73.681213])
-          .setContent(greene_info)
-          .openOn(map);
-
-        const images = document.querySelectorAll('.info-window-image img');
-        const prevButton = document.querySelector('.prev');
-        const nextButton = document.querySelector('.next');
-        let currentIndex = 0;
-
-        function showImage(index) {
-          images.forEach((img, i) => {
-            img.classList.toggle('active', i === index);
-          });
-        }
-
-        prevButton.addEventListener('click', () => {
-          currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-          showImage(currentIndex);
-        });
-
-        nextButton.addEventListener('click', () => {
-          currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-          showImage(currentIndex);
-        });
-      });
-    }
-
-    document.addEventListener('DOMContentLoaded', function () {
-      initMap();
-    });
   </script>
-   <script>
-    function openHelp() {
-      document.getElementById("help-popup").style.display = "block";
-    }
-
-    function closeHelp() {
-      document.getElementById("help-popup").style.display = "none";
-    }
-
-    // Close the help popup if the user clicks outside of the help content
-    window.onclick = function(event) {
-      const popup = document.getElementById("help-popup");
-      if (event.target === popup) {
-        popup.style.display = "none";
-      }
-    }
-
-    function openPopup(id) {
-      document.getElementById('popup-' + id.toLowerCase()).style.display = 'block';
-    }
-
-    function closePopup(id) {
-  document.getElementById('popup-' + id.toLowerCase()).style.display = 'none';
-}
-  </script>
-
 
    <div id="buttons-container">
     <!---- Contains all buttons at bottom of screen -->
