@@ -313,8 +313,11 @@ html, body {
     margin-top: 20px;
   }
   
-  .review-section h3, .review-section h4 {
+  .review-section h4 {
     margin-bottom: 10px;
+    font-family: 'Courier New';
+    font-size: 16px;
+    
   }
   
   .review {
