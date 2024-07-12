@@ -227,6 +227,12 @@ html, body {
 
 }
 
+.logo-title.dark-mode {
+    backdrop-filter: blur(10px); /* Apply a blur effect to the background */
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black */
+    outline: 4px solid rgba(0, 0, 0, 0.7); /* 3px white stroke */
+}
+
 .logo-title img {
     height: 70px;
     width: auto;

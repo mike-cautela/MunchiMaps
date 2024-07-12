@@ -445,7 +445,33 @@ const infoWindowContent = `
           showImage(currentIndex);
         });
       });
-    }
+
+      //Dark mode code.
+      let darkMode = false;
+      function toggleDarkMode() {
+        darkMode = !darkMode;
+        const logotitle = document.querySelector('.logo-title');
+        
+        if (darkMode) {
+          document.body.classList.add('dark-mode');
+          logotitle.classList.add('dark-mode');
+        } else {
+          document.body.classList.remove('dark-mode');
+          logotitle.classList.remove('dark-mode');
+        }
+      }
+
+      //Toggles dark mode when user presses 'd' or 'D.'
+      document.addEventListener('keydown', function(event) {
+        if ((event.key === 'd' || event.key === 'D') && 
+        (document.activeElement.tagName !== 'INPUT' && 
+         document.activeElement.tagName !== 'TEXTAREA' && 
+         document.activeElement.contentEditable !== 'true')){
+          toggleDarkMode();
+        }
+      });
+    } // init map ending bracket here
+
     function openHelp() {
       document.getElementById("help-popup").style.display = "block";
     }
