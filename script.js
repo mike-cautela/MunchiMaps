@@ -319,29 +319,29 @@ const infoWindowContent = `
 
             </div>
             <div class="info-window-subtitle">This machine accepts cash and credit cards.</div>
-          </div>
-          <!-- Draft review function for the vending machine -->
-          <div class="review-section">
-            <h3>Reviews</h3>
-            <div class="reviews">
-              <!-- Existing reviews will be appended here -->
-            </div>
-            <h4>Write a Review</h4>
-            <form class="submit-review">
-              <textarea id="review-text" placeholder="Write your review here..." required></textarea>
-              <div class="rating">
-                <label for="rating">Rating:</label>
-                <select id="rating">
-                  <option value="5">5 Stars</option>
-                  <option value="4">4 Stars</option>
-                  <option value="3">3 Stars</option>
-                  <option value="2">2 Stars</option>
-                  <option value="1">1 Star</option>
-                </select>
+            <!-- Draft review function for the vending machine -->
+            <div class="review-section">
+              <div class="reviews">
+                <!-- Existing reviews will be appended here -->
               </div>
-              <button type="submit">Submit</button>
-            </form>
+              <h4>Write a Review</h4>
+              <form class="submit-review">
+                <textarea id="review-text" placeholder="Write your review here..." required></textarea>
+                <div class="rating">
+                  <label for="rating">Rating:</label>
+                  <select id="rating">
+                    <option value="5">5 Stars</option>
+                    <option value="4">4 Stars</option>
+                    <option value="3">3 Stars</option>
+                    <option value="2">2 Stars</option>
+                    <option value="1">1 Star</option>
+                  </select>
+                </div>
+                <button type="submit">Submit</button>
+              </form>
+            </div>
           </div>
+          
         </div>
       `;
 
