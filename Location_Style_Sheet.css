@@ -1,0 +1,29 @@
+.location-dot {
+    width: 10px;
+    height: 10px;
+    background: darkblue;
+    border-radius: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+}
+
+.location-circle {
+            width: 90px;
+            height: 90px;
+            background: rgba(0, 0, 255, 0.5); /* Blue with 50% opacity */
+            border-radius: 50%;
+            position: absolute;
+            transform: translate(-50%, -50%);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                width: 40px;
+                height: 40px;
+            }
+            50% {
+                width: 60px;
+                height: 60px;
+            }
+        }
