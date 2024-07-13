@@ -209,12 +209,21 @@
         <div class="popup-close" onclick="closePopup('Search')">X</div>
     </div>
   </div>
-  <div id="popup-report" class="popup-container">
+ <div id="popup-report" class="popup-container">
     <div class="popup">
-      <div>Report</div>
-      <div class="popup-close" onclick="closePopup('Report')">X</div>
+        <div class="popup-title">Select a report topic</div>
+        <div class="report-options">
+            <label><input type="checkbox" name="report-topic" value="machine"> Machine</label>
+            <label><input type="checkbox" name="report-topic" value="website"> Website</label>
+        </div>
+        <div class="report-description">Describe the issue below:</div>
+        <textarea id="report-description" rows="4" cols="50"></textarea>
+        <button id="submit-report">Submit</button>
+        <div class="popup-close" onclick="closePopup('Report')">X</div>
     </div>
-  </div>
+</div>
+
+
   <div id="popup-review" class="popup-container">
     <div class="popup">
       <div>Review</div>
