@@ -1,34 +1,18 @@
-""
-const fs = require("fs");
-const path = require("path");
+console.log("Server.js running");
 
-const fastify = require("fastify")({
-  logger:false,
-})
+const express = require('express');
+const path = require('path');
+const app = express();
 
-fastify.register(require("@fastify/static")), {
-  root: path.join(__dirname, "public"),
-  prefix: "/",
-}
+console.log("Boogly boo");
 
-// Formbody lets us parse incoming forms
-fastify.register(require("@fastify/formbody"));
-
-// View is a templating manager for fastify
-fastify.register(require("@fastify/view"), {
-  engine: {
-    handlebars: require("handlebars"),
-  },
+app.get('/', function(req, res){
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-const seo = require("./src/seo.json");
-if (seo.url === "glitch-default") {
-  seo.url = `https://${process.env.PROJECT_DOMAIN}.glitch.me`;
-}
+app.use(express.static("./"));
 
-// We use a module for handling database operations in /src
-const data = require("./src/data.json");
-const db = require("./src/" + data.database);
+app.listen(5000, () => {
+  console.log('Server started at http://localhost:5000/');
+});
 
-/* I'm just yapping ngl. */
-console.log("Yaponomics");
