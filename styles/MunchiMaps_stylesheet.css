@@ -48,9 +48,7 @@ html, body {
 
 
 
-  .button:hover .button-img {
-    
-}
+  
 
   .button:hover {
     background-color: #92B3B5;
@@ -98,46 +96,58 @@ html, body {
 }
 
 
-  /* Styles for the help popup */
-  .help-popup {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.5);
-    z-index: 1001;
-  }
+ /* Styles for the help popup */
+.help-popup {
+  display: none; /* Hidden by default */
+  position: fixed; 
+  z-index: 1; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgb(0,0,0); 
+  background-color: rgba(0,0,0,0.4); 
+}
 
-  .help-content {
-    position: relative;
-    margin: 15% auto;
-    padding: 20px;
-    width: 80%;
-    max-width: 600px;
-    background-color: white;
-    border-radius: 10px;
-    text-align: center;
-    font-family: 'Courier New'; 
-  }
+.help-content {
+  background-color: #fefefe;
+  margin: 15% auto; 
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; 
+  max-width: 600px; 
+}
 
-  .close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    color: #aaa;
-    font-size: 24px;
-    font-weight: bold;
-    cursor: pointer;
-  }
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
 
-  .close:hover,
-  .close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-  }
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.icons-description, .map-key {
+  margin-top: 20px;
+}
+
+.icon-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.help-icon, .map-icon {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
 
 
   /* For popups from buttons at bottom of screen */
@@ -297,8 +307,11 @@ html, body {
     margin-top: 20px;
   }
   
-  .review-section h3, .review-section h4 {
+  .review-section h4 {
     margin-bottom: 10px;
+    font-family: 'Courier New';
+    font-size: 16px;
+    
   }
   
   .review {
@@ -412,7 +425,93 @@ html, body {
     text-decoration: underline;
 }
    
-  
+/* Styles for the report popup */
+.popup-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+    font-family: 'Courier New';
+    text-align: left;
+}
 
-   
-  
+.report-options {
+    margin-bottom: 10px;
+    font-family: 'Courier New';
+    text-align: left;
+    padding-left: 20px;
+}
+
+.report-options label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.report-description {
+    margin-bottom: 5px;
+    font-family: 'Courier New';
+    text-align: left;
+    padding-left: 20px;
+}
+
+textarea {
+    width: 90%;
+    margin-left: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+    font-family: 'Courier New';
+    margin-bottom: 10px;
+}
+
+#submit-report {
+    display: block;
+    margin: 10px auto; /* Center the button horizontally */
+    padding: 10px 20px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#submit-report:hover {
+    background-color: #0056b3;
+}
+
+.popup-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.popup-container {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 20px;
+    z-index: 1000;
+    width: 500px;
+    height: auto;
+    border-radius: 20px;
+    font-family: 'Courier New';
+    font-weight: bold;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5); /* Window drop shadow */
+    animation: fadeIn 0.5s ease forwards; /* Fade in animation */
+    text-align: center; /* Center all text */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

@@ -319,29 +319,32 @@ const infoWindowContent = `
 
             </div>
             <div class="info-window-subtitle">This machine accepts cash and credit cards.</div>
-          </div>
-          <!-- Draft review function for the vending machine -->
-          <div class="review-section">
-            <h3>Reviews</h3>
-            <div class="reviews">
-              <!-- Existing reviews will be appended here -->
-            </div>
-            <h4>Write a Review</h4>
-            <form class="submit-review">
-              <textarea id="review-text" placeholder="Write your review here..." required></textarea>
-              <div class="rating">
-                <label for="rating">Rating:</label>
-                <select id="rating">
-                  <option value="5">5 Stars</option>
-                  <option value="4">4 Stars</option>
-                  <option value="3">3 Stars</option>
-                  <option value="2">2 Stars</option>
-                  <option value="1">1 Star</option>
-                </select>
+            <!-- Draft review function for the vending machine -->
+            <div class="review-section">
+              <div class="reviews">
+                <!-- Existing reviews will be appended here -->
               </div>
-              <button type="submit">Submit</button>
-            </form>
+              <h4>Write a Review</h4>
+              <form method="post" action="/" class="submit-review">
+                <textarea id="review-text" placeholder="Write your review here..." required></textarea>
+                
+                <div class="rating">
+                  <label for="rating">Rating:</label>
+                  <select id="rating">
+                    <option value="5">5 Stars</option>
+                    <option value="4">4 Stars</option>
+                    <option value="3">3 Stars</option>
+                    <option value="2">2 Stars</option>
+                    <option value="1">1 Star</option>
+                  </select>
+                </div>
+                <button type="submit">Submit</button>
+              </form>
+              
+              
+            </div>
           </div>
+          
         </div>
       `;
 
@@ -354,6 +357,9 @@ const infoWindowContent = `
         const images = document.querySelectorAll('.info-window-image img');
         const prevButton = document.querySelector('.prev');
         const nextButton = document.querySelector('.next');
+        
+        // Added. Appended but must now be stored in backend.
+        const reviewForm = document.querySelector('.review-section');
         let currentIndex = 0;
 
         function showImage(index) {
@@ -376,11 +382,14 @@ const infoWindowContent = `
         const submitReview = document.querySelector('.submit-review');
         const reviewsContainer = document.querySelector('.reviews');
 
+
         reviewForm.addEventListener('submit', (event) => {
           event.preventDefault();
           const reviewText = document.getElementById('review-text').value;
           const rating = document.getElementById('rating').value;
 
+          // Might need to be refactored later. V
+          
           // Append new review to the reviews container
           const reviewElement = document.createElement('div');
           reviewElement.classList.add('review');
