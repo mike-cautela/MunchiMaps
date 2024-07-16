@@ -354,6 +354,9 @@ const infoWindowContent = `
         const images = document.querySelectorAll('.info-window-image img');
         const prevButton = document.querySelector('.prev');
         const nextButton = document.querySelector('.next');
+        
+        // Added. Appended but must now be stored in backend.
+        const reviewForm = document.querySelector('.review-section');
         let currentIndex = 0;
 
         function showImage(index) {
@@ -376,11 +379,14 @@ const infoWindowContent = `
         const submitReview = document.querySelector('.submit-review');
         const reviewsContainer = document.querySelector('.reviews');
 
+
         reviewForm.addEventListener('submit', (event) => {
           event.preventDefault();
           const reviewText = document.getElementById('review-text').value;
           const rating = document.getElementById('rating').value;
 
+          // Might need to be refactored later. V
+          
           // Append new review to the reviews container
           const reviewElement = document.createElement('div');
           reviewElement.classList.add('review');
