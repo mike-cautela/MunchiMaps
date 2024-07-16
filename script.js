@@ -467,12 +467,26 @@ const infoWindowContent = `
           help.classList.remove('dark-mode');
         }
       }
+
       */
 
       // Toggle between dark mode and light mode CSS sheets.
       let darkMode = false;
       function toggleDarkMode() {
         darkMode = !darkMode;
+        const light = document.getElementById('light-mode');
+        const dark = document.getElementById('dark-mode');
+        if (darkMode){
+          dark.disabled = false;
+          setTimeout(() => {
+            light.disabled = true;
+          }, 200); //Delay for smooth transition
+        } else {
+          light.disabled = false;
+          setTimeout(() => {
+            dark.disabled = true;
+          }, 200);
+        }
       }
 
       //Toggles dark mode when user presses 'd' or 'D.'
