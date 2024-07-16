@@ -117,7 +117,7 @@ module.exports = {
     insertReview,
     fetchBuildings,
     fetchReviews
-}
+};
 
 
 
