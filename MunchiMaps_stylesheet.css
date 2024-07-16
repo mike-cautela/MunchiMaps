@@ -431,7 +431,93 @@ html, body {
     text-decoration: underline;
 }
    
-  
+/* Styles for the report popup */
+.popup-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+    font-family: 'Courier New';
+    text-align: left;
+}
 
-   
-  
+.report-options {
+    margin-bottom: 10px;
+    font-family: 'Courier New';
+    text-align: left;
+    padding-left: 20px;
+}
+
+.report-options label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.report-description {
+    margin-bottom: 5px;
+    font-family: 'Courier New';
+    text-align: left;
+    padding-left: 20px;
+}
+
+textarea {
+    width: 90%;
+    margin-left: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+    font-family: 'Courier New';
+    margin-bottom: 10px;
+}
+
+#submit-report {
+    display: block;
+    margin: 10px auto; /* Center the button horizontally */
+    padding: 10px 20px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#submit-report:hover {
+    background-color: #0056b3;
+}
+
+.popup-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.popup-container {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 20px;
+    z-index: 1000;
+    width: 500px;
+    height: auto;
+    border-radius: 20px;
+    font-family: 'Courier New';
+    font-weight: bold;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5); /* Window drop shadow */
+    animation: fadeIn 0.5s ease forwards; /* Fade in animation */
+    text-align: center; /* Center all text */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
