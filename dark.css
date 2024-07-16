@@ -33,6 +33,21 @@ html, body {
     outline: 4px solid rgba(255, 255, 255, 1); /* 3px white stroke */
   }
 
+  #buttons-container.dark-mode {
+    border-radius: 50px;
+    position: absolute;
+    z-index: 1;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    backdrop-filter: blur(10px); /* Apply a blur effect to the background */
+    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent white */
+    padding: 3px;
+    width: fit-content;
+    box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.5); /* Window drop shadow */
+    outline: 4px solid rgba(0, 0, 0, 0.7); /* 3px white stroke */
+  }
+
   .button {
    
     padding: 5px 40px;
@@ -90,9 +105,18 @@ html, body {
 .help-button-img {
     height: 30px; /* Adjust the height of the image */
     width: auto; /* Maintain the aspect ratio */
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     border-radius: 50px;
 }
+
+.help-button-img.dark-mode {
+  height: 30px; /* Adjust the height of the image */
+  width: auto; /* Maintain the aspect ratio */
+  background-color: #000000d1;
+  border-radius: 50px;
+}
+
+
 
  /* Styles for the help popup */
 .help-popup {
@@ -223,6 +247,12 @@ html, body {
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
     outline: 4px solid rgba(255, 255, 255, 1); /* 3px white stroke */
 
+}
+
+.logo-title.dark-mode {
+    backdrop-filter: blur(10px); /* Apply a blur effect to the background */
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black */
+    outline: 4px solid rgba(0, 0, 0, 0.7); /* 3px white stroke */
 }
 
 .logo-title img {
