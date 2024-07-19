@@ -22,9 +22,15 @@
   </div>
 
   <!-- Add the help button -->
-<div class="help-button" onclick="openHelp()">
+<button class="help-button" onclick="openHelp()">
   <img src="https://raw.githubusercontent.com/mike-cautela/MunchiMaps/main/MunchiMaps%20Assets/MenuIcons/help-circle-grey.svg" alt="Help" class="help-button-img">
-</div>
+</button>
+
+<!-- Map Key Button -->
+<button class="map-key-button" onclick="openMapKey()">
+  <img src="MunchiMaps Assets/Map Icons/CookieFull.png" alt="Map Key" class="map-key-button-img">
+</button>
+
 <div id="help-popup" class="help-popup">
   <div class="help-content">
       <span class="close" onclick="closeHelp()">&times;</span>
@@ -129,34 +135,87 @@
       </td>
   </tr>
   </table>
-  
-  <h3>Map Key:</h3>
-<table class="map-key">
-    <tr class="icon-item">
-        <td>
-            <img src="MunchiMaps Assets/Map Icons/Food.png" alt="FoodOnly" class="map-icon">
-        </td>
-        <td>
-            <span>Food Only Vending Machine</span>
-        </td>
-    </tr>
-    <!-- <tr class="icon-item">
-        <td>
-            <img src="path_to_icon/drinks-icon.png" alt="Drinks" class="map-icon">
-        </td>
-        <td>
-            <span>Drinks Available</span>
-        </td>
-    </tr>
-    <tr class="icon-item">
-        <td>
-            <img src="path_to_icon/both-icon.png" alt="Snacks and Drinks" class="map-icon">
-        </td>
-        <td>
-            <span>Snacks and Drinks Available</span>
-        </td>
-    </tr> -->
-</table>
+  </div>
+</div>
+
+ <!-- Map Key Popup -->
+<div id="mapKeyPopup" class="map-key-button-popup">
+  <div class="help-content">
+      <span class="close" onclick="closeMapKey()">&times;</span>
+      <h3>Map Key:</h3>
+      <table class="map-key">
+          <tr class="icon-item">
+              <td>
+                  <img src="MunchiMaps Assets/Map Icons/Food.png" alt="FoodOnly" class="map-icon">
+              </td>
+              <td>
+                  <span>Food Only Vending Machine</span>
+              </td>
+          </tr>
+          <tr class="icon-item">
+              <td>
+                  <img src="MunchiMaps Assets/Map Icons/Drink.png" alt="Drinks" class="map-icon">
+              </td>
+              <td>
+                  <span>Drink Only Vending Machine</span>
+              </td>
+          </tr>
+          <tr class="icon-item">
+              <td>
+                  <img src="MunchiMaps Assets/Map Icons/Food&Drink.png" alt="Snacks and Drinks" class="map-icon">
+              </td>
+              <td>
+                  <span>Food and Drinks Machines Available</span>
+              </td>
+          </tr>
+          <tr class="icon-item">
+              <td>
+                  <img src="MunchiMaps Assets/Map Icons/FoodClosed.png" alt="FoodClosed" class="map-icon">
+                  <img src="MunchiMaps Assets/Map Icons/DrinkClosed.png" alt="DrinkClosed" class="map-icon">
+                  <img src="MunchiMaps Assets/Map Icons/Food&DrinkClosed.png" alt="BothClosed" class="map-icon">
+              </td>
+              <td>
+                  <span>Any Machine icon with this symbol is closed at the moment</span>
+              </td>
+          </tr>
+          <tr class="icon-item">
+              <td>
+                  <img src="MunchiMaps Assets/Map Icons/DrinkWarning.png" alt="DrinkWarning" class="map-icon">
+                  <img src="MunchiMaps Assets/Map Icons/FoodWarning.png" alt="FoodWarning" class="map-icon">
+                  <img src="MunchiMaps Assets/Map Icons/Food&DrinkWarning.png" alt="BothWarning" class="map-icon">
+              </td>
+              <td>
+                  <span>Any Machine icon with this symbol indicates there may be something wrong with this machine.</span>
+              </td>
+          </tr>
+          <tr class="icon-item">
+              <td>
+                  <img src="MunchiMaps Assets/Map Icons/CashCheck.png" alt="CashCheck" class="map-icon">
+                  <img src="MunchiMaps Assets/Map Icons/CashX.png" alt="CashX" class="map-icon">
+              </td>
+              <td>
+                  <span>Cash is either accepted or not</span>
+              </td>
+          </tr>
+          <tr class="icon-item">
+              <td>
+                  <img src="MunchiMaps Assets/Map Icons/CreditCheck.png" alt="CreditCheck" class="map-icon">
+                  <img src="MunchiMaps Assets/Map Icons/CreditX.png" alt="CreditX" class="map-icon">
+              </td>
+              <td>
+                  <span>Card is either accepted or not</span>
+              </td>
+          </tr>
+          <tr class="icon-item">
+              <td>
+                  <img src="MunchiMaps Assets/Map Icons/PhoneCheck.png" alt="PhoneCheck" class="map-icon">
+                  <img src="MunchiMaps Assets/Map Icons/PhoneX.png" alt="PhoneX" class="map-icon">
+              </td>
+              <td>
+                  <span>Smartphone Tap to pay is either accepted or not</span>
+              </td>
+          </tr>
+      </table>
   </div>
 </div>
     <div id="popup-search" class="popup-container">
