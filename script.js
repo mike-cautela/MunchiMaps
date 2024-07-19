@@ -319,29 +319,29 @@ const infoWindowContent = `
 
             </div>
             <div class="info-window-subtitle">This machine accepts cash and credit cards.</div>
-            <!-- Draft review function for the vending machine -->
-            <div class="review-section">
-              <div class="reviews">
-                <!-- Existing reviews will be appended here -->
-              </div>
-              <h4>Write a Review</h4>
-              <form class="submit-review">
-                <textarea id="review-text" placeholder="Write your review here..." required></textarea>
-                <div class="rating">
-                  <label for="rating">Rating:</label>
-                  <select id="rating">
-                    <option value="5">5 Stars</option>
-                    <option value="4">4 Stars</option>
-                    <option value="3">3 Stars</option>
-                    <option value="2">2 Stars</option>
-                    <option value="1">1 Star</option>
-                  </select>
-                </div>
-                <button type="submit">Submit</button>
-              </form>
-            </div>
           </div>
-          
+          <!-- Draft review function for the vending machine -->
+          <div class="review-section">
+            <h3>Reviews</h3>
+            <div class="reviews">
+              <!-- Existing reviews will be appended here -->
+            </div>
+            <h4>Write a Review</h4>
+            <form class="submit-review">
+              <textarea id="review-text" placeholder="Write your review here..." required></textarea>
+              <div class="rating">
+                <label for="rating">Rating:</label>
+                <select id="rating">
+                  <option value="5">5 Stars</option>
+                  <option value="4">4 Stars</option>
+                  <option value="3">3 Stars</option>
+                  <option value="2">2 Stars</option>
+                  <option value="1">1 Star</option>
+                </select>
+              </div>
+              <button type="submit">Submit</button>
+            </form>
+          </div>
         </div>
       `;
 
@@ -480,4 +480,28 @@ const infoWindowContent = `
    document.addEventListener('DOMContentLoaded', function () {
       initMap();
     });
+// Handle report form submission
+document.addEventListener('DOMContentLoaded', function () {
+    initMap();
+
+    const reportForm = document.getElementById('reportForm');
+    reportForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const reportTitle = document.getElementById('reportTitle').value;
+        const reportDescription = document.getElementById('reportDescription').value;
+
+        // Handle the form data (e.g., send it to a server or display it)
+        console.log('Report Title:', reportTitle);
+        console.log('Report Description:', reportDescription);
+
+        // Display a confirmation message or handle the submission
+        alert('Report submitted successfully!');
+
+        // Close the popup
+        closePopup('Report');
+
+        // Clear the form
+        reportForm.reset();
+    });
+});
 
