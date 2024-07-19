@@ -4,7 +4,8 @@
   <link rel="icon" type="image/x-icon" href="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/CookieFavicon.png?raw=true">
  
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-  <link rel="stylesheet" href="MunchiMaps_stylesheet.css" />
+  <link id = 'dark-mode' rel="stylesheet" href="dark.css" />
+  <link id = 'light-mode'rel="stylesheet" href="MunchiMaps_stylesheet.css" />
   <link rel="stylesheet" href="Location_Style_Sheet.css" />
   <link rel="stylesheet" href="loading_animation_stylesheet.css" />
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
@@ -94,7 +95,7 @@
                   {name: 'Woorhees Computing Center', drink: true, food: true},
                   {name: 'Amos Eaton Hall', drink: true, food: false},
                   {name: 'Mueller Center', drink: true, food: true},
-                  {name: 'j Erik Jonsson Engineering Center', drink: true, food: true},
+                  {name: 'J Erik Jonsson Engineering Center', drink: true, food: true},
                   {name: 'Russell Sage Laboratory', drink: true, food: true},
                   {name: 'Jonsson-Rowland Science Center', drink: true, food: true},
                   {name: 'Pittsburgh Building', drink: true, food: true},
@@ -189,6 +190,7 @@
 
    <div id="buttons-container">
     <!---- Contains all buttons at bottom of screen -->
+    <!---- NOTE: Button icons don't really work with dark mode colors, change later -->
       <button class="button" onclick="openPopup('Search')">
         <img src="https://raw.githubusercontent.com/mike-cautela/MunchiMaps/main/MunchiMaps%20Assets/MenuIcons/search-grey.svg" alt="Search" class="button-img">
       </button>

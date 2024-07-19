@@ -4,6 +4,7 @@ html, body {
     padding: 0;
     overflow: hidden; /* Prevent scrolling */
     box-sizing: border-box; /* Include border and padding in width and height */
+    transition: background-color 0.3s, color 0.3s, outline 0.3s, height 0.3s, width 0.3s;
 }
 
 
@@ -26,11 +27,11 @@ html, body {
     left: 50%;
     transform: translateX(-50%);
     backdrop-filter: blur(10px); /* Apply a blur effect to the background */
-    background-color: rgba(255, 255, 255, 0.6); /* Semi-transparent white */
+    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent white */
     padding: 3px;
     width: fit-content;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5); /* Window drop shadow */
-    outline: 4px solid rgba(255, 255, 255, 1); /* 3px white stroke */
+    box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.5); /* Window drop shadow */
+    outline: 4px solid rgba(0, 0, 0, 0.7); /* 3px white stroke */
   }
 
   .button {
@@ -87,12 +88,15 @@ html, body {
   .help-button:active {
     transform: translateY(2px); /* Slightly move the button down */
 }
+
 .help-button-img {
-    height: 30px; /* Adjust the height of the image */
-    width: auto; /* Maintain the aspect ratio */
-    background-color: #FFFFFF;
-    border-radius: 50px;
+  height: 30px; /* Adjust the height of the image */
+  width: auto; /* Maintain the aspect ratio */
+  background-color: #000000d1;
+  border-radius: 50px;
 }
+
+
 
  /* Styles for the help popup */
 .help-popup {
@@ -213,7 +217,7 @@ html, body {
 .logo-title {
     position: absolute;
     backdrop-filter: blur(10px); /* Apply a blur effect to the background */
-    background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent white */
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black */
     padding: 10px;
     border-radius: 0 0 20px 0; /* Only round the bottom right corner */
     z-index: 1000;
@@ -221,8 +225,7 @@ html, body {
     align-items: center;
     margin-bottom: 0px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    outline: 4px solid rgba(255, 255, 255, 1); /* 3px white stroke */
-
+    outline: 4px solid rgba(0, 0, 0, 0.7); /* 3px white stroke */
 }
 
 .logo-title img {
