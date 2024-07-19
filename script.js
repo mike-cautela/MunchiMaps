@@ -557,3 +557,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+document.querySelector(".btn-fixx").onclick = function () {
+    window.location.href = "https://www.google.com";
+};
+
