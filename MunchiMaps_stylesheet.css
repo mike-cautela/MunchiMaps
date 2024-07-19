@@ -305,6 +305,7 @@ html, body {
     margin-top: 20px;
   }
   
+  
   .review-section h4 {
     margin-bottom: 10px;
     font-family: 'Courier New';
@@ -338,8 +339,14 @@ html, body {
     border-radius: 5px;
   }
   
-  .submit-review .rating {
-    margin-bottom: 10px;
+  .rating{
+    display:flex;
+    flex-direction:row-reverse;
+  }
+  .rating span {
+    cursor: pointer;
+    transition: color .3s, transform .3s;
+    font-size:30px;
   }
   
   .submit-review button {
