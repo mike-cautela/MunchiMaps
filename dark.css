@@ -4,6 +4,7 @@ html, body {
     padding: 0;
     overflow: hidden; /* Prevent scrolling */
     box-sizing: border-box; /* Include border and padding in width and height */
+    transition: background-color 0.3s, color 0.3s, outline 0.3s, height 0.3s, width 0.3s;
 }
 
 
@@ -26,11 +27,11 @@ html, body {
     left: 50%;
     transform: translateX(-50%);
     backdrop-filter: blur(10px); /* Apply a blur effect to the background */
-    background-color: rgba(255, 255, 255, 0.6); /* Semi-transparent white */
+    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent white */
     padding: 3px;
     width: fit-content;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5); /* Window drop shadow */
-    outline: 4px solid rgba(255, 255, 255, 1); /* 3px white stroke */
+    box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.5); /* Window drop shadow */
+    outline: 4px solid rgba(0, 0, 0, 0.7); /* 3px white stroke */
   }
 
   .button {
@@ -87,12 +88,15 @@ html, body {
   .help-button:active {
     transform: translateY(2px); /* Slightly move the button down */
 }
+
 .help-button-img {
-    height: 30px; /* Adjust the height of the image */
-    width: auto; /* Maintain the aspect ratio */
-    background-color: #FFFFFF;
-    border-radius: 50px;
+  height: 30px; /* Adjust the height of the image */
+  width: auto; /* Maintain the aspect ratio */
+  background-color: #000000d1;
+  border-radius: 50px;
 }
+
+
 
  /* Styles for the help popup */
 .help-popup {
@@ -213,7 +217,7 @@ html, body {
 .logo-title {
     position: absolute;
     backdrop-filter: blur(10px); /* Apply a blur effect to the background */
-    background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent white */
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black */
     padding: 10px;
     border-radius: 0 0 20px 0; /* Only round the bottom right corner */
     z-index: 1000;
@@ -221,8 +225,7 @@ html, body {
     align-items: center;
     margin-bottom: 0px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    outline: 4px solid rgba(255, 255, 255, 1); /* 3px white stroke */
-
+    outline: 4px solid rgba(0, 0, 0, 0.7); /* 3px white stroke */
 }
 
 .logo-title img {
@@ -276,8 +279,6 @@ html, body {
     display: flex;
   }
 
-
-
   /* The green icons inside the info window */
   .info-window-icons img {
     height: 30px; 
@@ -307,8 +308,11 @@ html, body {
     margin-top: 20px;
   }
   
-  .review-section h3, .review-section h4 {
+  .review-section h4 {
     margin-bottom: 10px;
+    font-family: 'Courier New';
+    font-size: 16px;
+    
   }
   
   .review {
@@ -421,86 +425,94 @@ html, body {
 .result ul li a:hover {
     text-decoration: underline;
 }
-
-<style>
-/*report button*/
-.popup-container {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 1000;
+   
+/* Styles for the report popup */
+.popup-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+    font-family: 'Courier New';
+    text-align: left;
 }
 
-.popup {
-  background: #fff;
-  margin: 50px auto;
-  padding: 20px;
-  border-radius: 10px;
-  max-width: 500px;
-  position: relative;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+.report-options {
+    margin-bottom: 10px;
+    font-family: 'Courier New';
+    text-align: left;
+    padding-left: 20px;
 }
 
-.popup-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
+.report-options label {
+    display: block;
+    margin-bottom: 5px;
 }
 
-.popup-header h2 {
-  margin: 0;
+.report-description {
+    margin-bottom: 5px;
+    font-family: 'Courier New';
+    text-align: left;
+    padding-left: 20px;
+}
+
+textarea {
+    width: 90%;
+    margin-left: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+    font-family: 'Courier New';
+    margin-bottom: 10px;
+}
+
+#submit-report {
+    display: block;
+    margin: 10px auto; /* Center the button horizontally */
+    padding: 10px 20px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#submit-report:hover {
+    background-color: #0056b3;
 }
 
 .popup-close {
-  font-size: 24px;
-  cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
 }
 
-.popup-form .form-group {
-  margin-bottom: 15px;
+.popup-container {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 20px;
+    z-index: 1000;
+    width: 500px;
+    height: auto;
+    border-radius: 20px;
+    font-family: 'Courier New';
+    font-weight: bold;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5); /* Window drop shadow */
+    animation: fadeIn 0.5s ease forwards; /* Fade in animation */
+    text-align: center; /* Center all text */
 }
 
-.popup-form label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
-
-.popup-form .form-control {
-  width: 100%;
-  padding: 8px;
-  box-sizing: border-box;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-.popup-form .form-control:focus {
-  outline: none;
-  border-color: #007BFF;
-}
-
-.btn-submit {
-  display: inline-block;
-  padding: 10px 20px;
-  color: #fff;
-  background-color: #007BFF;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.btn-submit:hover {
-  background-color: #0056b3;
-}
-</style>
-   
-  
-
-   
-  
