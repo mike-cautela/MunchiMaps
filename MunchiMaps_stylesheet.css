@@ -276,6 +276,8 @@ html, body {
     display: flex;
   }
 
+
+
   /* The green icons inside the info window */
   .info-window-icons img {
     height: 30px; 
@@ -305,11 +307,8 @@ html, body {
     margin-top: 20px;
   }
   
-  .review-section h4 {
+  .review-section h3, .review-section h4 {
     margin-bottom: 10px;
-    font-family: 'Courier New';
-    font-size: 16px;
-    
   }
   
   .review {
@@ -422,94 +421,86 @@ html, body {
 .result ul li a:hover {
     text-decoration: underline;
 }
-   
-/* Styles for the report popup */
-.popup-title {
-    font-size: 20px;
-    margin-bottom: 10px;
-    font-family: 'Courier New';
-    text-align: left;
+
+<style>
+/*report button*/
+.popup-container {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
 }
 
-.report-options {
-    margin-bottom: 10px;
-    font-family: 'Courier New';
-    text-align: left;
-    padding-left: 20px;
+.popup {
+  background: #fff;
+  margin: 50px auto;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 500px;
+  position: relative;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.report-options label {
-    display: block;
-    margin-bottom: 5px;
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
-.report-description {
-    margin-bottom: 5px;
-    font-family: 'Courier New';
-    text-align: left;
-    padding-left: 20px;
-}
-
-textarea {
-    width: 90%;
-    margin-left: 20px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    font-size: 16px;
-    font-family: 'Courier New';
-    margin-bottom: 10px;
-}
-
-#submit-report {
-    display: block;
-    margin: 10px auto; /* Center the button horizontally */
-    padding: 10px 20px;
-    border: none;
-    background-color: #007bff;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-#submit-report:hover {
-    background-color: #0056b3;
+.popup-header h2 {
+  margin: 0;
 }
 
 .popup-close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 20px;
-    cursor: pointer;
+  font-size: 24px;
+  cursor: pointer;
 }
 
-.popup-container {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #fff;
-    border: 1px solid #ccc;
-    padding: 20px;
-    z-index: 1000;
-    width: 500px;
-    height: auto;
-    border-radius: 20px;
-    font-family: 'Courier New';
-    font-weight: bold;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5); /* Window drop shadow */
-    animation: fadeIn 0.5s ease forwards; /* Fade in animation */
-    text-align: center; /* Center all text */
+.popup-form .form-group {
+  margin-bottom: 15px;
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+.popup-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
 }
+
+.popup-form .form-control {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.popup-form .form-control:focus {
+  outline: none;
+  border-color: #007BFF;
+}
+
+.btn-submit {
+  display: inline-block;
+  padding: 10px 20px;
+  color: #fff;
+  background-color: #007BFF;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.btn-submit:hover {
+  background-color: #0056b3;
+}
+</style>
+   
+  
+
+   
+  
