@@ -319,29 +319,27 @@ const infoWindowContent = `
 
             </div>
             <div class="info-window-subtitle">This machine accepts cash and credit cards.</div>
-            <!-- Draft review function for the vending machine -->
+              <!-- Draft review function for the vending machine -->
             <div class="review-section">
               <div class="reviews">
                 <!-- Existing reviews will be appended here -->
               </div>
               <h4>Write a Review</h4>
-              <form class="submit-review">
+              <div="rating_block>
                 <textarea id="review-text" placeholder="Write your review here..." required></textarea>
                 <div class="rating">
-                  <label for="rating">Rating:</label>
-                  <select id="rating">
-                    <option value="5">5 Stars</option>
-                    <option value="4">4 Stars</option>
-                    <option value="3">3 Stars</option>
-                    <option value="2">2 Stars</option>
-                    <option value="1">1 Star</option>
-                  </select>
+                  <span rating-star="5">&#9733;</span>
+                  <span rating-star="4">&#9733;</span>
+                  <span rating-star="3">&#9733;</span>
+                  <span rating-star="2">&#9733;</span>
+                  <span rating-star="1">&#9733;</span>
                 </div>
+              </div>
                 <button type="submit">Submit</button>
+              <form class="submit-review">
               </form>
             </div>
           </div>
-          
         </div>
       `;
 
@@ -445,7 +443,61 @@ const infoWindowContent = `
           showImage(currentIndex);
         });
       });
-    }
+
+      /* OBSOLETE IGNORE
+      //Dark mode code.
+      let darkMode = false;
+      function toggleDarkMode() {
+        darkMode = !darkMode;
+        const logotitle = document.querySelector('.logo-title');
+        const button = document.querySelector('.button');
+        const help = document.querySelector('.help-button-img');
+
+        if (darkMode) {
+          document.body.classList.add('dark-mode');
+          logotitle.classList.add('dark-mode');
+          button.classList.add('dark-mode');
+          help.classList.add('dark-mode');
+        } else {
+          document.body.classList.remove('dark-mode');
+          logotitle.classList.remove('dark-mode');
+          button.classList.remove('dark-mode');
+          help.classList.remove('dark-mode');
+        }
+      }
+
+      */
+
+      // Toggle between dark mode and light mode CSS sheets.
+      let darkMode = false;
+      function toggleDarkMode() {
+        darkMode = !darkMode;
+        const light = document.getElementById('light-mode');
+        const dark = document.getElementById('dark-mode');
+        if (darkMode){
+          dark.disabled = false;
+          setTimeout(() => {
+            light.disabled = true;
+          }, 200); //Delay for smooth transition
+        } else {
+          light.disabled = false;
+          setTimeout(() => {
+            dark.disabled = true;
+          }, 200);
+        }
+      }
+
+      //Toggles dark mode when user presses 'd' or 'D.'
+      document.addEventListener('keydown', function(event) {
+        if ((event.key === 'd' || event.key === 'D') && 
+        (document.activeElement.tagName !== 'INPUT' && 
+          document.activeElement.tagName !== 'TEXTAREA' && 
+          document.activeElement.contentEditable !== 'true')){
+          toggleDarkMode();
+        }
+      });
+    } // init map ending bracket here
+
     function openHelp() {
       document.getElementById("help-popup").style.display = "block";
     }
@@ -480,4 +532,32 @@ const infoWindowContent = `
    document.addEventListener('DOMContentLoaded', function () {
       initMap();
     });
+// Handle report form submission
+document.addEventListener('DOMContentLoaded', function () {
+    initMap();
+
+    const reportForm = document.getElementById('reportForm');
+    reportForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const reportTitle = document.getElementById('reportTitle').value;
+        const reportDescription = document.getElementById('reportDescription').value;
+
+        // Handle the form data (e.g., send it to a server or display it)
+        console.log('Report Title:', reportTitle);
+        console.log('Report Description:', reportDescription);
+
+        // Display a confirmation message or handle the submission
+        alert('Report submitted successfully!');
+
+        // Close the popup
+        closePopup('Report');
+
+        // Clear the form
+        reportForm.reset();
+    });
+});
+
+document.querySelector(".btn-fixx").onclick = function () {
+    window.location.href = "https://www.google.com";
+};
 

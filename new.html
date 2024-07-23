@@ -4,7 +4,8 @@
   <link rel="icon" type="image/x-icon" href="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/CookieFavicon.png?raw=true">
  
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-  <link rel="stylesheet" href="MunchiMaps_stylesheet.css" />
+  <link id = 'dark-mode' rel="stylesheet" href="dark.css" />
+  <link id = 'light-mode'rel="stylesheet" href="MunchiMaps_stylesheet.css" />
   <link rel="stylesheet" href="Location_Style_Sheet.css" />
   <link rel="stylesheet" href="loading_animation_stylesheet.css" />
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
@@ -235,7 +236,7 @@
                   {name: 'Woorhees Computing Center', drink: true, food: true},
                   {name: 'Amos Eaton Hall', drink: true, food: false},
                   {name: 'Mueller Center', drink: true, food: true},
-                  {name: 'j Erik Jonsson Engineering Center', drink: true, food: true},
+                  {name: 'J Erik Jonsson Engineering Center', drink: true, food: true},
                   {name: 'Russell Sage Laboratory', drink: true, food: true},
                   {name: 'Jonsson-Rowland Science Center', drink: true, food: true},
                   {name: 'Pittsburgh Building', drink: true, food: true},
@@ -296,20 +297,28 @@
         <div class="popup-close" onclick="closePopup('Search')">X</div>
     </div>
   </div>
- <div id="popup-report" class="popup-container">
-    <div class="popup">
-        <div class="popup-title">Select a report topic</div>
-        <div class="report-options">
-            <label><input type="checkbox" name="report-topic" value="machine"> Machine</label>
-            <label><input type="checkbox" name="report-topic" value="website"> Website</label>
-        </div>
-        <div class="report-description">Describe the issue below:</div>
-        <textarea id="report-description" rows="4" cols="50"></textarea>
-        <button id="submit-report">Submit</button>
-        <div class="popup-close" onclick="closePopup('Report')">X</div>
+  
+<div id="popup-report" class="popup-container">
+  <div class="popup">
+    <div class="popup-header">
+      <h2>Report Issue</h2>
+      <span class="popup-close" onclick="closePopup('Report')">&times;</span>
     </div>
-</div>
+    <form id="reportForm" class="popup-form">
+      <div class="form-group">
+        <label for="reportTitle">Title:</label>
+        <input type="text" id="reportTitle" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="reportDescription">Description:</label>
+        <textarea id="reportDescription" class="form-control" required></textarea>
+      </div>
+      <button type="submit" class="btn-submit">Submit</button>
+      <button type="fixx" class="btn-fixx">Fixx</button>
 
+    </form>
+  </div>
+</div>
 
   <div id="popup-review" class="popup-container">
     <div class="popup">
@@ -324,6 +333,7 @@
 
    <div id="buttons-container">
     <!---- Contains all buttons at bottom of screen -->
+    <!---- NOTE: Button icons don't really work with dark mode colors, change later -->
       <button class="button" onclick="openPopup('Search')">
         <img src="https://raw.githubusercontent.com/mike-cautela/MunchiMaps/main/MunchiMaps%20Assets/MenuIcons/search-grey.svg" alt="Search" class="button-img">
       </button>
