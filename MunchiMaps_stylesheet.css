@@ -106,6 +106,8 @@ html, body {
   overflow: auto; 
   background-color: rgb(0,0,0); 
   background-color: rgba(0,0,0,0.4); 
+  font-family: 'Courier New'; 
+
 }
 
 .help-content {
@@ -115,6 +117,10 @@ html, body {
   border: 1px solid #888;
   width: 80%; 
   max-width: 600px; 
+  font-family: 'Courier New'; 
+  border-radius: 20px;
+
+
 }
 
 .close {
@@ -307,7 +313,12 @@ html, body {
     margin-top: 20px;
   }
   
+<<<<<<< HEAD
+  
+  .review-section h4 {
+=======
   .review-section h3, .review-section h4 {
+>>>>>>> bd8a7f3a49eaf8a38100ade73d8cd5dcba2b4259
     margin-bottom: 10px;
   }
   
@@ -337,8 +348,14 @@ html, body {
     border-radius: 5px;
   }
   
-  .submit-review .rating {
-    margin-bottom: 10px;
+  .rating{
+    display:flex;
+    flex-direction:row-reverse;
+  }
+  .rating span {
+    cursor: pointer;
+    transition: color .3s, transform .3s;
+    font-size:30px;
   }
   
   .submit-review button {
