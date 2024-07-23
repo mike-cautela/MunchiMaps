@@ -1,10 +1,13 @@
 console.log("Server.js running");
 
+// We are at the mercy of the package.json file. DO NOT anger it.
+
 const express = require('express');
 const path = require('path');
 const app = express();
-//const bodyParser = require("body-parser");
-//const db = require('./database');
+
+const data = require("./src/data.json");
+const db = require("./src/" + data.database);
 
 console.log("Boogly boo");
 
