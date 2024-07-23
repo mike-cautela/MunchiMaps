@@ -325,9 +325,8 @@ const infoWindowContent = `
                 <!-- Existing reviews will be appended here -->
               </div>
               <h4>Write a Review</h4>
-              <form method="post" action="/" class="submit-review">
+              <form class="submit-review">
                 <textarea id="review-text" placeholder="Write your review here..." required></textarea>
-                
                 <div class="rating">
                   <label for="rating">Rating:</label>
                   <select id="rating">
@@ -340,8 +339,6 @@ const infoWindowContent = `
                 </div>
                 <button type="submit">Submit</button>
               </form>
-              
-              
             </div>
           </div>
           

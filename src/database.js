@@ -1,6 +1,8 @@
+console.log("database.js --- ");
+
 const fs = require("fs");
 
-const dbFile = "./.data/choices.db";
+const dbFile = "/.src/container.db";
 const exists = fs.existsSync(dbFile);
 const sqlite3 = require('sqlite3').verbose();
 const dbWrapper = require("sqlite");
