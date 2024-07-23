@@ -4,7 +4,8 @@
   <link rel="icon" type="image/x-icon" href="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/CookieFavicon.png?raw=true">
  
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-  <link rel="stylesheet" href="MunchiMaps_stylesheet.css" />
+  <link id = 'dark-mode' rel="stylesheet" href="dark.css" />
+  <link id = 'light-mode'rel="stylesheet" href="MunchiMaps_stylesheet.css" />
   <link rel="stylesheet" href="Location_Style_Sheet.css" />
   <link rel="stylesheet" href="loading_animation_stylesheet.css" />
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
@@ -22,9 +23,15 @@
   </div>
 
   <!-- Add the help button -->
-<div class="help-button" onclick="openHelp()">
+<button class="help-button" onclick="openHelp()">
   <img src="https://raw.githubusercontent.com/mike-cautela/MunchiMaps/main/MunchiMaps%20Assets/MenuIcons/help-circle-grey.svg" alt="Help" class="help-button-img">
-</div>
+</button>
+
+<!-- Map Key Button -->
+<button class="map-key-button" onclick="openMapKey()">
+  <img src="MunchiMaps Assets/Map Icons/CookieFull.png" alt="Map Key" class="map-key-button-img">
+</button>
+
 <div id="help-popup" class="help-popup">
   <div class="help-content">
       <span class="close" onclick="closeHelp()">&times;</span>
@@ -32,7 +39,7 @@
       <p>Look at the MunchiMap to find the nearest Vending Machine near you!</p>
       <p>Make sure to check to see if the machine sells Snacks and/or drinks</p>
 
-      <h3>Button Icons:</h3>
+      <h3>MunchiMap Functions:</h3>
   <table class="icons-description">
       <tr class="icon-item">
           <td>
@@ -131,6 +138,87 @@
   </table>
   </div>
 </div>
+
+ <!-- Map Key Popup -->
+<div id="mapKeyPopup" class="map-key-button-popup">
+  <div class="help-content">
+      <span class="close" onclick="closeMapKey()">&times;</span>
+      <h3>Map Key:</h3>
+      <table class="map-key">
+          <tr class="icon-item">
+              <td>
+                  <img src="MunchiMaps Assets/Map Icons/Food.png" alt="FoodOnly" class="map-icon">
+              </td>
+              <td>
+                  <span>Food Only Vending Machine</span>
+              </td>
+          </tr>
+          <tr class="icon-item">
+              <td>
+                  <img src="MunchiMaps Assets/Map Icons/Drink.png" alt="Drinks" class="map-icon">
+              </td>
+              <td>
+                  <span>Drink Only Vending Machine</span>
+              </td>
+          </tr>
+          <tr class="icon-item">
+              <td>
+                  <img src="MunchiMaps Assets/Map Icons/Food&Drink.png" alt="Snacks and Drinks" class="map-icon">
+              </td>
+              <td>
+                  <span>Food and Drinks Machines Available</span>
+              </td>
+          </tr>
+          <tr class="icon-item">
+              <td>
+                  <img src="MunchiMaps Assets/Map Icons/FoodClosed.png" alt="FoodClosed" class="map-icon">
+                  <img src="MunchiMaps Assets/Map Icons/DrinkClosed.png" alt="DrinkClosed" class="map-icon">
+                  <img src="MunchiMaps Assets/Map Icons/Food&DrinkClosed.png" alt="BothClosed" class="map-icon">
+              </td>
+              <td>
+                  <span>Any Machine icon with this symbol is closed at the moment</span>
+              </td>
+          </tr>
+          <tr class="icon-item">
+              <td>
+                  <img src="MunchiMaps Assets/Map Icons/DrinkWarning.png" alt="DrinkWarning" class="map-icon">
+                  <img src="MunchiMaps Assets/Map Icons/FoodWarning.png" alt="FoodWarning" class="map-icon">
+                  <img src="MunchiMaps Assets/Map Icons/Food&DrinkWarning.png" alt="BothWarning" class="map-icon">
+              </td>
+              <td>
+                  <span>Any Machine icon with this symbol indicates there may be something wrong with this machine.</span>
+              </td>
+          </tr>
+          <tr class="icon-item">
+              <td>
+                  <img src="MunchiMaps Assets/Map Icons/CashCheck.png" alt="CashCheck" class="map-icon">
+                  <img src="MunchiMaps Assets/Map Icons/CashX.png" alt="CashX" class="map-icon">
+              </td>
+              <td>
+                  <span>Cash is either accepted or not</span>
+              </td>
+          </tr>
+          <tr class="icon-item">
+              <td>
+                  <img src="MunchiMaps Assets/Map Icons/CreditCheck.png" alt="CreditCheck" class="map-icon">
+                  <img src="MunchiMaps Assets/Map Icons/CreditX.png" alt="CreditX" class="map-icon">
+              </td>
+              <td>
+                  <span>Card is either accepted or not</span>
+              </td>
+          </tr>
+          <tr class="icon-item">
+              <td>
+                  <img src="MunchiMaps Assets/Map Icons/PhoneCheck.png" alt="PhoneCheck" class="map-icon">
+                  <img src="MunchiMaps Assets/Map Icons/PhoneX.png" alt="PhoneX" class="map-icon">
+              </td>
+              <td>
+                  <span>Smartphone Tap to pay is either accepted or not</span>
+              </td>
+          </tr>
+      </table>
+  </div>
+</div>
     <div id="popup-search" class="popup-container">
     <div class="popup">
         <div class = "search-bar">
@@ -148,7 +236,7 @@
                   {name: 'Woorhees Computing Center', drink: true, food: true},
                   {name: 'Amos Eaton Hall', drink: true, food: false},
                   {name: 'Mueller Center', drink: true, food: true},
-                  {name: 'j Erik Jonsson Engineering Center', drink: true, food: true},
+                  {name: 'J Erik Jonsson Engineering Center', drink: true, food: true},
                   {name: 'Russell Sage Laboratory', drink: true, food: true},
                   {name: 'Jonsson-Rowland Science Center', drink: true, food: true},
                   {name: 'Pittsburgh Building', drink: true, food: true},
@@ -209,20 +297,28 @@
         <div class="popup-close" onclick="closePopup('Search')">X</div>
     </div>
   </div>
- <div id="popup-report" class="popup-container">
-    <div class="popup">
-        <div class="popup-title">Select a report topic</div>
-        <div class="report-options">
-            <label><input type="checkbox" name="report-topic" value="machine"> Machine</label>
-            <label><input type="checkbox" name="report-topic" value="website"> Website</label>
-        </div>
-        <div class="report-description">Describe the issue below:</div>
-        <textarea id="report-description" rows="4" cols="50"></textarea>
-        <button id="submit-report">Submit</button>
-        <div class="popup-close" onclick="closePopup('Report')">X</div>
+  
+<div id="popup-report" class="popup-container">
+  <div class="popup">
+    <div class="popup-header">
+      <h2>Report Issue</h2>
+      <span class="popup-close" onclick="closePopup('Report')">&times;</span>
     </div>
-</div>
+    <form id="reportForm" class="popup-form">
+      <div class="form-group">
+        <label for="reportTitle">Title:</label>
+        <input type="text" id="reportTitle" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="reportDescription">Description:</label>
+        <textarea id="reportDescription" class="form-control" required></textarea>
+      </div>
+      <button type="submit" class="btn-submit">Submit</button>
+      <button type="fixx" class="btn-fixx">Fixx</button>
 
+    </form>
+  </div>
+</div>
 
   <div id="popup-review" class="popup-container">
     <div class="popup">
@@ -237,6 +333,7 @@
 
    <div id="buttons-container">
     <!---- Contains all buttons at bottom of screen -->
+    <!---- NOTE: Button icons don't really work with dark mode colors, change later -->
       <button class="button" onclick="openPopup('Search')">
         <img src="https://raw.githubusercontent.com/mike-cautela/MunchiMaps/main/MunchiMaps%20Assets/MenuIcons/search-grey.svg" alt="Search" class="button-img">
       </button>
