@@ -106,6 +106,8 @@ html, body {
   overflow: auto; 
   background-color: rgb(0,0,0); 
   background-color: rgba(0,0,0,0.4); 
+  font-family: 'Courier New'; 
+
 }
 
 .help-content {
@@ -115,6 +117,10 @@ html, body {
   border: 1px solid #888;
   width: 80%; 
   max-width: 600px; 
+  font-family: 'Courier New'; 
+  border-radius: 20px;
+
+
 }
 
 .close {
