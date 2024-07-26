@@ -482,14 +482,10 @@ const infoWindowContent = `
         const dark = document.getElementById('dark-mode');
         if (darkMode){
           dark.disabled = false;
-          setTimeout(() => {
-            light.disabled = true;
-          }, 200); //Delay for smooth transition
+          light.disabled = true;
         } else {
           light.disabled = false;
-          setTimeout(() => {
-            dark.disabled = true;
-          }, 200);
+          dark.disabled = true;
         }
       }
 
