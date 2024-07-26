@@ -6,7 +6,16 @@ html, body {
     box-sizing: border-box; /* Include border and padding in width and height */
     transition: background-color 0.3s, color 0.3s, outline 0.3s, height 0.3s, width 0.3s;
 }
-
+ 
+.leaflet-layer,
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out,
+.leaflet-control-attribution {
+  filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
+}
+.leaflet-container {
+background: #000
+}
 
 #map-container {
     height: 100vh;
