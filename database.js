@@ -24,6 +24,9 @@ function buildBuildingTable() {
     if (err) {
       console.error('Error creating table', err.message);
     }
+    else{
+      console.log("Building table created successfully.");
+    }
   });
 }
 
@@ -40,6 +43,9 @@ function buildReviewTable(){
     if(err){
       console.error('Error creating review table', err.message);
     }
+    else{
+      console.log("Review table created successfully.");
+    }
   });
 }
 
@@ -49,9 +55,35 @@ function initializeDatabase() {
       console.error('Error opening database', err.message);
     } else {
       console.log('Connected to the SQLite database.');
-      buildBuildingTable();
-      buildReviewTable();
-      populateWithStarterData();
+      
+      //check if building table has been created before creating and initializing
+      db.get("SELECT name FROM sqlite_master WHERE type='table' AND name=?",['building'], (err,row) => {
+        if(err){
+          console.error('Error checking for the building table');
+        }
+        if(!row){
+          console.log("Building does not yet exist-- creating now.");
+          buildBuildingTable();
+          populateWithStarterData();
+        }
+        else{
+          console.log("Building table already exists.");
+        }
+      });
+      
+      //checking if review table exists yet
+      db.get("SELECT name FROM sqlite_master WHERE type='table' AND name=?", ['review'], (err, row) => {
+        if(err){
+          console.error("Error checking for review table.");
+        }
+        if(!row){
+          console.log("Review table does not yet exist-- creating now.");
+          buildReviewTable();
+        }
+        else{
+          console.log("Review table already exists.");
+        }
+      });     
     }
   });
 }
@@ -140,7 +172,6 @@ function  getBuildingIDByName(name, callback){
 };
 
 
-
 module.exports = {
   initializeDatabase,
   populateWithStarterData,
@@ -196,8 +227,4 @@ module.exports = {
       console.log(dbError);
     }
   },
-  
-  
-
-
 };
