@@ -1,10 +1,10 @@
 const fs = require("fs").promises;
 
-const dbFile = "./container.db";
+const dbFile = "./munchiData.db";
 const sqlite3 = require('sqlite3').verbose();
 const dbWrapper = require("sqlite");
 const path = require('path');
-const dbPath = path.join(__dirname, 'container.db');
+const dbPath = path.join(__dirname, 'munchiData.db');
 let db;
 
 function buildBuildingTable() {
@@ -105,12 +105,52 @@ const populateWithStarterData = async () => {
   }
 };
 
+function fetchSpecificBuildingByName(name, callback) {
+  db.get("SELECT * FROM building WHERE name = ?", [name], (err, row) => {
+    if(err){
+      console.error(err.message);
+    }
+    else{
+      callback(null, row);
+    }
+  });
+};
+
+function fetchSpecificBuildingByKey(key, callback) {
+  db.get("SELECT * FROM building WHERE id = ?", [key], (err, row) => {
+    if(err){
+      console.error(err.message);
+    }
+    else{
+      callback(null, row);
+    }
+  });
+};
+
+function  getBuildingIDByName(name, callback){
+  const stmt = "SELECT id FROM building WHERE name = ?;";
+  db.get(stmt, [name], (err, row) => {
+    if(err){
+      console.error(err.message);
+    }
+    else {
+      callback(null, row);
+    }
+  });
+};
+
+
+
 module.exports = {
   initializeDatabase,
   populateWithStarterData,
+  fetchSpecificBuildingByName,
+  fetchSpecificBuildingByKey,
+  getBuildingIDByName,
+  
   insertBuilding: async (name, x_coord, y_coord, time_opens, time_closes, num_snack_machines, num_drink_machines, num_ratings, average_ratings, needs_service) => {
     try{
-      await db.run('INSERT INTO building (name, x_coord, y_coord, time_opens, time_closes, num_snack_machines, num_drink_machines, num_ratings, average_ratings, needs_service) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
+      await db.run('INSERT INTO building (name, x_coord, y_coord, time_opens, time_closes, num_snack_machines, num_drink_machines, num_ratings, sum_ratings, average_ratings, needs_service) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
         [name, x_coord, y_coord, time_opens, time_closes, num_snack_machines, num_drink_machines, num_ratings, average_ratings, needs_service]); 
     }
     catch(dbError) {
@@ -122,6 +162,17 @@ module.exports = {
     try {
       await db.run('INSERT INTO review (building_id, product_rating, functionality_rating, needs_service) VALUES (?, ?, ?, ?)', 
         [building_id, product_rating, functionality_rating, needs_service]);
+      
+      const stmt = "UPDATE building \
+                    SET sum_ratings = sum_ratings + ( \
+                        SELECT product_rating + functionality_rating \
+                        FROM review \
+                        WHERE review.building_id = building_id \
+                        ORDER by review.id DESC \
+                        LIMIT 1 \
+                    )\
+                    WHERE id = ?;";
+    await db.run(stmt, [building_id]);
     }
     catch (dbError) {
       console.catch(dbError);
@@ -145,5 +196,8 @@ module.exports = {
       console.log(dbError);
     }
   },
+  
+  
+
 
 };
