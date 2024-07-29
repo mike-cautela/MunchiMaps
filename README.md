@@ -5,7 +5,7 @@ RCOS Summer 2024 project.
 Contributors:
 
 
-Mila Zlatkovic
+- Mila Zlatkovic
 
 - Mike Cautela 
 

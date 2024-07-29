@@ -15,7 +15,7 @@ Files & Folders:
 <- database.js: Is a script that sets up the SQL database to store the 
                 vending machine information that the website relies on.
                 
-<- index.html: Is the main website that the end-user will see.
+<- new.html: Is the main website that the end-user will see.
 
 <- script.js: Is the collection of functions that are called by the end-user
               (i.e, clicking a button on the website) to edit information

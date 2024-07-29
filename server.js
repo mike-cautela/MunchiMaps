@@ -6,14 +6,15 @@ const express = require('express');
 const path = require('path');
 const app = express();
 
-const data = require("./src/data.json");
-const db = require("./src/" + data.database);
+const db = require("./database.js");
 
 console.log("Boogly boo");
 
 app.get('/', function(req, res){
-  res.sendFile(path.join(__dirname, 'index.html'));
+  res.sendFile(path.join(__dirname, 'new.html'));
 });
+
+db.initializeDatabase();
 
 app.use(express.static("./"));
 
