@@ -1,4 +1,5 @@
 
+
  //initializes the map
     function initMap() {
       const map = L.map('map').setView([42.72941085967446, -73.6792590320996], 17);
