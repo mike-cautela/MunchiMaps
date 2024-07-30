@@ -1,3 +1,5 @@
+
+
  //initializes the map
     function initMap() {
       const map = L.map('map').setView([42.72941085967446, -73.6792590320996], 17);
@@ -450,6 +452,30 @@ const infoWindowContent = `
         });
       });
 
+      /* OBSOLETE IGNORE
+      //Dark mode code.
+      let darkMode = false;
+      function toggleDarkMode() {
+        darkMode = !darkMode;
+        const logotitle = document.querySelector('.logo-title');
+        const button = document.querySelector('.button');
+        const help = document.querySelector('.help-button-img');
+
+        if (darkMode) {
+          document.body.classList.add('dark-mode');
+          logotitle.classList.add('dark-mode');
+          button.classList.add('dark-mode');
+          help.classList.add('dark-mode');
+        } else {
+          document.body.classList.remove('dark-mode');
+          logotitle.classList.remove('dark-mode');
+          button.classList.remove('dark-mode');
+          help.classList.remove('dark-mode');
+        }
+      }
+
+      */
+
       // Toggle between dark mode and light mode CSS sheets.
       let darkMode = false;
       function toggleDarkMode() {
@@ -458,10 +484,14 @@ const infoWindowContent = `
         const dark = document.getElementById('dark-mode');
         if (darkMode){
           dark.disabled = false;
-          light.disabled = true;
+          setTimeout(() => {
+            light.disabled = true;
+          }, 200); //Delay for smooth transition
         } else {
           light.disabled = false;
-          dark.disabled = true;
+          setTimeout(() => {
+            dark.disabled = true;
+          }, 200);
         }
       }
 
@@ -538,4 +568,3 @@ document.addEventListener('DOMContentLoaded', function () {
 document.querySelector(".btn-fixx").onclick = function () {
     window.location.href = "https://www.google.com";
 };
-
