@@ -352,6 +352,9 @@ const infoWindowContent = `
         const images = document.querySelectorAll('.info-window-image img');
         const prevButton = document.querySelector('.prev');
         const nextButton = document.querySelector('.next');
+        
+        // Added. Appended but must now be stored in backend.
+        const reviewForm = document.querySelector('.review-section');
         let currentIndex = 0;
 
         function showImage(index) {
@@ -374,11 +377,14 @@ const infoWindowContent = `
         const submitReview = document.querySelector('.submit-review');
         const reviewsContainer = document.querySelector('.reviews');
 
+
         reviewForm.addEventListener('submit', (event) => {
           event.preventDefault();
           const reviewText = document.getElementById('review-text').value;
           const rating = document.getElementById('rating').value;
 
+          // Might need to be refactored later. V
+          
           // Append new review to the reviews container
           const reviewElement = document.createElement('div');
           reviewElement.classList.add('review');
@@ -444,30 +450,6 @@ const infoWindowContent = `
         });
       });
 
-      /* OBSOLETE IGNORE
-      //Dark mode code.
-      let darkMode = false;
-      function toggleDarkMode() {
-        darkMode = !darkMode;
-        const logotitle = document.querySelector('.logo-title');
-        const button = document.querySelector('.button');
-        const help = document.querySelector('.help-button-img');
-
-        if (darkMode) {
-          document.body.classList.add('dark-mode');
-          logotitle.classList.add('dark-mode');
-          button.classList.add('dark-mode');
-          help.classList.add('dark-mode');
-        } else {
-          document.body.classList.remove('dark-mode');
-          logotitle.classList.remove('dark-mode');
-          button.classList.remove('dark-mode');
-          help.classList.remove('dark-mode');
-        }
-      }
-
-      */
-
       // Toggle between dark mode and light mode CSS sheets.
       let darkMode = false;
       function toggleDarkMode() {
@@ -476,14 +458,10 @@ const infoWindowContent = `
         const dark = document.getElementById('dark-mode');
         if (darkMode){
           dark.disabled = false;
-          setTimeout(() => {
-            light.disabled = true;
-          }, 200); //Delay for smooth transition
+          light.disabled = true;
         } else {
           light.disabled = false;
-          setTimeout(() => {
-            dark.disabled = true;
-          }, 200);
+          dark.disabled = true;
         }
       }
 
