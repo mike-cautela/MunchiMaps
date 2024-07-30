@@ -1,0 +1,5 @@
+{
+  "database": "database.js",
+  "errorMessage": "ERROR: Connecting to the database failed.",
+  "setupMessage": "ERROR: The database isn't setup yet!"
+}
