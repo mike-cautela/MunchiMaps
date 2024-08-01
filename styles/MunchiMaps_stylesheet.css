@@ -153,29 +153,34 @@ html, body {
   margin-right: 10px;
 }
 
-/* Styles for the map key button */
+/* Map Key Button */
 .map-key-button {
-  position: fixed;
-  top: 10px;
-  right: 80px; /* Adjusted to avoid overlapping with the help button */
-  background-color: #f1f1f1;
+  position: absolute;
+  top: 5px;
+  right: 80px; /* Adjusted position to avoid overlap with help button */
+  z-index: 1000;
+  background-color: rgba(255, 255, 255, 0.0); /* Transparent background */
   border: none;
-  cursor: pointer;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border-radius: 50px;
+  transition: all 0.3s ease; /* Smooth animation */
+}
+
+.map-key-button:hover {
+  transform: scale(1.1); /* Increase button size on hover */
+}
+
+.map-key-button:active {
+  transform: translateY(2px); /* Slightly move down on click */
 }
 
 .map-key-button-img {
-  width: 30px;
-  height: 30px;
+  height: 30px; /* Adjust image height */
+  width: auto; /* Maintain aspect ratio */
+  background-color: #FFFFFF;
+  border-radius: 50px;
 }
 
-/* Styles for the map key popup */
+/* Map Key Popup */
 .map-key-popup {
   display: none; /* Hidden by default */
   position: fixed; 
@@ -185,8 +190,8 @@ html, body {
   width: 100%; 
   height: 100%; 
   overflow: auto; 
-  background-color: rgb(0,0,0); 
-  background-color: rgba(0,0,0,0.4); 
+  background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent black background */
+  font-family: 'Courier New';
 }
 
 .map-key-content {
@@ -196,36 +201,22 @@ html, body {
   border: 1px solid #888;
   width: 80%; 
   max-width: 600px; 
+  border-radius: 20px;
+  font-family: 'Courier New';
 }
 
-.map-key .close {
+.map-key-close {
   color: #aaa;
   float: right;
   font-size: 28px;
   font-weight: bold;
 }
 
-.map-key .close:hover,
-.map-key .close:focus {
+.map-key-close:hover,
+.map-key-close:focus {
   color: black;
   text-decoration: none;
   cursor: pointer;
-}
-
-.map-key {
-  margin-top: 20px;
-}
-
-.icon-item {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.map-icon {
-  width: 30px;
-  height: 30px;
-  margin-right: 10px;
 }
 
 
@@ -586,8 +577,7 @@ html, body {
 .btn-submit:hover {
   background-color: #0056b3;
 }
-</style>
-   
+</style> 
   
 
    

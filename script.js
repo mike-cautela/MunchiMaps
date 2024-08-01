@@ -68,10 +68,7 @@
             var mapKeyButton = document.getElementById("MapKey");
             if (mapKeyButton) {
               console.log("MapKey button found, adding event listener");
-              mapKeyButton.addEventListener("click", function () {
-                alert("Map Key button clicked!");
-                // Add your map key logic here
-              });
+              mapKeyButton.addEventListener("click", openMapKey);  // Call the openMapKey function
             } else {
               console.log("MapKey button not found");
             }
