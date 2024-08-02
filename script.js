@@ -65,7 +65,13 @@
                 console.log("Button not found");
             }
 
-
+            var mapKeyButton = document.getElementById("MapKey");
+            if (mapKeyButton) {
+              console.log("MapKey button found, adding event listener");
+              mapKeyButton.addEventListener("click", openMapKey);  // Call the openMapKey function
+            } else {
+              console.log("MapKey button not found");
+            }
       //Puts the zoom in bottom left corner
       map.zoomControl.setPosition('bottomleft');
 
@@ -517,6 +523,21 @@ const infoWindowContent = `
     // Close the help popup if the user clicks outside of the help content
     window.onclick = function(event) {
       const popup = document.getElementById("help-popup");
+      if (event.target === popup) {
+        popup.style.display = "none";
+      }
+    }
+
+    function openMapKey() {
+      document.getElementById("mapKeyPopup").style.display = "block";
+    }
+  
+    function closeMapKey() {
+      document.getElementById("mapKeyPopup").style.display = "none";
+    }
+
+    window.onclick = function(event) {
+      const popup = document.getElementById("mapKeyPopup");
       if (event.target === popup) {
         popup.style.display = "none";
       }

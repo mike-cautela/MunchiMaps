@@ -153,6 +153,73 @@ html, body {
   margin-right: 10px;
 }
 
+/* Map Key Button */
+.map-key-button {
+  position: absolute;
+  top: 5px;
+  right: 80px; /* Adjusted position to avoid overlap with help button */
+  z-index: 1000;
+  background-color: rgba(255, 255, 255, 0.0); /* Transparent background */
+  border: none;
+  border-radius: 50px;
+  transition: all 0.3s ease; /* Smooth animation */
+}
+
+.map-key-button:hover {
+  transform: scale(1.1); /* Increase button size on hover */
+}
+
+.map-key-button:active {
+  transform: translateY(2px); /* Slightly move down on click */
+}
+
+.map-key-button-img {
+  height: 30px; /* Adjust image height */
+  width: auto; /* Maintain aspect ratio */
+  background-color: #FFFFFF;
+  border-radius: 50px;
+}
+
+/* Map Key Popup */
+.map-key-popup {
+  display: none; /* Hidden by default */
+  position: fixed; 
+  z-index: 1; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent black background */
+  font-family: 'Courier New';
+}
+
+.map-key-content {
+  background-color: #fefefe;
+  margin: 15% auto; 
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; 
+  max-width: 600px; 
+  border-radius: 20px;
+  font-family: 'Courier New';
+}
+
+.map-key-close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.map-key-close:hover,
+.map-key-close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
 
   /* For popups from buttons at bottom of screen */
   .popup-container {
@@ -510,8 +577,7 @@ html, body {
 .btn-submit:hover {
   background-color: #0056b3;
 }
-</style>
-   
+</style> 
   
 
    
