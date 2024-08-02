@@ -15,7 +15,7 @@
     {
       "name": "Union",
       "x_coord": 42.730159761978896,
-      "y_coord": -73.67663391678252	,
+      "y_coord": -73.67663391678252,
       "time_opens": 9.00,
       "time_closes": 21.00,
       "num_snack_machines": 4,
@@ -28,7 +28,7 @@
     {
       "name": "Quad",
       "x_coord": 42.730706041764584,
-      "y_coord": -73.67756264747236	,
+      "y_coord": -73.67756264747236,
       "time_opens": 7.00,
       "time_closes": 20.00,
       "num_snack_machines": 2,
