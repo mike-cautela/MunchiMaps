@@ -1,0 +1,22 @@
+West Hall,2,422,1120 
+Russell Sage Laboratory,6,561,1188
+North Hall,8,710,1093
+Quadrangle Complex,12,890,1138
+Darrin Communication Center,17,804,1340
+j Erik Jonsson Engineering Center,18,703,1317
+Jonsson Science Center,19,721,1414
+Woorhees Computing Center,22,604,1377
+Folsom Library,23,525,1377
+Greene Building,24,629,1276
+Amos Eaton Hall,26,508,1275
+Rensselaer Student Union,35,1011,1210
+RPI Public Safety,36,995,1285
+Sharp Hall,43,1244,1499
+Warren Hall,45,1167,1432
+Mueller Center,72,1017,1342
+Davison Hall,42,1278,1473
+Pittsburgh Building,1,424,1184
+
+
+
+

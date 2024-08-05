@@ -10,10 +10,17 @@
       height: 600px;
       width: 100%;
     }
+    #button-container {
+      text-align: center;
+      margin-top: 10px;
+    }
   </style>
 </head>
 <body>
   <div id="map"></div>
+  <div id="button-container">
+    <button onclick="showBuildingNames()">Show Building Names</button>
+  </div>
   <script>
     // Initialize the map
     var map = L.map('map').setView([42.7294361078206, -73.68252684056829], 17); // Set the initial view
@@ -23,36 +30,66 @@
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
+    var locationsData = [];
+    var markers = [];
+
     // Function to plot locations from CSV
     function plotLocations(data) {
-  data.forEach(location => {
-    var iconUrl = location.Status === 'Open' ? 'https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/Food&Drink.png?raw=true' : 'https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/Food&DrinkClosed.png?raw=true';
-    console.log(`Status: ${location.Status}, Icon URL: ${iconUrl}`); // Log status and icon URL
-    var icon = L.icon({
-      iconUrl: iconUrl,
-      iconSize: [100, 50],
-      iconAnchor: [50, 25],
-      popupAnchor: [0, -32]
-    });
-  
-    var marker = L.marker([location.Latitude, location.Longitude], {
-      icon: icon
-    }).addTo(map);
+      data.forEach((location, index) => {
+        var lat = parseFloat(location.Latitude);
+        var lng = parseFloat(location.Longitude);
 
-    // Add an info window for each location
-    marker.bindPopup(`<b>${location["Building Name"]}</b><br>Status: ${location.Status}<br>Lat: ${location.Latitude}, Lng: ${location.Longitude}`);
-  });
-}
+        if (isNaN(lat) || isNaN(lng)) {
+          console.error(`Invalid coordinates for ${location["Building Name"]} at index ${index}: Lat=${location.Latitude}, Lng=${location.Longitude}`);
+          return;
+        }
+
+        var iconUrl = location.Status === 'Open' ? 
+                      'https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/Food&Drink.png?raw=true' : 
+                      'https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/Food&DrinkClosed.png?raw=true';
+        
+        console.log(`Plotting: ${location["Building Name"]}, Status: ${location.Status}, Lat: ${lat}, Lng: ${lng}, Icon URL: ${iconUrl}`);
+
+        var icon = L.icon({
+          iconUrl: iconUrl,
+          iconSize: [100, 50],
+          iconAnchor: [50, 25],
+          popupAnchor: [0, -32]
+        });
+
+        var marker = L.marker([lat, lng], {
+          icon: icon
+        }).addTo(map);
+
+        // Store the marker for later reference
+        markers.push(marker);
+
+        // Add an info window for each location
+        marker.bindPopup(`<b>${location["Building Name"]}</b><br>Status: ${location.Status}<br>Lat: ${lat}, Lng: ${lng}`);
+      });
+    }
+
+    // Function to show building names
+    function showBuildingNames() {
+      var message = "Building Names:\n";
+      locationsData.forEach((location, index) => {
+        var statusMessage = markers[index] ? "Showing correctly" : "Not showing";
+        message += `${location["Building Name"]}: ${statusMessage}\n`;
+      });
+      alert(message);
+    }
 
     // URL to the CSV file on GitHub
-    var csvFilePath = 'https://raw.githubusercontent.com/mike-cautela/MunchiMaps/main/Documents/data.csv'; // Replace with the actual raw URL
+    var csvFilePath = 'https://github.com/mike-cautela/MunchiMaps/blob/2de643a4c8abf72db0f76ca76b4f3f59503a4c2b/data.csv';
 
     // Read and parse the CSV file
     Papa.parse(csvFilePath, {
       download: true,
       header: true,
       complete: function(results) {
-        plotLocations(results.data);
+        locationsData = results.data;
+        console.log('CSV Data:', locationsData); // Debugging: Log all CSV data
+        plotLocations(locationsData);
       },
       error: function(error) {
         console.error('Error parsing CSV file', error);
