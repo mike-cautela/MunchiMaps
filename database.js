@@ -137,6 +137,7 @@ const populateWithStarterData = async () => {
   }
 };
 
+//function to return entire row given building name
 function fetchSpecificBuildingByName(name, callback) {
   db.get("SELECT * FROM building WHERE name = ?", [name], (err, row) => {
     if(err){
@@ -148,6 +149,7 @@ function fetchSpecificBuildingByName(name, callback) {
   });
 };
 
+//function to get building id by its name
 function fetchSpecificBuildingByKey(key, callback) {
   db.get("SELECT * FROM building WHERE id = ?", [key], (err, row) => {
     if(err){
@@ -159,11 +161,76 @@ function fetchSpecificBuildingByKey(key, callback) {
   });
 };
 
+//function to get a building ID given its name
 function  getBuildingIDByName(name, callback){
   const stmt = "SELECT id FROM building WHERE name = ?;";
   db.get(stmt, [name], (err, row) => {
     if(err){
       console.error(err.message);
+    }
+    else {
+      callback(null, row);
+    }
+  });
+};
+
+//function that gets the x-coord given building name
+function getX(name, callback){
+  const stmt = "SELECT x_coord FROM building WHERE name = ?;";
+  db.get(stmt, [name], (err, row) => {
+    if(err){
+      console.err(err.message);
+    }
+    else{
+      callback(null, row);
+    }
+  });
+};
+
+//function that gets the y-coord given building name
+function getY(name, callback){
+  const stmt = "SELECT y_coord FROM building WHERE name = ?;";
+  db.get(stmt, [name], (err, row) => {
+    if(err){
+      console.err(err.message);
+    }
+    else{
+      callback(null, row);
+    }
+  });
+};
+
+  
+const fetchAllBuildingNames = () => {
+  return new Promise((resolve, reject) => {
+    const query = "SELECT name FROM building;";
+    db.all(query, [], (err, rows) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(rows);
+      }
+    });
+  });
+};
+
+function getNumSnackMachines(name, callback){
+  const stmt = "SELECT num_snack_machines FROM building WHERE name = ?;";
+  db.get(stmt, [name], (err,row) => {
+    if(err) {
+      console.err(err.message);
+    }
+    else {
+      callback(null, row);
+    }
+  });
+};
+
+function getNumDrinkMachines(name, callback){
+  const stmt = "SELECT num_drink_machines FROM building WHERE name = ?;";
+  db.get(stmt, [name], (err,row) => {
+    if(err) {
+      console.err(err.message);
     }
     else {
       callback(null, row);
@@ -178,6 +245,11 @@ module.exports = {
   fetchSpecificBuildingByName,
   fetchSpecificBuildingByKey,
   getBuildingIDByName,
+  fetchAllBuildingNames,
+  getX,
+  getY,
+  getNumSnackMachines,
+  getNumDrinkMachines,
   
   insertBuilding: async (name, x_coord, y_coord, time_opens, time_closes, num_snack_machines, num_drink_machines, num_ratings, average_ratings, needs_service) => {
     try{
@@ -227,4 +299,6 @@ module.exports = {
       console.log(dbError);
     }
   },
+
+  
 };
