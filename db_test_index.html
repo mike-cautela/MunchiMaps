@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buildings and Reviews</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        input, button {
+            padding: 5px;
+            margin: 5px;
+        }
+        .container {
+            display: flex;
+        }
+        .section {
+            margin-right: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Buildings and Reviews</h1>
+
+    <div class="container">
+        <div class="section">
+            <h2>Add Building</h2>
+            <form id="buildingForm">
+                <input type="text" id="name" placeholder="Name" required><br>
+                <input type="number" step="0.0001" id="x_coord" placeholder="X Coordinate" required><br>
+                <input type="number" step="0.0001" id="y_coord" placeholder="Y Coordinate" required><br>
+                <input type="number" step="0.0001" id="time_opens" placeholder="Time Opens" required><br>
+                <input type="number" step="0.0001" id="time_closes" placeholder="Time Closes" required><br>
+                <input type="number" id="num_snack_machines" placeholder="Num Snack Machines" required><br>
+                <input type="number" id="num_drink_machines" placeholder="Num Drink Machines" required><br>
+                <input type="number" id="num_ratings" placeholder="Num Ratings" required><br>
+                <input type="number" step="0.1" id="average_ratings" placeholder="Average Ratings" required><br>
+                <input type="text" id="needs_service" placeholder="Needs Service" required><br>
+                <button type="submit">Add Building</button>
+            </form>
+
+            <h2>Add Review</h2>
+            <form id="reviewForm">
+                <input type="number" id="building_id" placeholder="Building ID" required><br>
+                <input type="number" id="product_rating" placeholder="Product Rating" required><br>
+                <input type="number" id="functionality_rating" placeholder="Functionality Rating" required><br>
+                <input type="text" id="needs_service_review" placeholder="Needs Service" required><br>
+                <button type="submit">Add Review</button>
+            </form>
+        </div>
+
+        <div class="section">
+            <h2>Buildings</h2>
+            <div id="buildingsList"></div>
+        </div>
+
+        <div class="section">
+            <h2>Reviews</h2>
+            <div id="reviewsList"></div>
+        </div>
+    </div>
+
+    <script>
+        async function fetchBuildings() {
+            const response = await fetch('/building');
+            const buildings = await response.json();
+            const buildingsList = document.getElementById('buildingsList');
+            buildingsList.innerHTML = '';
+            buildings.forEach(building => {
+                buildingsList.innerHTML += `<p>ID: ${building.id}, Name: ${building.name}</p>`;
+            });
+        }
+
+        async function fetchReviews() {
+            const response = await fetch('/review');
+            const reviews = await response.json();
+            const reviewsList = document.getElementById('reviewsList');
+            reviewsList.innerHTML = '';
+            reviews.forEach(review => {
+                reviewsList.innerHTML += `<p>ID: ${review.id}, Building ID: ${review.building_id}, Product Rating: ${review.product_rating}, Functionality Rating: ${review.functionality_rating}</p>`;
+            });
+        }
+
+        document.getElementById('buildingForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const x_coord = parseFloat(document.getElementById('x_coord').value);
+            const y_coord = parseFloat(document.getElementById('y_coord').value);
+            const time_opens = parseFloat(document.getElementById('time_opens').value);
+            const time_closes = parseFloat(document.getElementById('time_closes').value);
+            const num_snack_machines = parseInt(document.getElementById('num_snack_machines').value);
+            const num_drink_machines = parseInt(document.getElementById('num_drink_machines').value);
+            const num_ratings = parseInt(document.getElementById('num_ratings').value);
+            const average_ratings = parseFloat(document.getElementById('average_ratings').value);
+            const needs_service = document.getElementById('needs_service').value;
+
+            const response = await fetch('/building', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name, x_coord, y_coord, time_opens, time_closes, num_snack_machines, num_drink_machines, num_ratings, average_ratings, needs_service
+                })
+            });
+            if (response.ok) {
+                fetchBuildings();
+            }
+        });
+
+        document.getElementById('reviewForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const building_id = parseInt(document.getElementById('building_id').value);
+            const product_rating = parseInt(document.getElementById('product_rating').value);
+            const functionality_rating = parseInt(document.getElementById('functionality_rating').value);
+            const needs_service = document.getElementById('needs_service_review').value;
+
+            const response = await fetch(`/building/${building_id}/review`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    product_rating, functionality_rating, needs_service
+                })
+            });
+            if (response.ok) {
+                fetchReviews();
+            }
+        });
+
+        fetchBuildings();
+        fetchReviews();
+    </script>
+</body>
+</html>

@@ -1,0 +1,131 @@
+1. Naming:
+
+Building Object:
+
+The database uses the following names for the buildings on campus:
+
+"Sharp Hall"
+"Union"
+"Quad"
+"DCC"
+"Vorhees Computing Center"
+"Amos Eaton Hall"
+"Mueller Center"
+"JEC"
+"Sage Labs"
+"JROWL"
+"Pittsburgh Building"
+"Warren Hall"
+"Greene Building"
+"Davison Hall"
+"Pub Safe"
+"North Hall"
+"West Hall"
+"Folsom Library"
+
+
+Machine Objects:
+
+Machines use the following naming convention with camel-casing (and beginning each name with a capital letter):
+
+[Building Name][Drink/Snack][Number (in cases of multiples)]
+
+for example: 'UnionSnack1'
+
+
+Full List of Machine Data Currently in Database:
+
+'SharpHallDrink1', 2, 'D', 0,
+'UnionSnack1', 3, 'S', 1,
+'UnionDrink1', 3, 'D', 1,
+'QuadDrink1', 4, 'D', 0,  
+'DccSnack1', 5, 'S', 1,
+'DccDrink1', 5, 'D', 1,
+'VoheesComputingCenterSnack1', 6, 'S', 1,
+'VorheesComputingCenterDrink1', 6, 'D', 1,
+'VorheesComputingCenterDrink2', 6, 'D', 1,
+'AmosEatonHallDrink1', 7, 'D', 1,
+'MuellerCenterSnack1', 8, 'S', 1,
+'MuellerCenterDrink1', 8, 'D', 1,
+'MuellerCenterDrink2', 8, 'D', 1,
+'JecSnack1', 9, 'S', 3,
+'JecDrink1', 9, 'D', 3,
+'JecDrink2', 9, 'D', 3,
+'SageLabsSnack1', 10, 'S', 2,
+'SageLabsDrink1', 10, 'D', 2,
+'JrowlSnack1', 11, 'S', 2,
+'JrowlDrink1', 11, 'D', 2,
+'PittsburghBuildingSnack1', 12, 'S', 5,
+'PittsburghBuildingDrink1', 12, 'D', 5,
+'WarrenHallDrink1', 13, 'D', 1,
+'GreeneBuildingSnack1', 14, 'S', 3,
+'GreeneBuildingDrink1', 14, 'D', 3,
+'DavisonHallDrink1', 15, 'D', 1,
+'PubSafeDrink1', 16, 'D', 1,
+'NorthHallSnack1', 17, 'S', 1
+'NorthHallDrink1', 17, 'D', 1
+'WestHallDrink1', 18, 'D', 3
+'FolsomSnack1', 19, 'S', 4
+'FolsomDrink1', 19, 'S', 4
+'FolsomDrink2', 19, 'S', 4
+
+
+2. Building Keys:
+
+The database uses these key-building name relationships:
+
+2   "Sharp Hall"
+3	"Union"
+4	"Quad"
+5	"DCC"
+6	"Vorhees Computing Center"
+7	"Amos Eaton Hall"
+8	"Mueller Center"
+9	"JEC"
+10	"Sage Labs"
+11	"JROWL"
+12	"Pittsburgh Building"
+13	"Warren Hall"
+14	"Greene Building"
+15	"Davison Hall"
+16	"Pub Safe"
+17	"North Hall"
+18	"West Hall"
+19	"Folsom Library"
+
+
+
+
+3. Time data:
+
+To simplify the implementation for now, the database stores the most common hours of operation as floats. Additionally, note that times are stored based on a 24 hour clock system. For example, 12:00 pm = 12.00 and 1:30 pm = 13.30.
+
+
+
+Special Case for Buildings Open 24 hours a Day:
+
+When Buildings such as dorms that are open at all time to those with access:
+
+Start Time = 0.00
+
+Close Time = 0.00
+
+
+
+4. Acceptance of Different Payment Types:
+
+For the field: accepts_cash, accepts_card, and accepts_wireless the following correspond to the possible inputs:
+
+'Y' = it does
+'N' = it does not
+
+
+
+5. Specifying Machine Type in Machine Object:
+
+The machine object has a field for type where we will specify wheteher it is a drink or snack machine. To simplify this, these will be the possible inputs:
+
+'S' = Snack Machine
+'D' = Drink Machine
+
+
