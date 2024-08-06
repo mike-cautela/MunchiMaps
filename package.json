@@ -1,0 +1,23 @@
+{
+  "name": "MunchiMaps",
+  "version": "1.2.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node scripts/server.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependecies": {
+    "express": "^4.19.2",
+    "node": "10.24.1",
+    "sqlite": "^5.1.1",
+    "sqlite3": "^5.1.7"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "node": "10.24.1",
+    "sqlite": "^5.1.1",
+    "sqlite3": "^5.1.7"
+  }
+}
