@@ -6,12 +6,12 @@
   <title>MunchiMaps</title>
   
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-  <link id = 'light-mode'rel="stylesheet" href="styles/MunchiMaps_stylesheet.css" />
-  <link id = 'dark-mode' rel="stylesheet" href="styles/dark.css" />
-  <link rel="stylesheet" href="styles/Location_Style_Sheet.css" />
-  <link rel="stylesheet" href="styles/loading_animation_stylesheet.css" />
+  <link id = 'light-mode'rel="stylesheet" href="Website/styles/MunchiMaps_stylesheet.css" />
+  <link id = 'dark-mode' rel="stylesheet" href="Website/styles/dark.css" />
+  <link rel="stylesheet" href="Website/styles/Location_Style_Sheet.css" />
+  <link rel="stylesheet" href="Website/styles/loading_animation_stylesheet.css" />
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <script src="script.js" ></script>
+  <script src="scripts/script.js" ></script>
 
   
 </head>
@@ -33,8 +33,12 @@
  <icon class="map-key-button" onclick="openMapKey()">
   <img src="MunchiMaps Assets/CookieFavicon.png" alt="Map Key" class="map-key-button-img">
  </icon>
+ <!-- Map Key Button -->
+ <icon class="map-key-button" onclick="openMapKey()">
+  <img src="MunchiMaps Assets/CookieFavicon.png" alt="Map Key" class="map-key-button-img">
+ </icon>
 
- <div id="help-popup" class="help-popup">
+  <div id="help-popup" class="help-popup">
   <div class="help-content">
       <span class="close" onclick="closeHelp()">&times;</span>
       <h2>How to Use MunchiMaps:</h2>
@@ -145,6 +149,8 @@
 <div id="mapKeyPopup" class="map-key-button-popup">
   <div class="map-key-content">
       <span class="map-key-close" onclick="closeMapKey()">&times;</span>
+  <div class="map-key-content">
+      <span class="map-key-close" onclick="closeMapKey()">&times;</span>
       <h3>Map Key:</h3>
       <table class="map-key">
           <tr class="icon-item">
@@ -219,8 +225,8 @@
               </td>
           </tr>
       </table>
+      </div>
     </div>
-  </div>
     <div id="popup-search" class="popup-container">
     <div class="popup">
         <div class = "search-bar">
