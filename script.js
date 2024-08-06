@@ -1,5 +1,3 @@
-
-
  //initializes the map
     function initMap() {
       const map = L.map('map').setView([42.72941085967446, -73.6792590320996], 17);
@@ -65,13 +63,7 @@
                 console.log("Button not found");
             }
 
-            var mapKeyButton = document.getElementById("MapKey");
-            if (mapKeyButton) {
-              console.log("MapKey button found, adding event listener");
-              mapKeyButton.addEventListener("click", openMapKey);  // Call the openMapKey function
-            } else {
-              console.log("MapKey button not found");
-            }
+
       //Puts the zoom in bottom left corner
       map.zoomControl.setPosition('bottomleft');
 
@@ -333,8 +325,6 @@ const infoWindowContent = `
                 <!-- Existing reviews will be appended here -->
               </div>
               <h4>Write a Review</h4>
-              <div class="rating_block>
-                <form class="submit-review">
                 <textarea id="review-text" placeholder="Write your review here..." required></textarea>
                 <div class="rating">
                   <span rating-star="5">&#9733;</span>
@@ -344,8 +334,8 @@ const infoWindowContent = `
                   <span rating-star="1">&#9733;</span>
                 </div>
                 <button type="submit">Submit</button>
-                </form>
-              </div>
+              <form class="submit-review">
+              </form>
             </div>
           </div>
         </div>
@@ -360,9 +350,6 @@ const infoWindowContent = `
         const images = document.querySelectorAll('.info-window-image img');
         const prevButton = document.querySelector('.prev');
         const nextButton = document.querySelector('.next');
-        
-        // Added. Appended but must now be stored in backend.
-        const reviewForm = document.querySelector('.review-section');
         let currentIndex = 0;
 
         function showImage(index) {
@@ -385,14 +372,11 @@ const infoWindowContent = `
         const submitReview = document.querySelector('.submit-review');
         const reviewsContainer = document.querySelector('.reviews');
 
-
         reviewForm.addEventListener('submit', (event) => {
           event.preventDefault();
           const reviewText = document.getElementById('review-text').value;
           const rating = document.getElementById('rating').value;
 
-          // Might need to be refactored later. V
-          
           // Append new review to the reviews container
           const reviewElement = document.createElement('div');
           reviewElement.classList.add('review');
@@ -528,21 +512,6 @@ const infoWindowContent = `
       }
     }
 
-    function openMapKey() {
-      document.getElementById("mapKeyPopup").style.display = "block";
-    }
-  
-    function closeMapKey() {
-      document.getElementById("mapKeyPopup").style.display = "none";
-    }
-
-    window.onclick = function(event) {
-      const popup = document.getElementById("mapKeyPopup");
-      if (event.target === popup) {
-        popup.style.display = "none";
-      }
-    }
-
     function openPopup(id) {
       closeAllPopups();
       document.getElementById('popup-' + id.toLowerCase()).style.display = 'block';
@@ -586,6 +555,3 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-document.querySelector(".btn-fixx").onclick = function () {
-    window.location.href = "https://www.google.com";
-};

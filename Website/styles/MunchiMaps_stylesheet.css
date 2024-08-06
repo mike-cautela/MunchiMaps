@@ -412,12 +412,21 @@ html, body {
   
   .rating{
     display:flex;
-    flex-direction:row-reverse;
+    justify-content: flex-start;
+    /*flex-direction:row-reverse;*/
+    margin-left: -10px;
   }
   .rating span {
     cursor: pointer;
     transition: color .3s, transform .3s;
     font-size:30px;
+  }
+  .rating span:hover{
+    color:orange;
+    transform: scale(1.5);
+  }
+  .rating span:hover~span{
+    color:orange;
   }
   
   .submit-review button {
