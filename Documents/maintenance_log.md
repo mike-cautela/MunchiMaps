@@ -8,6 +8,8 @@ Desc: Glitch runs on an older glibc version. Glitch uses GLIBC 2.23 so node vers
 Solution:
     - Open terminal in glitch.
     - run rm -rf node_modules (removes unused packages).
+    or
+    - run rm -rf /app/node_modules/node
     - run refresh in console.
     - run npm install to reinstall packages.
     
