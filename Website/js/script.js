@@ -96,8 +96,104 @@
         iconAnchor: [50, 25]
         
       });
+      
+      // Test area ------------------------------------------- 
+      /*
+      class EventEmitter {
+        constructor() {
+          this.events = {};
+        }
+        
+        on(event, listener) {
+          if (!this.events[event]) {
+            this.events[event] = [];
+          }
+          this.events[event].push(listener);
+        }
+      }
+      
+      class icon extends EventEmitter {
+      constructor(name, x_coord, y_coord, time_opens, time_closes, num_snack_machines, num_drink_machines, num_ratings, average_ratings, needs_service) {
+        super();
+        this.name = name;
+        this.x_coord = x_coord;
+        this.y_coord= y_coord;
+        this.time_opens = time_opens;
+        this.time_closes = time_closes;
+        this.num_snack_machines =  num_snack_machines;
+        this.num_drink_machines = num_drink_machines;
+        this.num_ratings = num_ratings;
+        this.average_ratings = average_ratings;
+        this.needs_service = needs_service;
+        this.infoWindowContent = `
+        <div class="info-window-content">
+          <div class="info-window-image">
+              <img src="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/${this.name}/${this.name}Drink1.jpg?raw=true" alt="Logo 1" class="active">
+              <img src="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/${this.name}/${this.name}Drink2.jpg?raw=true" alt="Logo 2">
+              <img src="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/${this.name}/${this.name}Food1.jpg?raw=true" alt="Logo 3">
+              <div class="carousel-controls">
+                  <button class="prev">&lt;</button>
+                  <button class="next">&gt;</button>
+              </div>
+          </div>
+        </div>`;
+        this.infoWindow;
+      }
+        plot() {
+          const marker = L.marker([this.x_coord, this.y_coord], {icon: foodanddrink }).addTo(map);
+          marker.on('click', () =>
+                   this.infoWindow = L.popup({maxWidth: 500})
+          .setLatLng([this.x_coord, this.y_coord])
+          .setContent(this.infoWindowContent)
+          .openOn(map));
 
+          //Handles image selector for Location
+          const images = document.querySelectorAll('.info-window-image img');
+          const prevButton = document.querySelector('.prev');
+          const nextButton = document.querySelector('.next');
+          let currentIndex = 0;
+
+          function showImage(index) {
+            images.forEach((img, i) => {
+              img.classList.toggle('active', i === index);
+            });
+              }
+              prevButton.addEventListener('click', () => {
+                currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
+                showImage(currentIndex);
+              });
+
+              nextButton.addEventListener('click', () => {
+                currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
+                showImage(currentIndex);
+              });
+          }
+        } // Icon object declaration ending.
+        
+      const sharp = new icon("Sharp Hall", 42.72711006590162, -73.67448712656643, 0.00, 24.00, 0, 1, 0, 0, "N");
+      
+      sharp.plot();
+
+      
+      
+      /*
+      "name": "Sharp Hall",
+      "x_coord": 42.72711006590162,
+      "y_coord": -73.67448712656643,
+      "time_opens": 0.00,
+      "time_closes": 24.00,
+      "num_snack_machines": 0,
+      "num_drink_machines": 1,
+      "num_ratings": 0,
+      "average_ratings": 0,
+      "needs_service": "N"
+      */
+      
+      // End testing area ----------------------------------------------------------------------------------
+      
       //Marker locations. 
+      
+      console.log("Vaccuum cleaner");
       const folsom = L.marker([42.7294361078206, -73.68252684056829], { icon: foodanddrink }).addTo(map);
       const jrowl = L.marker([42.7288, -73.6804], { icon: foodanddrink }).addTo(map);
       const eaton = L.marker([42.730310, -73.682501], { icon: drink}).addTo(map);
