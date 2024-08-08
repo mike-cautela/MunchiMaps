@@ -34,10 +34,9 @@ function buildReviewTable(){
   db.run(
     'CREATE TABLE IF NOT EXISTS review ( \
         id INTEGER PRIMARY KEY AUTOINCREMENT, \
+        comment TEXT, \
         building_id INTEGER, \
         product_rating INTEGER, \
-        functionality_rating INTEGER, \
-        needs_service CHAR, \
         FOREIGN KEY (building_id) REFERENCES building(id) \
     )', (err) => {
     if(err){
@@ -46,6 +45,36 @@ function buildReviewTable(){
     else{
       console.log("Review table created successfully.");
     }
+  });
+}
+
+//function to update review table to match needs of the frontend
+function updateReviewTable() {
+  db.serialize(() => {
+    //dropping old review table
+    db.run("DROP TABLE review", (err) => {
+      if(err) {
+        console.error("Error dropping old review table", err.message);
+        db.run("ROLLBACK");
+        return;
+      }
+    
+    //creating updated review table
+    db.run("CREATE TABLE review ( \
+            id INTEGER PRIMARY KEY AUTOINCREMENT, \
+            comment TEXT, \
+            building_id INTEGER, \
+            product_rating INTEGER, \
+            FOREIGN KEY (building_id) REFERENCES building(id) \
+            )", (err) => {
+      if(err) {
+        console.error("Error creating new review table.", err.message);
+      }
+      else{
+        console.log("New review table created successfully.");
+      }
+    });
+    }); 
   });
 }
 
@@ -82,6 +111,7 @@ function initializeDatabase() {
         }
         else{
           console.log("Review table already exists.");
+          updateReviewTable();
         }
       });     
     }
@@ -261,14 +291,14 @@ module.exports = {
     }
   },
   
-  insertReview: async (building_id, product_rating, functionality_rating, needs_service) => {
+  insertReview: async (comment, building_id, product_rating) => {
     try {
-      await db.run('INSERT INTO review (building_id, product_rating, functionality_rating, needs_service) VALUES (?, ?, ?, ?)', 
-        [building_id, product_rating, functionality_rating, needs_service]);
+      await db.run('INSERT INTO review (comment, building_id, product_rating) VALUES (?, ?, ?)', 
+        [comment, building_id, product_rating]);
       
       const stmt = "UPDATE building \
                     SET sum_ratings = sum_ratings + ( \
-                        SELECT product_rating + functionality_rating \
+                        SELECT product_rating \
                         FROM review \
                         WHERE review.building_id = building_id \
                         ORDER by review.id DESC \
