@@ -51,30 +51,47 @@ function buildReviewTable(){
 //function to update review table to match needs of the frontend
 function updateReviewTable() {
   db.serialize(() => {
-    //dropping old review table
-    db.run("DROP TABLE review", (err) => {
-      if(err) {
-        console.error("Error dropping old review table", err.message);
-        db.run("ROLLBACK");
+    
+    db.all("PRAGMA table_info(review);", (err,rows) => {
+      if(err){
+        console.error("Error fetching info from review table.", err.message);
         return;
       }
-    
-    //creating updated review table
-    db.run("CREATE TABLE review ( \
-            id INTEGER PRIMARY KEY AUTOINCREMENT, \
-            comment TEXT, \
-            building_id INTEGER, \
-            product_rating INTEGER, \
-            FOREIGN KEY (building_id) REFERENCES building(id) \
-            )", (err) => {
-      if(err) {
-        console.error("Error creating new review table.", err.message);
+      
+      const isOldTable = rows.some(row => row.name === "functionality_rating");
+      
+      if(isOldTable) {
+        console.log("functionality_rating field found. Dropping and rebuilding the review table.");
+        
+        // Drop the old review table
+        db.run("DROP TABLE review", (err) => {
+          if (err) {
+            console.error("Error dropping old review table", err.message);
+            db.run("ROLLBACK");
+            return;
+          }
+
+          // Create the updated review table
+          db.run("CREATE TABLE review ( \
+                  id INTEGER PRIMARY KEY AUTOINCREMENT, \
+                  comment TEXT, \
+                  building_id INTEGER, \
+                  product_rating INTEGER, \
+                  FOREIGN KEY (building_id) REFERENCES building(id) \
+                  )", (err) => {
+            if (err) {
+              console.error("Error creating new review table.", err.message);
+            } else {
+              console.log("New review table created successfully.");
+            }
+            
+          });
+        });
       }
       else{
-        console.log("New review table created successfully.");
+        console.log("Update to review table already executed.");
       }
     });
-    }); 
   });
 }
 
