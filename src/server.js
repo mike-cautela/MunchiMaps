@@ -2,10 +2,14 @@ console.log("Server.js running");
 
 // We are at the mercy of the package.json file. DO NOT anger it.
 
+const fastify = require("fastify")({
+  logger:true
+});
 const express = require('express');
 const path = require('path');
 const app = express();
 
+const dbFunctions = require("../scripts/database.js");
 const db = require("../scripts/database.js");
 
 console.log("Boogly boo");
