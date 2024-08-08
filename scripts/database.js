@@ -22,10 +22,10 @@ function buildBuildingTable() {
     needs_service BOOLEAN
   )`, (err) => {
     if (err) {
-      console.error('Error creating table', err.message);
+      console.error('Error creating table >:(', err.message);
     }
     else{
-      console.log("Building table created successfully.");
+      console.log("Building table created successfully :D");
     }
   });
 }
@@ -40,10 +40,27 @@ function buildReviewTable(){
         FOREIGN KEY (building_id) REFERENCES building(id) \
     )', (err) => {
     if(err){
-      console.error('Error creating review table', err.message);
+      console.error('Error creating review table >:(', err.message);
     }
     else{
-      console.log("Review table created successfully.");
+      console.log("Review table created successfully :D");
+    }
+  });
+}
+
+function buildReportTable(){
+  db.run("CREATE TABLE IF NOT EXISTS report ( \
+          id INTEGER PRIMARY KEY AUTOINCREMENT, \
+          building_id INTEGER, \
+          title TEXT, \
+          description TEXT, \
+          FOREIGN KEY (building_id) REFERENCES building(id) \
+  )", (err) => {
+    if(err) {
+      console.error("Error creating report table >:(", err.message);
+    }
+    else{
+      console.log("Report table created successfully :D");
     }
   });
 }
@@ -105,32 +122,46 @@ function initializeDatabase() {
       //check if building table has been created before creating and initializing
       db.get("SELECT name FROM sqlite_master WHERE type='table' AND name=?",['building'], (err,row) => {
         if(err){
-          console.error('Error checking for the building table');
+          console.error('Error checking for the building table >:(');
         }
         if(!row){
-          console.log("Building does not yet exist-- creating now.");
+          console.log("Building does not yet exist-- creating now :P");
           buildBuildingTable();
           populateWithStarterData();
         }
         else{
-          console.log("Building table already exists.");
+          console.log("Building table already exists :P");
         }
       });
       
       //checking if review table exists yet
       db.get("SELECT name FROM sqlite_master WHERE type='table' AND name=?", ['review'], (err, row) => {
         if(err){
-          console.error("Error checking for review table.");
+          console.error("Error checking for review table >:(");
         }
         if(!row){
-          console.log("Review table does not yet exist-- creating now.");
+          console.log("Review table does not yet exist-- creating now :P");
           buildReviewTable();
         }
         else{
-          console.log("Review table already exists.");
+          console.log("Review table already exists :P");
           updateReviewTable();
         }
-      });     
+      });
+      
+      //checking if report table already exists
+      db.get("SELECT name FROM sqlite_master WHERE type='table' AND name='report'", (err, rows) => {
+        if(err){
+          console.error("Error checking for report table >:(", err.message);
+        }
+        if(!rows){
+          console.log("Report tabel does not yet exist-- creating now :P");
+          buildReportTable();
+        }
+        else{
+          console.log("Report table already exists :P");
+        }
+      })
     }
   });
 }
