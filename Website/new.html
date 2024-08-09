@@ -309,27 +309,34 @@
   
   
   
-<div id="popup-report" class="popup-container">
-  <div class="popup">
-    <div class="popup-header">
-      <h2>Report Issue</h2>
-      <span class="popup-close" onclick="closePopup('Report')">&times;</span>
+  <div id="popup-report" class="popup-container">
+    <div class="popup">
+      <div class="popup-header">
+        <h2>Report Issue</h2>
+        <span class="popup-close" onclick="closePopup('Report')">&times;</span>
+      </div>
+      <form id="reportForm" class="popup-form">
+        <div class="form-group">
+          <label for="reportTitle">Title:</label>
+          <input type="text" id="reportTitle" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="reportType">Type of Issue:</label>
+          <select id="reportType" class="form-control" required>
+            <option value="vending_machine">Vending Machine Issue</option>
+            <option value="location">Location Issue</option>
+            <option value="app_functionality">App Functionality Issue</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="reportDescription">Description:</label>
+          <textarea id="reportDescription" class="form-control" required></textarea>
+        </div>
+        <button type="submit" class="btn-submit">Submit</button>
+      </form>
     </div>
-    <form id="reportForm" class="popup-form">
-      <div class="form-group">
-        <label for="reportTitle">Title:</label>
-        <input type="text" id="reportTitle" class="form-control" required>
-      </div>
-      <div class="form-group">
-        <label for="reportDescription">Description:</label>
-        <textarea id="reportDescription" class="form-control" required></textarea>
-      </div>
-      <button type="submit" class="btn-submit">Submit</button>
-      <button type="fixx" class="btn-fixx">Fixx</button>
-
-    </form>
   </div>
-</div>
 
   <div id="popup-review" class="popup-container">
     <div class="popup">
@@ -341,15 +348,17 @@
   <script>
     
     document.getElementById('reportForm').addEventListener('submit', function(event) {
-      event.preventDefault();
-      
-      const title = document.getElementById('reportTitle').value;
-      const description = document.getElementById('reportDescription').value;
-      
-      console.log("Report Title: ", title);
-      console.log("Report Description: ", description);
-      
-      closePopup('Report');
+    event.preventDefault();
+    
+    const title = document.getElementById('reportTitle').value;
+    const reportType = document.getElementById('reportType').value;
+    const description = document.getElementById('reportDescription').value;
+    
+    console.log("Report Title: ", title);
+    console.log("Report Type: ", reportType);
+    console.log("Report Description: ", description);
+    
+    closePopup('Report');
     });
 
   </script>

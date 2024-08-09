@@ -151,18 +151,43 @@ const exportTypeData = (filename) => {
 // Main function to execute all commands required
 const runDataProcessing = async () => {
   console.log("Running function runDataProcessing :P");
-  const filePath = path.join(__dirname, '../database/building_coords.csv');
-  const filename = path.join(__dirname, '../database/type_data.JSON');
+  const coordFile = path.join(__dirname, '../database/building_coords.csv');
+  const typeFile = path.join(__dirname, '../database/type_data.JSON');
   
-  try {
-    await fetchAllBuildingNames();
-    await buildCoordMap();
-    await buildTypeMap();
+  const fileExists = (file) => fs.existsSync(file);
   
-    exportCoordData(filePath);
-    exportTypeData(filename);
-  } catch (error) {
-    console.error("Error during data processing:", error);
+  if(!fileExists(coordFile) || !fileExists(typeFile)){
+    try {
+      await fetchAllBuildingNames();
+      await buildCoordMap();
+      await buildTypeMap();    
+    }
+    catch (err) {
+      console.error("Error reading in data.");
+    }
+  }
+  if(!fileExists(coordFile)){
+    try {
+      exportCoordData(coordFile);
+    }
+    catch (err) {
+      console.error("Error exporting coordinate data.");
+    }
+  }
+  else {
+    console.log("Coords File already exists.");
+  }
+
+  if(!fileExists(typeFile)){
+    try {
+      exportTypeData(typeFile);
+    }
+    catch (err) {
+      console.error("Error exporting type data.");
+    }
+  }
+  else{
+    console.log("Type file already exists.");
   }
 }
 
