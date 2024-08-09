@@ -35,6 +35,7 @@ const startServer = async () => {
     // Register route modules
     fastify.register(require('../scripts/buildings.js'));
     fastify.register(require('../scripts/reviews.js'));
+    fastify.register(require('../scripts/report.js'));
 
     // Start the server
     const address = await fastify.listen({ port: 5000 });
