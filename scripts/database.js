@@ -1,6 +1,6 @@
 const fs = require("fs").promises;
 
-const dbFile = "./munchiData.db";
+const dbFile = "munchiData.db";
 const sqlite3 = require('sqlite3').verbose();
 const dbWrapper = require("sqlite");
 const path = require('path');
@@ -22,10 +22,10 @@ function buildBuildingTable() {
     needs_service BOOLEAN
   )`, (err) => {
     if (err) {
-      console.error('Error creating table', err.message);
+      console.error('Error creating table >:(', err.message);
     }
     else{
-      console.log("Building table created successfully.");
+      console.log("Building table created successfully :D");
     }
   });
 }
@@ -34,18 +34,81 @@ function buildReviewTable(){
   db.run(
     'CREATE TABLE IF NOT EXISTS review ( \
         id INTEGER PRIMARY KEY AUTOINCREMENT, \
+        comment TEXT, \
         building_id INTEGER, \
         product_rating INTEGER, \
-        functionality_rating INTEGER, \
-        needs_service CHAR, \
         FOREIGN KEY (building_id) REFERENCES building(id) \
     )', (err) => {
     if(err){
-      console.error('Error creating review table', err.message);
+      console.error('Error creating review table >:(', err.message);
     }
     else{
-      console.log("Review table created successfully.");
+      console.log("Review table created successfully :D");
     }
+  });
+}
+
+function buildReportTable(){
+  db.run("CREATE TABLE IF NOT EXISTS report ( \
+          id INTEGER PRIMARY KEY AUTOINCREMENT, \
+          building_id INTEGER, \
+          title TEXT, \
+          description TEXT, \
+          FOREIGN KEY (building_id) REFERENCES building(id) \
+  )", (err) => {
+    if(err) {
+      console.error("Error creating report table >:(", err.message);
+    }
+    else{
+      console.log("Report table created successfully :D");
+    }
+  });
+}
+
+//function to update review table to match needs of the frontend
+function updateReviewTable() {
+  db.serialize(() => {
+    
+    db.all("PRAGMA table_info(review);", (err,rows) => {
+      if(err){
+        console.error("Error fetching info from review table.", err.message);
+        return;
+      }
+      
+      const isOldTable = rows.some(row => row.name === "functionality_rating");
+      
+      if(isOldTable) {
+        console.log("functionality_rating field found. Dropping and rebuilding the review table.");
+        
+        // Drop the old review table
+        db.run("DROP TABLE review", (err) => {
+          if (err) {
+            console.error("Error dropping old review table", err.message);
+            db.run("ROLLBACK");
+            return;
+          }
+
+          // Create the updated review table
+          db.run("CREATE TABLE review ( \
+                  id INTEGER PRIMARY KEY AUTOINCREMENT, \
+                  comment TEXT, \
+                  building_id INTEGER, \
+                  product_rating INTEGER, \
+                  FOREIGN KEY (building_id) REFERENCES building(id) \
+                  )", (err) => {
+            if (err) {
+              console.error("Error creating new review table.", err.message);
+            } else {
+              console.log("New review table created successfully.");
+            }
+            
+          });
+        });
+      }
+      else{
+        console.log("Update to review table already executed.");
+      }
+    });
   });
 }
 
@@ -59,31 +122,46 @@ function initializeDatabase() {
       //check if building table has been created before creating and initializing
       db.get("SELECT name FROM sqlite_master WHERE type='table' AND name=?",['building'], (err,row) => {
         if(err){
-          console.error('Error checking for the building table');
+          console.error('Error checking for the building table >:(');
         }
         if(!row){
-          console.log("Building does not yet exist-- creating now.");
+          console.log("Building does not yet exist-- creating now :P");
           buildBuildingTable();
           populateWithStarterData();
         }
         else{
-          console.log("Building table already exists.");
+          console.log("Building table already exists :P");
         }
       });
       
       //checking if review table exists yet
       db.get("SELECT name FROM sqlite_master WHERE type='table' AND name=?", ['review'], (err, row) => {
         if(err){
-          console.error("Error checking for review table.");
+          console.error("Error checking for review table >:(");
         }
         if(!row){
-          console.log("Review table does not yet exist-- creating now.");
+          console.log("Review table does not yet exist-- creating now :P");
           buildReviewTable();
         }
         else{
-          console.log("Review table already exists.");
+          console.log("Review table already exists :P");
+          updateReviewTable();
         }
-      });     
+      });
+      
+      //checking if report table already exists
+      db.get("SELECT name FROM sqlite_master WHERE type='table' AND name='report'", (err, rows) => {
+        if(err){
+          console.error("Error checking for report table >:(", err.message);
+        }
+        if(!rows){
+          console.log("Report tabel does not yet exist-- creating now :P");
+          buildReportTable();
+        }
+        else{
+          console.log("Report table already exists :P");
+        }
+      })
     }
   });
 }
@@ -91,7 +169,7 @@ function initializeDatabase() {
 const populateWithStarterData = async () => {
   try {
     // Read JSON file
-    const data = await fs.readFile(path.join(__dirname, 'originalBuildings.JSON'), "utf8");
+    const data = await fs.readFile(path.join(__dirname,'../database/originalBuildings.JSON'), "utf8");
     const jsonData = JSON.parse(data);
 
     // Prepare SQL statement
@@ -251,6 +329,15 @@ module.exports = {
   getNumSnackMachines,
   getNumDrinkMachines,
   
+  addReport: async (building_id, title, description) => {
+    try{
+      db.run("INSERT INTO building (building_id, title, description) VALUES (?, ?, ?)", [building_id, title, description]);
+    }
+    catch(dbError) {
+      console.catch(dbError);
+    }
+  },
+  
   insertBuilding: async (name, x_coord, y_coord, time_opens, time_closes, num_snack_machines, num_drink_machines, num_ratings, average_ratings, needs_service) => {
     try{
       await db.run('INSERT INTO building (name, x_coord, y_coord, time_opens, time_closes, num_snack_machines, num_drink_machines, num_ratings, sum_ratings, average_ratings, needs_service) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
@@ -261,14 +348,14 @@ module.exports = {
     }
   },
   
-  insertReview: async (building_id, product_rating, functionality_rating, needs_service) => {
+  insertReview: async (comment, building_id, product_rating) => {
     try {
-      await db.run('INSERT INTO review (building_id, product_rating, functionality_rating, needs_service) VALUES (?, ?, ?, ?)', 
-        [building_id, product_rating, functionality_rating, needs_service]);
+      await db.run('INSERT INTO review (comment, building_id, product_rating) VALUES (?, ?, ?)', 
+        [comment, building_id, product_rating]);
       
       const stmt = "UPDATE building \
                     SET sum_ratings = sum_ratings + ( \
-                        SELECT product_rating + functionality_rating \
+                        SELECT product_rating \
                         FROM review \
                         WHERE review.building_id = building_id \
                         ORDER by review.id DESC \
