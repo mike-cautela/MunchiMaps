@@ -1,6 +1,6 @@
 const fs = require("fs").promises;
 
-const dbFile = "./munchiData.db";
+const dbFile = "munchiData.db";
 const sqlite3 = require('sqlite3').verbose();
 const dbWrapper = require("sqlite");
 const path = require('path');
@@ -169,7 +169,7 @@ function initializeDatabase() {
 const populateWithStarterData = async () => {
   try {
     // Read JSON file
-    const data = await fs.readFile(path.join(__dirname, 'originalBuildings.JSON'), "utf8");
+    const data = await fs.readFile(path.join(__dirname,'../database/originalBuildings.JSON'), "utf8");
     const jsonData = JSON.parse(data);
 
     // Prepare SQL statement
@@ -328,6 +328,15 @@ module.exports = {
   getY,
   getNumSnackMachines,
   getNumDrinkMachines,
+  
+  addReport: async (building_id, title, description) => {
+    try{
+      db.run("INSERT INTO building (building_id, title, description) VALUES (?, ?, ?)", [building_id, title, description]);
+    }
+    catch(dbError) {
+      console.catch(dbError);
+    }
+  },
   
   insertBuilding: async (name, x_coord, y_coord, time_opens, time_closes, num_snack_machines, num_drink_machines, num_ratings, average_ratings, needs_service) => {
     try{
