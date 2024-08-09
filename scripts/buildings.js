@@ -1,6 +1,6 @@
 const routes = (fastify, options, done) => {
   
-  const dbFunctions = require("../sqlite");
+  const dbFunctions = require("./database.js");
   
   //route to fetchAllBuildingNames
   fastify.get("/building/names", async (request, reply) => {
