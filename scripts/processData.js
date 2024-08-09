@@ -155,6 +155,7 @@ const runDataProcessing = async () => {
   const typeFile = path.join(__dirname, '../database/type_data.JSON');
   
   const fileExists = (file) => fs.existsSync(file);
+  
   if(!fileExists(coordFile) || !fileExists(typeFile)){
     try {
       await fetchAllBuildingNames();
@@ -174,7 +175,7 @@ const runDataProcessing = async () => {
     }
   }
   else {
-    console.log("Coords File already exists");
+    console.log("Coords File already exists.");
   }
 
   if(!fileExists(typeFile)){
@@ -184,6 +185,9 @@ const runDataProcessing = async () => {
     catch (err) {
       console.error("Error exporting type data.");
     }
+  }
+  else{
+    console.log("Type file already exists.");
   }
 }
 
