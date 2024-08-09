@@ -749,13 +749,43 @@ const infoWindowContent = `
       }
     }
 
-    function openMapKey() {
-      document.getElementById("mapKeyPopup").style.display = "block";
+    function openMapKey(){
+        document.getElementById("map-key-popup").style.display = "block";
     }
-  
-    function closeMapKey() {
-      document.getElementById("mapKeyPopup").style.display = "none";
+    function closeMapKey(){
+        document.getElementById("map-key-popup").style.display = "none";
     }
+
+
+function openSearch() {
+    const searchPopup = document.getElementById("popup-search");
+    searchPopup.style.display = "block";
+    setTimeout(() => {
+        searchPopup.classList.add("show");
+    }, 10); // Slight delay to trigger the CSS transition
+}
+
+function closeSearch() {
+    const searchPopup = document.getElementById("popup-search");
+    searchPopup.classList.remove("show");
+    setTimeout(() => {
+        searchPopup.style.display = "none";
+    }, 500); // Match the delay to the transition duration
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const searchButton = document.querySelector(".button[onclick='openSearch()']");
+    if (searchButton) {
+        searchButton.addEventListener("click", openSearch);
+    }
+});
+document.addEventListener('DOMContentLoaded', function() {
+    const searchButton = document.querySelector(".button[onclick='openSearch()']");
+    if (searchButton) {
+        searchButton.addEventListener("click", openSearch);
+    }
+});
+
 
     window.onclick = function(event) {
       const popup = document.getElementById("mapKeyPopup");

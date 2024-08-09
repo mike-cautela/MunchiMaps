@@ -29,14 +29,10 @@
   <img src="https://raw.githubusercontent.com/mike-cautela/MunchiMaps/main/MunchiMaps%20Assets/MenuIcons/help-circle-grey.svg" alt="Help" class="help-button-img">
 </icon>
 
- <!-- Map Key Button -->
- <icon class="map-key-button" onclick="openMapKey()">
-  <img src="/MunchiMaps Assets/CookieFavicon.png" alt="Map Key" class="map-key-button-img">
- </icon>
- <!-- Map Key Button -->
- <icon class="map-key-button" onclick="openMapKey()">
-  <img src="/MunchiMaps Assets/CookieFavicon.png" alt="Map Key" class="map-key-button-img">
- </icon>
+<!-- Map Key Button -->
+<button class="map-key-button" onclick="openMapKey()">
+  <img src="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/CookieFavicon.png?raw=true" alt="Map Key" class="map-key-button-img">
+</button>
 
   <div id="help-popup" class="help-popup">
   <div class="help-content">
@@ -145,18 +141,15 @@
   </div>
 </div>
 
-  
- <!-- Map Key Popup -->
-<div id="mapKeyPopup" class="map-key-button-popup">
+  <!-- Map Key Popup -->
+<div id="map-key-popup" class="map-key-popup">
   <div class="map-key-content">
-      <span class="map-key-close" onclick="closeMapKey()">&times;</span>
-  <div class="map-key-content">
-      <span class="map-key-close" onclick="closeMapKey()">&times;</span>
+      <span class="close" onclick="closeMapKey()">&times;</span>
       <h3>Map Key:</h3>
       <table class="map-key">
           <tr class="icon-item">
               <td>
-                  <img src="/MunchiMaps Assets/Map Icons/Food.png" alt="FoodOnly" class="map-icon">
+                  <img src="MunchiMaps Assets/Map Icons/Food.png" alt="FoodOnly" class="map-icon">
               </td>
               <td>
                   <span>Food Only Vending Machine</span>
@@ -164,7 +157,7 @@
           </tr>
           <tr class="icon-item">
               <td>
-                  <img src="/MunchiMaps Assets/Map Icons/Drink.png" alt="Drinks" class="map-icon">
+                  <img src="MunchiMaps Assets/Map Icons/Drink.png" alt="Drinks" class="map-icon">
               </td>
               <td>
                   <span>Drink Only Vending Machine</span>
@@ -172,7 +165,7 @@
           </tr>
           <tr class="icon-item">
               <td>
-                  <img src="/MunchiMaps Assets/Map Icons/Food&Drink.png" alt="Snacks and Drinks" class="map-icon">
+                  <img src="MunchiMaps Assets/Map Icons/Food&Drink.png" alt="Snacks and Drinks" class="map-icon">
               </td>
               <td>
                   <span>Food and Drinks Machines Available</span>
@@ -180,9 +173,9 @@
           </tr>
           <tr class="icon-item">
               <td>
-                  <img src="/MunchiMaps Assets/Map Icons/FoodClosed.png" alt="FoodClosed" class="map-icon">
-                  <img src="/MunchiMaps Assets/Map Icons/DrinkClosed.png" alt="DrinkClosed" class="map-icon">
-                  <img src="/MunchiMaps Assets/Map Icons/Food&DrinkClosed.png" alt="BothClosed" class="map-icon">
+                  <img src="MunchiMaps Assets/Map Icons/FoodClosed.png" alt="FoodClosed" class="map-icon">
+                  <img src="MunchiMaps Assets/Map Icons/DrinkClosed.png" alt="DrinkClosed" class="map-icon">
+                  <img src="MunchiMaps Assets/Map Icons/Food&DrinkClosed.png" alt="BothClosed" class="map-icon">
               </td>
               <td>
                   <span>Any Machine icon with this symbol is closed at the moment</span>
@@ -190,9 +183,9 @@
           </tr>
           <tr class="icon-item">
               <td>
-                  <img src="/MunchiMaps Assets/Map Icons/DrinkWarning.png" alt="DrinkWarning" class="map-icon">
-                  <img src="/MunchiMaps Assets/Map Icons/FoodWarning.png" alt="FoodWarning" class="map-icon">
-                  <img src="/MunchiMaps Assets/Map Icons/Food&DrinkWarning.png" alt="BothWarning" class="map-icon">
+                  <img src="MunchiMaps Assets/Map Icons/DrinkWarning.png" alt="DrinkWarning" class="map-icon">
+                  <img src="MunchiMaps Assets/Map Icons/FoodWarning.png" alt="FoodWarning" class="map-icon">
+                  <img src="MunchiMaps Assets/Map Icons/Food&DrinkWarning.png" alt="BothWarning" class="map-icon">
               </td>
               <td>
                   <span>Any Machine icon with this symbol indicates there may be something wrong with this machine.</span>
@@ -200,8 +193,8 @@
           </tr>
           <tr class="icon-item">
               <td>
-                  <img src="/MunchiMaps Assets/Map Icons/CashCheck.png" alt="CashCheck" class="map-icon">
-                  <img src="/MunchiMaps Assets/Map Icons/CashX.png" alt="CashX" class="map-icon">
+                  <img src="MunchiMaps Assets/Map Icons/CashCheck.png" alt="CashCheck" class="map-icon">
+                  <img src="MunchiMaps Assets/Map Icons/CashX.png" alt="CashX" class="map-icon">
               </td>
               <td>
                   <span>Cash is either accepted or not</span>
@@ -209,8 +202,8 @@
           </tr>
           <tr class="icon-item">
               <td>
-                  <img src="/MunchiMaps Assets/Map Icons/CreditX.png" alt="CreditX" class="map-icon">
-                  <img src="/MunchiMaps Assets/Map Icons/CashX.png" alt="CashX" class="map-icon">
+                  <img src="MunchiMaps Assets/Map Icons/CreditCheck.png" alt="CreditCheck" class="map-icon">
+                  <img src="MunchiMaps Assets/Map Icons/CreditX.png" alt="CreditX" class="map-icon">
               </td>
               <td>
                   <span>Card is either accepted or not</span>
@@ -218,22 +211,23 @@
           </tr>
           <tr class="icon-item">
               <td>
-                  <img src="/MunchiMaps Assets/Map Icons/PhoneCheck.png" alt="PhoneCheck" class="map-icon">
-                  <img src="/MunchiMaps Assets/Map Icons/PhoneX.png" alt="PhoneX" class="map-icon">
+                  <img src="MunchiMaps Assets/Map Icons/PhoneCheck.png" alt="PhoneCheck" class="map-icon">
+                  <img src="MunchiMaps Assets/Map Icons/PhoneX.png" alt="PhoneX" class="map-icon">
               </td>
               <td>
                   <span>Smartphone Tap to pay is either accepted or not</span>
               </td>
           </tr>
       </table>
-      </div>
+  </div>
+</div>
+<div id="popup-search" style="display: none;">
+    <div class="search-bar">
+          <span class="close" onclick="closeSearch()">&times;</span>
+        <input type="search" id="searchInput" placeholder="Search for a building...">
+        <div id="searchResult" class="result"></div>
     </div>
-    <div id="popup-search" class="popup-container">
-    <div class="popup">
-        <div class = "search-bar">
-          <input type ="search" id="searchInput">
-          <div id="searchResult" class="result"></div>
-        </div>
+</div>
         <script>
           //Temporary buildings list 
           var buildings = [
@@ -303,17 +297,18 @@
   
           document.getElementById('searchInput').addEventListener('input', search);
         </script>
-        <div class="popup-close" onclick="closePopup('Search')">X</div>
+       
     </div>
   </div>
   
   
   
+
   <div id="popup-report" class="popup-container">
     <div class="popup">
       <div class="popup-header">
+         <span class="popup-close" onclick="closePopup('Report')">&times;</span>
         <h2>Report Issue</h2>
-        <span class="popup-close" onclick="closePopup('Report')">&times;</span>
       </div>
       <form id="reportForm" class="popup-form">
         <div class="form-group">
@@ -338,27 +333,20 @@
     </div>
   </div>
 
-  <div id="popup-review" class="popup-container">
-    <div class="popup">
-      <div>Review</div>
-      <div class="popup-close" onclick="closePopup('Review')">X</div>
-    </div>
-  </div>
+
     
   <script>
     
     document.getElementById('reportForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    
-    const title = document.getElementById('reportTitle').value;
-    const reportType = document.getElementById('reportType').value;
-    const description = document.getElementById('reportDescription').value;
-    
-    console.log("Report Title: ", title);
-    console.log("Report Type: ", reportType);
-    console.log("Report Description: ", description);
-    
-    closePopup('Report');
+      event.preventDefault();
+      
+      const title = document.getElementById('reportTitle').value;
+      const description = document.getElementById('reportDescription').value;
+      
+      console.log("Report Title: ", title);
+      console.log("Report Description: ", description);
+      
+      closePopup('Report');
     });
 
   </script>
@@ -368,16 +356,14 @@
    <div id="buttons-container">
     <!---- Contains all buttons at bottom of screen -->
     <!---- NOTE: Button icons don't really work with dark mode colors, change later -->
-      <button class="button" onclick="openPopup('Search')">
+      <button class="button" onclick="openSearch()">
         <img src="https://raw.githubusercontent.com/mike-cautela/MunchiMaps/main/MunchiMaps%20Assets/MenuIcons/search-grey.svg" alt="Search" class="button-img">
       </button>
       
       <button class="button" onclick="openPopup('Report')">
          <img src="https://raw.githubusercontent.com/mike-cautela/MunchiMaps/main/MunchiMaps%20Assets/MenuIcons/alert-triangle-grey.svg" alt="Report" class="button-img">
       </button>
-      <button class="button" onclick="openPopup('Review')">
-         <img src="https://raw.githubusercontent.com/mike-cautela/MunchiMaps/main/MunchiMaps%20Assets/MenuIcons/smile-grey.svg" alt="Review" class="button-img">
-      </button>
+
       <button class="button" id="Location">
          <img src="https://raw.githubusercontent.com/mike-cautela/MunchiMaps/main/MunchiMaps%20Assets/MenuIcons/crosshair-grey.svg" alt="Location" class="button-img">
       </button>
