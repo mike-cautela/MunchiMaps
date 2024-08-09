@@ -1,11 +1,12 @@
 // src/routes/index.js
-const express = require('express');
-const router = express.Router();
-const path = require('path');
+module.exports = async function (fastify, option) {
+  
+  fastify.get('/', async (request, reply) => {
+    return reply.sendFile('new.html');
+  });
+  
+  fastify.setNotFoundHandler((request, reply) => {
+    reply.send(404).send("Not Found");
+  });
+};
 
-// Serve the index.html file
-router.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../../Website/new.html'));
-});
-
-module.exports = router;
