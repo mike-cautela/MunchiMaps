@@ -483,6 +483,12 @@ const infoWindowContent = `
     function closeHelp() {
       document.getElementById("help-popup").style.display = "none";
     }
+	function openMapKey(){
+		document.getElementById("map-key-popup").style.display = "block";
+	}
+	function closeMapKey(){
+		document.getElementById("map-key-popup").style.display = "none";
+	}
 
     // Close the help popup if the user clicks outside of the help content
     window.onclick = function(event) {
