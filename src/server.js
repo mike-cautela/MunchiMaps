@@ -1,36 +1,53 @@
 console.log("Server.js running");
 
-// We are at the mercy of the package.json file. DO NOT anger it.
-
 const fastify = require("fastify")({
-  logger:true
+  logger: true
 });
-const express = require('express');
+
 const path = require('path');
-const app = express();
-
 const dbFunctions = require("../scripts/database.js");
-const db = require("../scripts/database.js");
+const getData = require("../scripts/processData.js");
 
-console.log("Boogly boo");
+const startServer = async () => {
+  try {
+    
+    // Initialize database
+    await dbFunctions.initializeDatabase();
+    
+    // Register static files
+    fastify.register(require("@fastify/static"), {
+      root: path.join(__dirname, '../Website'),
+      prefix: '/',
+    });
 
-// Middelware to serve static files.
-app.use(express.static(path.join(__dirname,'../Website')));
+    // Register routes
+    const indexRouter = require('./routes/index');
+    fastify.register(indexRouter);
 
-// Routes
-const indexRouter = require('./routes/index');
-app.use('/', indexRouter);
+    fastify.register(require("@fastify/formbody"));
 
-/*
-app.get('/', function(req, res){
-  console.log(__dirname);
-  res.sendFile(path.join(__dirname + '/new.html'));
-});
-*/
-db.initializeDatabase();
+    // OnRoute hook to list endpoints
+    const routes = { endpoints: [] };
+    fastify.addHook("onRoute", routeOptions => {
+      routes.endpoints.push(routeOptions.method + " " + routeOptions.path);
+    });
 
-// app.use(express.static("./"));
+    // Register route modules
+    fastify.register(require('../scripts/buildings.js'));
+    fastify.register(require('../scripts/reviews.js'));
 
-app.listen(5000, () => {
-  console.log('Server started at http://localhost:5000/');
-});
+    // Start the server
+    const address = await fastify.listen({ port: 5000 });
+    console.log(`Server started at ${address}`);
+
+    // Run data processing
+    await getData.runDataProcessing();
+
+  } catch (err) {
+    console.error(err);
+    process.exit(1);
+  }
+};
+
+// Start the server and run data processing
+startServer();
