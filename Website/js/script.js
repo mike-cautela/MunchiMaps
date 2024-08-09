@@ -98,83 +98,7 @@
       });
       
       // Test area ------------------------------------------- 
-
-      options = [foodanddrink, food, drink];
-      
-       //generating the description based on image that it is given
-       function generatedescription(image1, image2, image3) {
-        let results = ["This vending machine accepts: "];
-        
-        if (image1 === "https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/CreditCheck.png?raw=true") {
-            results.push("card");
-        } else if (image1 === "https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/CreditX.png?raw=true") {
-            results.push("");
-        }
-        
-        if (image2 === "https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/CashCheck.png?raw=true") {
-            if (image1 === "https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/CreditX.png?raw=true") {
-                results.push("cash");
-            } else {
-                results.push(", cash");
-            }
-        } else if (image2 === "https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/CashX.png?raw=true") {
-            results.push("");
-        }
-        
-        if (image3 === "https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/PhoneCheck.png?raw=true") {
-            if (image1 === "https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/CreditX.png?raw=true" && image2 === "https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/CashX.png?raw=true") {
-                results.push("wireless payments");
-            } else {
-                results.push(", wireless payments");
-            }
-        } else if (image3 === "https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/PhoneX.png?raw=true.png") {
-            results.push("");
-        }
-        return results.join("");
-      }
-
-      // generate images for payment.
-      function paymentOptions(images, hasCash, hasCard, hasTap) {
-
-      }
-      
-      function vendingOffered(numSnack, numDrinks) {
-        let img_icon;
-        if(numSnack > 0 && numDrinks > 0) {
-          img_icon = 0;
-        } else if(numSnack > 0) {
-          img_icon = 1;
-        } else if(numDrinks > 0) {
-          img_icon = 2;
-        }
-        return img_icon;
-      }
-
-      function setImages(name, numSnack, numDrinks) {
-        let images;
-        let image = name.split(" ").join("");
-        let active = false;
-        if(numSnack >= 1) {
-          images = "<img src='../MunchiMaps Assets/" + name + "/" + image + "Snack1.jpg'?raw=true\" alt=\"Logo 1\" class=\"active\">";
-          for(let i = 2; i <= numSnack; i++) {
-            images += "<img src='../MunchiMaps Assets/" + name + "/" + image + "Snack" + i + ".jpg'?raw=true\" alt=\"Logo " + i + ">";
-            
-          }
-        }
-        if(numDrinks >= 1) {
-          if(!active) {
-            images = "<img src='../MunchiMaps Assets/" + name + "/"+image+"Drink1.jpg'?raw=true\" alt=\"Logo 1\" class=\"active\">";
-            active = true;
-          } else {
-            images += images + "<img src='../MunchiMaps Assets/" + name + "/" + image + "Drink1.jpg'?raw=true\" alt=\"Logo 1\">";
-          }
-          for(let i = 2; i <= numDrinks; i++) {
-            images += images + "<img src='../MunchiMaps Assets/" + name + "/" + image + "Drink" +i + ".jpg'?raw=true\" alt=\"Logo " + i + ">";
-          }
-        }
-        return images;
-      }
-
+      /*
       class EventEmitter {
         constructor() {
           this.events = {};
@@ -187,8 +111,6 @@
           this.events[event].push(listener);
         }
       }
-
-      // Icons for vending machines object class ========================================================================================================
       
       class icon extends EventEmitter {
       constructor(name, x_coord, y_coord, time_opens, time_closes, num_snack_machines, num_drink_machines, num_ratings, average_ratings, needs_service) {
@@ -203,45 +125,27 @@
         this.num_ratings = num_ratings;
         this.average_ratings = average_ratings;
         this.needs_service = needs_service;
-
-        this.image1 = "https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/CreditCheck.png?raw=true";
-        this.image2 = "https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/CashCheck.png?raw=true";
-        this.image3 = "https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/PhoneX.png?raw=true";
-
-        this.description = generatedescription(this.image1, this.image2, this.image3);
-        //this.payments = paymentOptions(images, 1, 1, 1);
-        this.img_icon = vendingOffered(this.num_snack_machines, this.num_drink_machines);
-
-        this.images = setImages(this.name, this.num_snack_machines, this.num_drink_machines);
-
         this.infoWindowContent = `
         <div class="info-window-content">
           <div class="info-window-image">
-            ${this.images}
+              <img src="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/${this.name}/${this.name}Drink1.jpg?raw=true" alt="Logo 1" class="active">
+              <img src="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/${this.name}/${this.name}Drink2.jpg?raw=true" alt="Logo 2">
+              <img src="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/${this.name}/${this.name}Food1.jpg?raw=true" alt="Logo 3">
               <div class="carousel-controls">
                   <button class="prev">&lt;</button>
                   <button class="next">&gt;</button>
               </div>
           </div>
-          <div class="info-window-text">
-            <div class="info-window-title">${this.name}</div>
-            <div class="info-window-icons">
-                <img src="${this.image1}">
-                <img src="${this.image2}" alt="Image 2">
-                <img src="${this.image3}" alt="Image 3">
-            </div>
-            <div class="info-window-subtitle">${this.description}</div>
-        </div>
         </div>`;
         this.infoWindow;
       }
         plot() {
-          const marker = L.marker([this.x_coord, this.y_coord], {icon: options[this.img_icon] }).addTo(map);
-          marker.on('click', () => {
+          const marker = L.marker([this.x_coord, this.y_coord], {icon: foodanddrink }).addTo(map);
+          marker.on('click', () =>
                    this.infoWindow = L.popup({maxWidth: 500})
           .setLatLng([this.x_coord, this.y_coord])
           .setContent(this.infoWindowContent)
-          .openOn(map);
+          .openOn(map));
 
           //Handles image selector for Location
           const images = document.querySelectorAll('.info-window-image img');
@@ -253,60 +157,22 @@
             images.forEach((img, i) => {
               img.classList.toggle('active', i === index);
             });
-          } // End showImage
+              }
               prevButton.addEventListener('click', () => {
                 currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
                 showImage(currentIndex);
-              }); // End prev
+              });
 
               nextButton.addEventListener('click', () => {
                 currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
                 showImage(currentIndex);
-              }); // end next
-          });
-        }
-      } // Icon object declaration ending.
+              });
+          }
+        } // Icon object declaration ending.
         
       const sharp = new icon("Sharp Hall", 42.72711006590162, -73.67448712656643, 0.00, 24.00, 0, 1, 0, 0, "N");
-      const union = new icon("Union", 42.730159761978896,-73.67663391678252, 7.00, 24.00, 1, 1, 0, 0, "N");
-      const quad = new icon("Quad",42.730706041764584,-73.67756264747236, 0.00, 24.00, 0, 2, 0, 0, "N");
-      const dcc = new icon("DCC", 42.72934781129576, -73.67895862471251, 7.00, 21.00, 1, 1, 0, 0, "N");
-      const vcc = new icon("Vorhees Computing Center", 42.72931448709032, -73.68164350143745, 7.00, 23.00, 1, 2, 0, 0, "N");
-      const amos = new icon("Amos Eaton Hall", 42.730287323346445, -73.68258918979996, 7.00, 22.00, 0, 1, 0, 0, "N");
-      const mueller = new icon("Mueller Center", 42.72891902003062, -73.67684441122128, 8.00, 10.00, 1, 2, 0, 0,"N");
-      const jec = new icon("JEC", 42.729847677153444, -73.68020218979997,6.00, 22.00, 1, 1,0, 0, "N");
-      const sage = new icon("Sage Labs",42.73097906477598, -73.68164141863616, 7.00, 24.00, 1, 1, 0, 0, "N");
-      const jrowl = new icon("JROWL", 42.72900301770575, -73.68045377630875, 6.00, 22.00, 1, 1, 0, 0, "N");
-      const pittsburgh = new icon("Pittsburgh Building",42.73125174093247, -73.68330210329108, 7.00, 21.00, 1, 1, 0, 0, "N");
-      const warren =  new icon("Warren Hall", 42.72809422047715, -73.67536297260132, 7.00, 21.00, 0, 1, 0, 0, "N");
-      const greene = new icon("Greene Building", 42.73022009495838, -73.68115317445492, 7.00, 21.00, 1, 1, 0, 0, "N");
-      const davison = new icon("Davison Hall", 42.72731130298223, -73.67414636096385, 0.00, 24.00, 0, 1,0, 0, "N");
-      const pub_safe = new icon("Pub Safe",42.72930295751444, -73.67676008238502, 0.00, 24.00, 0, 1, 0, 0, "N");
-      const north_hall = new icon("North Hall", 42.73142413669011, -73.67987080514486, 7.00, 24.00, 2, 1, 0, 0,"N");
-      const west_hall = new icon("West Hall", 42.731807801585866, -73.68320404747236, 0.00, 24.00, 0, 1, 0, 0, "N");
-      const folsom = new icon("Folsom Library", 42.72954131606436, -73.68250278794625, 8.00, 11.00, 1, 1, 0, 0, "N");
-
+      
       sharp.plot();
-      union.plot();
-      quad.plot();
-      dcc.plot();
-      vcc.plot();
-      amos.plot();
-      mueller.plot();
-      amos.plot();
-      jec.plot();
-      amos.plot();
-      sage.plot();
-      jrowl.plot();
-      pittsburgh.plot();
-      warren.plot();
-      greene.plot();
-      davison.plot();
-      pub_safe.plot();
-      north_hall.plot();
-      west_hall.plot();
-      folsom.plot();
-
 
       
       
@@ -327,7 +193,6 @@
       
       //Marker locations. 
       
-      /*
       console.log("Vaccuum cleaner");
       const folsom = L.marker([42.7294361078206, -73.68252684056829], { icon: foodanddrink }).addTo(map);
       const jrowl = L.marker([42.7288, -73.6804], { icon: foodanddrink }).addTo(map);
@@ -688,8 +553,6 @@ const infoWindowContent = `
           showImage(currentIndex);
         });
       });
-
-      Hefty obsolete above ^ */ 
 
       /* OBSOLETE IGNORE
       //Dark mode code.
