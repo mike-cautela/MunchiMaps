@@ -153,13 +153,23 @@
       function setImages(name, numSnack, numDrinks) {
         let images;
         let image = name.split(" ").join("");
-        if(numSnack == 1) {
-          images = `<img src='../MunchiMaps Assets/${name}/${name}Snack.jpg'?raw=true" alt="Logo 1">`;
-        } else if(numSnack > 1) {
-
+        let active = false;
+        if(numSnack >= 1) {
+          images = `<img src='../MunchiMaps Assets/${name}/${image}Snack1.jpg'?raw=true" alt="Logo 1" class="active">`;
+          for(let i = 2; i <= numSnack; i++) {
+            images += `<img src='../MunchiMaps Assets/${name}/${image}Snack${i}.jpg'?raw=true" alt="Logo ${i}">`;
+          }
         }
-        if(numDrinks == 1) {
-          images = `<img src='../MunchiMaps Assets/${name}/${image}Drink.jpg'?raw=true" alt="Logo 1">`;
+        if(numDrinks >= 1) {
+          if(!active) {
+            images = `<img src='../MunchiMaps Assets/${name}/${image}Snack1.jpg'?raw=true" alt="Logo 1" class="active">`;
+            active = true;
+          } else {
+            images = `<img src='../MunchiMaps Assets/${name}/${image}Snack1.jpg'?raw=true" alt="Logo 1">`;
+          }
+          for(let i = 2; i <= numDrinks; i++) {
+            images += `<img src='../MunchiMaps Assets/${name}/${image}Snack${i}.jpg'?raw=true" alt="Logo ${i}">`;
+          }
         }
         return images;
       }
