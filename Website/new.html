@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="icon" type="image/x-icon" href="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/CookieFavicon.png?raw=true">
+ 
+  <title>MunchiMaps</title>
+  
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link id = 'light-mode'rel="stylesheet" href="Website/styles/MunchiMaps_stylesheet.css" />
+  <link id = 'dark-mode' rel="stylesheet" href="Website/styles/dark.css" />
+  <link rel="stylesheet" href="Website/styles/Location_Style_Sheet.css" />
+  <link rel="stylesheet" href="Website/styles/loading_animation_stylesheet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="scripts/script.js" ></script>
+
+  
+</head>
+<body>
+  <div class="logo-title">
+    <img src="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/MunchiMaps%20Logos/MunchiMapsCroppedLogo.png?raw=true" alt="MunchiMaps">
+  </div>
+   
+  <div id="map-container">
+    <div id="map"></div>
+  </div>
+
+  <!-- Add the help button -->
+<icon class="help-button" onclick="openHelp()">
+  <img src="https://raw.githubusercontent.com/mike-cautela/MunchiMaps/main/MunchiMaps%20Assets/MenuIcons/help-circle-grey.svg" alt="Help" class="help-button-img">
+</icon>
+
+ <!-- Map Key Button -->
+ <icon class="map-key-button" onclick="openMapKey()">
+  <img src="MunchiMaps Assets/CookieFavicon.png" alt="Map Key" class="map-key-button-img">
+ </icon>
+ <!-- Map Key Button -->
+ <icon class="map-key-button" onclick="openMapKey()">
+  <img src="MunchiMaps Assets/CookieFavicon.png" alt="Map Key" class="map-key-button-img">
+ </icon>
+
+  <div id="help-popup" class="help-popup">
+  <div class="help-content">
+      <span class="close" onclick="closeHelp()">&times;</span>
+      <h2>How to Use MunchiMaps:</h2>
+      <p>Look at the MunchiMap to find the nearest Vending Machine near you!</p>
+      <p>Make sure to check to see if the machine sells Snacks and/or drinks</p>
+
+      <h3>MunchiMap Functions:</h3>
+  <table class="icons-description">
+      <tr class="icon-item">
+          <td>
+              <svg class="help-icon" id="search_icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                  <defs>
+                    <style>
+                      .cls-1 {
+                        fill: none;
+                        stroke: #626262;
+                        stroke-linecap: round;
+                        stroke-linejoin: round;
+                        stroke-width: 4px;
+                    }
+                    </style>
+                  </defs>
+                  <circle class="cls-1" cx="11" cy="11" r="8"/>
+                  <line class="cls-1" x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+          </td>
+          <td>
+              <span>Use the search feature to find the specific building on Campus you're snacking in!</span>
+          </td>
+      </tr>
+      <tr class="icon-item">
+          <td>
+              <svg class="help-icon" id="reportpic" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 45.79 40.21">
+                  <defs>
+                      <style>
+                          .cls-1 {
+                              fill: none;
+                              stroke: #626262;
+                              stroke-linecap: round;
+                              stroke-linejoin: round;
+                              stroke-width: 4px;
+                          }
+                      </style>
+                  </defs>
+                  <path class="cls-1" d="M19.48,3.93L2.54,32.21c-1.1,1.91-.45,4.36,1.46,5.46.6.34,1.27.53,1.96.54h33.88c2.21-.02,3.98-1.83,3.96-4.04,0-.69-.19-1.36-.54-1.96L26.32,3.93c-1.15-1.89-3.61-2.49-5.49-1.35-.55.33-1.01.8-1.35,1.35Z"/>
+                  <line class="cls-1" x1="22.9" y1="14.21" x2="22.9" y2="22.21"/>
+                  <line class="cls-1" x1="22.9" y1="30.21" x2="22.92" y2="30.21"/>
+              </svg>
+          </td>
+          <td>
+              <span>Use the Report feature to report any issues you encounter at a Vending Machine </span>
+          </td>
+      </tr>
+      <tr class="icon-item">
+        <td>
+            <svg class="help-icon" id="reviewpic" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 45.79 40.21">
+                <defs>
+                    <style>
+                        .cls-1 {
+                            fill: none;
+                            stroke: #626262;
+                            stroke-linecap: round;
+                            stroke-linejoin: round;
+                            stroke-width: 4px;
+                        }
+                    </style>
+                </defs>
+                <circle class="cls-1" cx="22" cy="22" r="20"/>
+                <path class="cls-1" d="M14,26s3,4,8,4,8-4,8-4"/>
+                <line class="cls-1" x1="16" y1="16" x2="16.02" y2="16"/>
+                <line class="cls-1" x1="28" y1="16" x2="28.02" y2="16"/>
+            </svg>
+        </td>
+        <td>
+            <span>Use the Review feature to review Vending Machine's quality of items! </span>
+        </td>
+    </tr>
+    <tr class="icon-item">
+      <td>
+          <svg class="help-icon" id="locationpic" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 45.79 40.21">
+              <defs>
+                  <style>
+                      .cls-1 {
+                          fill: none;
+                          stroke: #626262;
+                          stroke-linecap: round;
+                          stroke-linejoin: round;
+                          stroke-width: 4px;
+                      }
+                  </style>
+              </defs>
+              <circle class="cls-1" cx="22" cy="22" r="20"/>
+              <line class="cls-1" x1="42" y1="22" x2="34" y2="22"/>
+              <line class="cls-1" x1="10" y1="22" x2="2" y2="22"/>
+              <line class="cls-1" x1="22" y1="10" x2="22" y2="2"/>
+              <line class="cls-1" x1="22" y1="42" x2="22" y2="34"/>
+          </svg>
+      </td>
+      <td>
+          <span>Use the Location button to recalibrate your current location if necessary </span>
+      </td>
+  </tr>
+  </table>
+  </div>
+</div>
+
+ <!-- Map Key Popup -->
+<div id="mapKeyPopup" class="map-key-button-popup">
+  <div class="map-key-content">
+      <span class="map-key-close" onclick="closeMapKey()">&times;</span>
+  <div class="map-key-content">
+      <span class="map-key-close" onclick="closeMapKey()">&times;</span>
+      <h3>Map Key:</h3>
+      <table class="map-key">
+          <tr class="icon-item">
+              <td>
+                  <img src="MunchiMaps Assets/Map Icons/Food.png" alt="FoodOnly" class="map-icon">
+              </td>
+              <td>
+                  <span>Food Only Vending Machine</span>
+              </td>
+          </tr>
+          <tr class="icon-item">
+              <td>
+                  <img src="MunchiMaps Assets/Map Icons/Drink.png" alt="Drinks" class="map-icon">
+              </td>
+              <td>
+                  <span>Drink Only Vending Machine</span>
+              </td>
+          </tr>
+          <tr class="icon-item">
+              <td>
+                  <img src="MunchiMaps Assets/Map Icons/Food&Drink.png" alt="Snacks and Drinks" class="map-icon">
+              </td>
+              <td>
+                  <span>Food and Drinks Machines Available</span>
+              </td>
+          </tr>
+          <tr class="icon-item">
+              <td>
+                  <img src="MunchiMaps Assets/Map Icons/FoodClosed.png" alt="FoodClosed" class="map-icon">
+                  <img src="MunchiMaps Assets/Map Icons/DrinkClosed.png" alt="DrinkClosed" class="map-icon">
+                  <img src="MunchiMaps Assets/Map Icons/Food&DrinkClosed.png" alt="BothClosed" class="map-icon">
+              </td>
+              <td>
+                  <span>Any Machine icon with this symbol is closed at the moment</span>
+              </td>
+          </tr>
+          <tr class="icon-item">
+              <td>
+                  <img src="MunchiMaps Assets/Map Icons/DrinkWarning.png" alt="DrinkWarning" class="map-icon">
+                  <img src="MunchiMaps Assets/Map Icons/FoodWarning.png" alt="FoodWarning" class="map-icon">
+                  <img src="MunchiMaps Assets/Map Icons/Food&DrinkWarning.png" alt="BothWarning" class="map-icon">
+              </td>
+              <td>
+                  <span>Any Machine icon with this symbol indicates there may be something wrong with this machine.</span>
+              </td>
+          </tr>
+          <tr class="icon-item">
+              <td>
+                  <img src="MunchiMaps Assets/Map Icons/CashCheck.png" alt="CashCheck" class="map-icon">
+                  <img src="MunchiMaps Assets/Map Icons/CashX.png" alt="CashX" class="map-icon">
+              </td>
+              <td>
+                  <span>Cash is either accepted or not</span>
+              </td>
+          </tr>
+          <tr class="icon-item">
+              <td>
+                  <img src="MunchiMaps Assets/Map Icons/CreditCheck.png" alt="CreditCheck" class="map-icon">
+                  <img src="MunchiMaps Assets/Map Icons/CreditX.png" alt="CreditX" class="map-icon">
+              </td>
+              <td>
+                  <span>Card is either accepted or not</span>
+              </td>
+          </tr>
+          <tr class="icon-item">
+              <td>
+                  <img src="MunchiMaps Assets/Map Icons/PhoneCheck.png" alt="PhoneCheck" class="map-icon">
+                  <img src="MunchiMaps Assets/Map Icons/PhoneX.png" alt="PhoneX" class="map-icon">
+              </td>
+              <td>
+                  <span>Smartphone Tap to pay is either accepted or not</span>
+              </td>
+          </tr>
+      </table>
+      </div>
+    </div>
+    <div id="popup-search" class="popup-container">
+    <div class="popup">
+        <div class = "search-bar">
+          <input type ="search" id="searchInput">
+          <div id="searchResult" class="result"></div>
+        </div>
+        <script>
+          //Temporary buildings list 
+          var buildings = [
+                  {name: 'Folsom Library', drink: true, food: true},
+                  {name: 'Sharp Hall', drink: true, food: true},
+                  {name: 'Rensselaer Student Union', drink: true, food: true},
+                  {name: 'Quadrangle Complex', drink: true, food: false},
+                  {name: 'Darrin Communication Center', drink: true, food: true},
+                  {name: 'Woorhees Computing Center', drink: true, food: true},
+                  {name: 'Amos Eaton Hall', drink: true, food: false},
+                  {name: 'Mueller Center', drink: true, food: true},
+                  {name: 'J Erik Jonsson Engineering Center', drink: true, food: true},
+                  {name: 'Russell Sage Laboratory', drink: true, food: true},
+                  {name: 'Jonsson-Rowland Science Center', drink: true, food: true},
+                  {name: 'Pittsburgh Building', drink: true, food: true},
+                  {name: 'Warren Hall', drink: true, food: false},
+                  {name: 'Greene Building', drink: true, food: true},
+                  {name: 'Davison Hall', drink: true, food: false},
+                  {name: 'RPI Public Safety', drink: true, food: false},
+                  {name: 'North Hall', drink: true, food: true},
+                  {name: 'West Hall', drink: true, food: false}
+          ];
+          
+          //Building sort
+          buildings.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
+          console.log(buildings);
+        
+          //Search function 
+          function search(){
+              var searchTerm = document.getElementById('searchInput').value.trim().toLowerCase();
+              var filtered = [];
+  
+              buildings.forEach(function(building){
+                  if(filter(building, searchTerm)){
+                      filtered.push(building);
+                  }
+              });
+  
+              displayResults(filtered);
+          }
+  
+          //Filter through the list
+          function filter(item, searchTerm){
+              return item.name.toLowerCase().startsWith(searchTerm);
+          }
+  
+          //Display results
+          function displayResults(results){
+              var resultContainer = document.getElementById('searchResult');
+              resultContainer.innerHTML = '';
+              
+              if (results.length > 0) {
+                  var resultList = document.createElement('ul');
+                  
+                  results.forEach(function(item) {
+                      var listItem = document.createElement('li');
+                      listItem.textContent = item.name;
+                      resultList.appendChild(listItem);
+                  });
+                  
+                  resultContainer.appendChild(resultList);
+              } 
+              else {
+                  resultContainer.textContent = 'No results found';
+              }
+          }
+  
+          document.getElementById('searchInput').addEventListener('input', search);
+        </script>
+        <div class="popup-close" onclick="closePopup('Search')">X</div>
+    </div>
+  </div>
+  
+<div id="popup-report" class="popup-container">
+  <div class="popup">
+    <div class="popup-header">
+      <h2>Report Issue</h2>
+      <span class="popup-close" onclick="closePopup('Report')">&times;</span>
+    </div>
+    <form id="reportForm" class="popup-form">
+      <div class="form-group">
+        <label for="reportTitle">Title:</label>
+        <input type="text" id="reportTitle" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="reportDescription">Description:</label>
+        <textarea id="reportDescription" class="form-control" required></textarea>
+      </div>
+      <button type="submit" class="btn-submit">Submit</button>
+      <button type="fixx" class="btn-fixx">Fixx</button>
+
+    </form>
+  </div>
+</div>
+
+  <div id="popup-review" class="popup-container">
+    <div class="popup">
+      <div>Review</div>
+      <div class="popup-close" onclick="closePopup('Review')">X</div>
+    </div>
+  </div>
+    
+  <script>
+
+  </script>
+
+   <div id="buttons-container">
+    <!---- Contains all buttons at bottom of screen -->
+    <!---- NOTE: Button icons don't really work with dark mode colors, change later -->
+      <button class="button" onclick="openPopup('Search')">
+        <img src="https://raw.githubusercontent.com/mike-cautela/MunchiMaps/main/MunchiMaps%20Assets/MenuIcons/search-grey.svg" alt="Search" class="button-img">
+      </button>
+      
+      <button class="button" onclick="openPopup('Report')">
+         <img src="https://raw.githubusercontent.com/mike-cautela/MunchiMaps/main/MunchiMaps%20Assets/MenuIcons/alert-triangle-grey.svg" alt="Report" class="button-img">
+      </button>
+      <button class="button" onclick="openPopup('Review')">
+         <img src="https://raw.githubusercontent.com/mike-cautela/MunchiMaps/main/MunchiMaps%20Assets/MenuIcons/smile-grey.svg" alt="Review" class="button-img">
+      </button>
+      <button class="button" id="Location">
+         <img src="https://raw.githubusercontent.com/mike-cautela/MunchiMaps/main/MunchiMaps%20Assets/MenuIcons/crosshair-grey.svg" alt="Location" class="button-img">
+      </button>
+    </div>
+</body>
+</html>
+
+
