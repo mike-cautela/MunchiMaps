@@ -151,7 +151,7 @@
       }
 
       function setImages(name, numSnack, numDrinks) {
-        console.log("Welcome to setImages");
+
         let images;
         let image = name.split(" ").join("");
         let active = false;
@@ -162,10 +162,9 @@
           for(let i = 2; i <= numSnack; i++) {
             
             images += "<img src='../MunchiMaps Assets/" + name + "/" + image + "Snack" + i + ".jpg'?raw=true\" alt=\"Logo " + i + "\">";
-            console.log(images);
           }
+          
         }
-        //console.log(images);
         
         if(numDrinks >= 1) {
           if(!active) {
@@ -178,8 +177,6 @@
             images += "<img src='../MunchiMaps Assets/" + name + "/" + image + "Drink" +i + ".jpg'?raw=true\" alt=\"Logo " + i + "\">";
           }
         }
-        
-        //console.log(images);
         return images;
       }
 
