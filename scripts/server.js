@@ -1,44 +1,53 @@
 console.log("Server.js running");
 
-// We are at the mercy of the package.json file. DO NOT anger it.
-
 const fastify = require("fastify")({
-  logger:true
+  logger: true
 });
 
 const path = require('path');
 const dbFunctions = require("../scripts/database.js");
-const db = require("../scripts/database.js");
+const getData = require("../scripts/processData.js");
 
-console.log("Boogly boo");
+const startServer = async () => {
+  try {
+    
+    // Initialize database
+    await dbFunctions.initializeDatabase();
+    
+    // Register static files
+    fastify.register(require("@fastify/static"), {
+      root: path.join(__dirname, '../Website'),
+      prefix: '/',
+    });
 
-fastify.register(require("@fastify/static"), {
-  root: path.join(__dirname, '../Website'),
-  prefix: '/',
-});
+    // Register routes
+    const indexRouter = require('./routes/index');
+    fastify.register(indexRouter);
 
-// Routes
-const indexRouter = require('./routes/index');
-fastify.register(indexRouter);
+    fastify.register(require("@fastify/formbody"));
 
-fastify.register(require("@fastify/formbody"));
+    // OnRoute hook to list endpoints
+    const routes = { endpoints: [] };
+    fastify.addHook("onRoute", routeOptions => {
+      routes.endpoints.push(routeOptions.method + " " + routeOptions.path);
+    });
 
-// OnRoute hook to list endpoints
-const routes = { endpoints: [] };
-fastify.addHook("onRoute", routeOptions => {
-  routes.endpoints.push(routeOptions.method + " " + routeOptions.path);
-});
+    // Register route modules
+    fastify.register(require('../scripts/buildings.js'));
+    fastify.register(require('../scripts/reviews.js'));
 
-// Register route modules
-fastify.register(require('../scripts/buildings.js'));
-fastify.register(require('../scripts/reviews.js'));
+    // Start the server
+    const address = await fastify.listen({ port: 5000 });
+    console.log(`Server started at ${address}`);
 
-db.initializeDatabase();
+    // Run data processing
+    await getData.runDataProcessing();
 
-fastify.listen({ port: 5000 }, (err, address) => {
-  if (err) {
+  } catch (err) {
     console.error(err);
     process.exit(1);
   }
-  console.log(`Server started at ${address}`);
-});
+};
+
+// Start the server and run data processing
+startServer();
