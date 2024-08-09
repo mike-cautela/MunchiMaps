@@ -31,7 +31,7 @@
                 }
 
                 // Add a new marker
-                currentMarker = L.marker(e.latlng, {icon: locationDot}).addTo(map).bindPopup("You are here").openPopup();
+                currentMarker = L.marker(e.latlng, {icon: locationDot}).addTo(map).bindPopup('<div class="location-text">You are here</div>').openPopup();
                 map.setView(e.latlng, 18); // Center the map on the user's location
             }
 

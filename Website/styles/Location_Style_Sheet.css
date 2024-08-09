@@ -27,3 +27,8 @@
                 height: 60px;
             }
         }
+.location-text{
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  font-weight: bold;
+}
