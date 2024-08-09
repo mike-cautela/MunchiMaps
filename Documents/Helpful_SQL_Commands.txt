@@ -1,0 +1,23 @@
+Once on the Glitch Terminal:
+
+To begin executing SQL commands first type:
+
+    $ sqlite3 database_file.db 
+
+To See Tables (name only):
+
+    sqlite> .tables 
+
+To See Table (with all fields):
+
+    sqlite> .schema table_name 
+
+To See Table (with all columns):
+
+    sqlite> SELECT * FROM table_name;
+
+To Drop a Table (This deletes EVERYTHING including the initialization):
+
+    sqlite> DROP TABLE table_name;
+
+
