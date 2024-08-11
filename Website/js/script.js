@@ -77,21 +77,21 @@
 
       //Gets the icon for vending machines available from github.
       const foodanddrink = L.icon({
-        iconUrl: 'https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/Food&Drink.png?raw=true',
+        iconUrl: 'https://github.com/mike-cautela/MunchiMaps/blob/main/Website/MunchiMaps%20Assets/Map%20Icons/Food&Drink.png?raw=true',
         iconSize: [80, 50],
         iconAnchor: [50, 25]
         
       });
 
       const food = L.icon({
-        iconUrl: 'https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/Food.png?raw=true',
+        iconUrl: 'https://github.com/mike-cautela/MunchiMaps/blob/main/Website/MunchiMaps%20Assets/Map%20Icons/Food.png?raw=true',
         iconSize: [50, 50],
         iconAnchor: [50, 25]
         
       });
 
       const drink = L.icon({
-        iconUrl: 'https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/Drink.png?raw=true',
+        iconUrl: 'https://github.com/mike-cautela/MunchiMaps/blob/main/Website/MunchiMaps%20Assets/Map%20Icons/Drink.png?raw=true',
         iconSize: [50, 50],
         iconAnchor: [50, 25]
         
@@ -105,29 +105,29 @@
        function generatedescription(image1, image2, image3) {
         let results = ["This vending machine accepts: "];
         
-        if (image1 === "https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/CreditCheck.png?raw=true") {
+        if (image1 === "https://github.com/mike-cautela/MunchiMaps/blob/main/Website/MunchiMaps%20Assets/Map%20Icons/CreditCheck.png?raw=true") {
             results.push("card");
-        } else if (image1 === "https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/CreditX.png?raw=true") {
+        } else if (image1 === "https://github.com/mike-cautela/MunchiMaps/blob/main/Website/MunchiMaps%20Assets/Map%20Icons/CreditX.png?raw=true") {
             results.push("");
         }
         
-        if (image2 === "https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/CashCheck.png?raw=true") {
-            if (image1 === "https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/CreditX.png?raw=true") {
+        if (image2 === "https://github.com/mike-cautela/MunchiMaps/blob/main/Website/MunchiMaps%20Assets/Map%20Icons/CashCheck.png?raw=true") {
+            if (image1 === "https://github.com/mike-cautela/MunchiMaps/blob/main/Website/MunchiMaps%20Assets/Map%20Icons/CreditX.png?raw=true") {
                 results.push("cash");
             } else {
                 results.push(", cash");
             }
-        } else if (image2 === "https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/CashX.png?raw=true") {
+        } else if (image2 === "https://github.com/mike-cautela/MunchiMaps/blob/main/Website/MunchiMaps%20Assets/Map%20Icons/CashX.png?raw=true") {
             results.push("");
         }
         
-        if (image3 === "https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/PhoneCheck.png?raw=true") {
-            if (image1 === "https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/CreditX.png?raw=true" && image2 === "https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/CashX.png?raw=true") {
+        if (image3 === "https://github.com/mike-cautela/MunchiMaps/blob/main/Website/MunchiMaps%20Assets/Map%20Icons/PhoneCheck.png?raw=true") {
+            if (image1 === "https://github.com/mike-cautela/MunchiMaps/blob/main/Website/MunchiMaps%20Assets/Map%20Icons/CreditX.png?raw=true" && image2 === "https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/CashX.png?raw=true") {
                 results.push("wireless payments");
             } else {
                 results.push(", wireless payments");
             }
-        } else if (image3 === "https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/PhoneX.png?raw=true.png") {
+        } else if (image3 === "https://github.com/mike-cautela/MunchiMaps/blob/main/Website/MunchiMaps%20Assets/Map%20Icons/PhoneX.png?raw=true.png") {
             results.push("");
         }
         return results.join("");
@@ -212,9 +212,9 @@
         this.average_ratings = average_ratings;
         this.needs_service = needs_service;
 
-        this.image1 = "https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/CreditCheck.png?raw=true";
-        this.image2 = "https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/CashCheck.png?raw=true";
-        this.image3 = "https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/PhoneX.png?raw=true";
+        this.image1 = "https://github.com/mike-cautela/MunchiMaps/blob/main/Website/MunchiMaps%20Assets/Map%20Icons/CreditCheck.png?raw=true";
+        this.image2 = "https://github.com/mike-cautela/MunchiMaps/blob/main/Website/MunchiMaps%20Assets/Map%20Icons/CashCheck.png?raw=true";
+        this.image3 = "https://github.com/mike-cautela/MunchiMaps/blob/main/Website/MunchiMaps%20Assets/Map%20Icons/PhoneX.png?raw=true";
 
         this.description = generatedescription(this.image1, this.image2, this.image3);
         //this.payments = paymentOptions(images, 1, 1, 1);
