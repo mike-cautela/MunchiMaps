@@ -107,7 +107,6 @@ html, body {
   background-color: rgb(0,0,0); 
   background-color: rgba(0,0,0,0.4); 
   font-family: 'Courier New'; 
-
 }
 
 .help-content {
@@ -344,6 +343,7 @@ html, body {
     font-family: 'Courier New';
     font-size: 12px;
     color: grey;
+    font-weight: bold;
   }
   .info-window-icons {
     display: flex;
@@ -507,6 +507,7 @@ html, body {
     font-size: 16px;
     font-family: 'Courier New';
     margin-bottom: 10px;
+    font-weight: bold;
 }
 
 /*search bar results*/
@@ -523,6 +524,7 @@ html, body {
     font-family: 'Courier New';
     padding: 0;
     margin: 0;
+    font-weight: bold;
 }
 
 .result ul li {
@@ -533,6 +535,7 @@ html, body {
     background-color: white;
     transition: box-shadow 0.3s;
     font-family: 'Courier New';
+    font-weight: bold;
 }
 
 .result ul li:hover {
@@ -544,6 +547,7 @@ html, body {
     color: #333;
     font-size: 18px;
     font-family: 'Courier New';
+    font-weight: bold;
 }
 
 .result ul li a:hover {
@@ -611,6 +615,7 @@ html, body {
   font-size: 16px;
   margin-bottom: 15px;
   transition: border-color 0.3s ease;
+  font-weight: bold;
 }
 
 .popup-form select.form-control:focus {
