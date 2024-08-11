@@ -36,4 +36,6 @@ Feature:
 
 Want to visit our website? Go here! 
 
-https://faceted-pear-amaryllis.glitch.me/
+faceted-pear-amaryllis.glitch.me
+
+

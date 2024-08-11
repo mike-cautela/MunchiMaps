@@ -18,3 +18,4 @@ const routes = (fastify, options, done) => {
 }
 
 module.exports = routes;
+
