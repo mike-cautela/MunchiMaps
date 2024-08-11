@@ -753,6 +753,7 @@ const infoWindowContent = `
     } // init map ending bracket here
 
     function openHelp() {
+      closeAllPopups('Report');
       document.getElementById("help-popup").style.display = "block";
     }
 
@@ -769,7 +770,8 @@ const infoWindowContent = `
     }
 
     function openMapKey(){
-        document.getElementById("map-key-popup").style.display = "block";
+      closeAllPopups('Report');
+      document.getElementById("map-key-popup").style.display = "block";
     }
     function closeMapKey(){
         document.getElementById("map-key-popup").style.display = "none";
@@ -777,6 +779,7 @@ const infoWindowContent = `
 
 
 function openSearch() {
+    closeAllPopups('Report');
     const searchPopup = document.getElementById("popup-search");
     searchPopup.style.display = "block";
     setTimeout(() => {
@@ -814,7 +817,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function openPopup(id) {
-      closeAllPopups();
+      closeAllPopups(id);
       document.getElementById('popup-' + id.toLowerCase()).style.display = 'block';
     }
 
@@ -822,10 +825,11 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('popup-' + id.toLowerCase()).style.display = 'none';
 }
   //Closes all popups when user clicks on second popup. 
-  function closeAllPopups() {
-    document.querySelectorAll('.popup-container').forEach((popup) => {
-      popup.style.display = 'none';
-    });
+  function closeAllPopups(id) {
+    document.getElementById("map-key-popup").style.display = "none";
+    document.getElementById("help-popup").style.display = "none";
+    document.getElementById("popup-search").style.display = "none";
+    document.getElementById('popup-' + id.toLowerCase()).style.display = 'none';
 }
 
    document.addEventListener('DOMContentLoaded', function () {
