@@ -421,12 +421,16 @@ html, body {
     transition: color .3s, transform .3s;
     font-size:30px;
   }
+  .rating span img{
+    filter: brightness(40%);
+    transition: fitler .3s;
+  }
   .rating span:hover{
-    color:orange;
+    filter: brightness(200%);
     transform: scale(1.5);
   }
   .rating span:hover~span{
-    color:orange;
+    filter: brightness(200%);
   }
   
   .submit-review button {

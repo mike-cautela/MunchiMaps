@@ -248,11 +248,11 @@
                 <form class="submit-review">
                 <textarea id="review-text" placeholder="Write your review here..." required></textarea>
                 <div class="rating">
-                  <span rating-star="5">&#9733;</span>
-                  <span rating-star="4">&#9733;</span>
-                  <span rating-star="3">&#9733;</span>
-                  <span rating-star="2">&#9733;</span>
-                  <span rating-star="1">&#9733;</span>
+                  <span rating-star="5"><img src="https://github.com/mike-cautela/MunchiMaps/blob/main/Website/MunchiMaps%20Assets/CookieFavicon.png?raw=true" alt="Star 5" width="30" height="30"></span>
+                  <span rating-star="4"><img src="https://github.com/mike-cautela/MunchiMaps/blob/main/Website/MunchiMaps%20Assets/CookieFavicon.png?raw=true" alt="Star 4" width="30" height="30"></span>
+                  <span rating-star="3"><img src="https://github.com/mike-cautela/MunchiMaps/blob/main/Website/MunchiMaps%20Assets/CookieFavicon.png?raw=true" alt="Star 3" width="30" height="30"></span>
+                  <span rating-star="2"><img src="https://github.com/mike-cautela/MunchiMaps/blob/main/Website/MunchiMaps%20Assets/CookieFavicon.png?raw=true" alt="Star 2" width="30" height="30"></span>
+                  <span rating-star="1"><img src="https://github.com/mike-cautela/MunchiMaps/blob/main/Website/MunchiMaps%20Assets/CookieFavicon.png?raw=true" alt="Star 1" width="30" height="30"></span>
                 </div>
                 <button type="submit">Submit</button>
                 </form>
