@@ -239,6 +239,25 @@
                 <img src="${this.image3}" alt="Image 3">
             </div>
             <div class="info-window-subtitle">${this.description}</div>
+            <div class="review-section">
+              <div class="reviews">
+                <!-- Existing reviews will be appended here -->
+              </div>
+              <h4>Write a Review</h4>
+              <div class="rating_block>
+                <form class="submit-review">
+                <textarea id="review-text" placeholder="Write your review here..." required></textarea>
+                <div class="rating">
+                  <span rating-star="5">&#9733;</span>
+                  <span rating-star="4">&#9733;</span>
+                  <span rating-star="3">&#9733;</span>
+                  <span rating-star="2">&#9733;</span>
+                  <span rating-star="1">&#9733;</span>
+                </div>
+                <button type="submit">Submit</button>
+                </form>
+              </div>
+            </div>
         </div>
         </div>`;
         this.infoWindow;
