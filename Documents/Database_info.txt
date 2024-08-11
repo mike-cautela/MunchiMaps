@@ -1,0 +1,166 @@
+1) Tables included in our database
+
+      Table building {
+        id INTEGER [primary key]
+        name text
+        x_coord real
+        y_coord real
+        time_opens text
+        time_closes text
+        num_snack_machines integer
+        num_drink_machines integer
+        num_ratings integer
+        average_ratings real
+        needs_service bool
+      }
+      
+      Table review {
+        id intger [primary key]
+        comment text
+        building_id integer //references building.id
+        product_rating integer
+      }
+      
+      Table report {
+        id integer [primary key]
+        building_id integer //references building.id
+        title text
+        description text
+      }
+
+**you can find a visual representation of the database in munchiDB.pdf**
+
+2. Database Implementation:
+
+      We use a SQLite database implemented in SQL and JavaScript. All functions related to creating, posting-into, and reading from can be found in database.js. Once created,
+      the database can be found in munchiData.db.
+
+3. Flow of Structuring and Reading/writing from/into the database.
+
+      MunchiMaps makes use of the fastify framework to handle requests for the database functions. Flow is as follows:
+
+      1) In server.js:
+
+          the function initializeDatabase() is called to set up anything required for the database.
+
+              - Checks if tables already exist (if they do not, the proper functions are called to create the tables and in the case of the building table,
+                starter data is loaded in from originalBuildings.JSON). Additionally, following restructuring of the review table and addition of a report table
+                updateReviewTable() may be called to invoke any needed changes.
+
+          Routes are registered with Fastify to the files buildings.js, reviews.js, and report.js to set up needed steps for accessing database functions other files.
+
+              fastify.register(require('../scripts/buildings.js'));
+              fastify.register(require('../scripts/reviews.js'));
+              fastify.register(require('../scripts/report.js'));
+
+          Currently, the following function is run that makes use of buildings.js in the file processData.js that reads from the database and returns the data that is
+          needed to set up the building-plotting and search functions on the website. (more on this in point 2).
+
+    2) In buildings.js, reviews.js, report.js
+
+        These files all specify various API routes for the fastify server (Fastify server interacts with the database).
+  
+            Types of API routes implemented:
+                - GET routes: used to read data from the database
+                - POST routes: used to write into the database
+
+    3) Using axios to make HTTP requests 
+
+          As done is processData.js, axios is a javascript library that simplifies making HTTP requests and is used throughout MunchiMaps to interact with the fastify 
+          server. 
+
+          In processData.js:
+            - HTTP request are made using axios and the endpoints specified in buildings.js to interact with the fastify server.
+            - The various functions are implemented to extract specified data-reading requests and subsequent data-processing into files usable elsewhere in the MunchiMaps 
+              project.
+            - this function is exported and called in server.js due to its importance in the flow of setting up essential website features.
+
+4. Common Database Issues We Have Been Encountering In The First Semester of MunchiMaps:
+
+    1) Data being lost or impacted each time server is run (Status: mostly resolved with extra parameter checks in initializeDatabase())
+
+    2) Structure is very sensitive to changes in database stucture (when we need to change columns in table mostly).
+
+        Guide for future team members working on the database:
+
+            To ensure a smooth transition into a new table structure, consider following the steps outlined in the function updateReviewTable():
+
+                function updateReviewTable() {
+                  db.serialize(() => {
+                    
+                    db.all("PRAGMA table_info(review);", (err,rows) => {
+                      if(err){
+                        console.error("Error fetching info from review table.", err.message);
+                        return;
+                      }
+                      
+                      const isOldTable = rows.some(row => row.name === "functionality_rating");
+                      
+                      if(isOldTable) {
+                        console.log("functionality_rating field found. Dropping and rebuilding the review table.");
+                        
+                        // Drop the old review table
+                        db.run("DROP TABLE review", (err) => {
+                          if (err) {
+                            console.error("Error dropping old review table", err.message);
+                            db.run("ROLLBACK");
+                            return;
+                          }
+                
+                          // Create the updated review table
+                          db.run("CREATE TABLE review ( \
+                                  id INTEGER PRIMARY KEY AUTOINCREMENT, \
+                                  comment TEXT, \
+                                  building_id INTEGER, \
+                                  product_rating INTEGER, \
+                                  FOREIGN KEY (building_id) REFERENCES building(id) \
+                                  )", (err) => {
+                            if (err) {
+                              console.error("Error creating new review table.", err.message);
+                            } else {
+                              console.log("New review table created successfully.");
+                            }
+                            
+                          });
+                        });
+                      }
+                      else{
+                        console.log("Update to review table already executed.");
+                      }
+                    });
+                  });
+                }
+
+            Key Steps I Followed:
+
+              1) checked for the old field I wanted to get rid of. 
+
+              2) I drop the table if it contained the previous field.
+
+              3) Ran the command to create the new table if the old table was dropped.
+
+          **Other Notes**
+            - I have since implemented a function buildReviewTable() that uses only the fields I want in the table
+            - this function is called as part of my initializeDatabase() logic
+            - I also ensured that all of my accessing functions and insertion functions were updated accordingly.
+            - You should be able to phase out of this approach once you have verified that everything is updated properly
+            - this can also be performed from the command line if you'd like!
+
+5. Viewing Database Contents Throughout Development:
+
+    As you build database functionality you may want to be able to view the structure and contents of the database and to do so you will need to make use of command
+    line functions. As I have been developing the database implementation on the Glitch platform, here is how I access the database in the terminal so that I may
+    execute SQL commands:
+
+    Once in the terminal type:
+
+      $ sqlite3 path_to_your_database.db
+
+    Once this line is executed you may begin to use SQL commands to interact with the database! (some useful commands are listed in the file helful_SQL_commands.txt)
+
+
+For questions about any of the structure of the database you can reach out to me on discord at: _mila2000
+
+
+
+
