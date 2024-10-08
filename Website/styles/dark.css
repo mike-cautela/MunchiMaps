@@ -28,6 +28,12 @@ background: #000
 }
 /* Buttons at bottom of screen */
 #buttons-container {
+
+  /* Flexbox to prevent button orientation from changing */
+  display: flex;
+	justify-content: center;
+	align-items: flex-end;
+
   border-radius: 50px;
   position: absolute;
   z-index: 1;
@@ -42,8 +48,21 @@ background: #000
   outline: 4px solid rgba(0, 0, 0, 0.7); /* 3px white stroke */
 }
 
+/* Small screens (e.g., mobile) */
+@media screen and (max-width: 600px) {
+  #buttons-container {
+    bottom: 26px;
+  }
+}
+
+/* Medium screens (e.g., tablets) */
+@media screen and (min-width: 601px) and (max-width: 1024px) {
+  #buttons-container {
+    bottom: 21px;
+  }
+}
+
 .button {
- 
   padding: 5px 40px;
   cursor: pointer;
   background-color: rgba(255, 255, 255, 0); /* Fully transparent */
@@ -51,12 +70,21 @@ background: #000
   border: none;
   border-radius: 50px;
   transition: all 0.2s ease; /* Add transition for smooth animation */
-
 }
 
+/* Small screens (e.g., mobile) */
+@media screen and (max-width: 600px) {
+  .button {
+    padding: 0px 21px;
+  }
+}
 
-
-
+/* Medium screens (e.g., tablets) */
+@media screen and (min-width: 601px) and (max-width: 1024px) {
+  .button {
+    padding: 8px 35px;
+  }
+}
 
 .button:hover {
   background-color: #92B3B5;
@@ -102,6 +130,13 @@ background: #000
   width: auto; /* Maintain the aspect ratio */
   background-color: #000000d1;
   border-radius: 50px;
+}
+
+/* Medium screens (e.g., tablets) */
+@media screen and (min-width: 601px) and (max-width: 1024px) {
+  .help-button-img {
+    height: 44px;
+  }
 }
 
 /* Styles for the help popup */
@@ -163,6 +198,88 @@ height: 30px;
 margin-right: 10px;
 }
 
+/* Map Key Button */
+.map-key-button {
+  position: absolute;
+  top: 5px;
+  right: 80px; /* Adjusted position to avoid overlap with help button */
+  z-index: 1000;
+  background-color: rgba(255, 255, 255, 0.0); /* Transparent background */
+  border: none;
+  border-radius: 50px;
+  transition: all 0.3s ease; /* Smooth animation */
+}
+  
+/* Small screens (e.g., mobile) */
+@media screen and (max-width: 600px) {
+  .map-key-button {
+    right: 45px;
+  }
+} 
+
+/* Medium screens (e.g., tablets) */
+@media screen and (min-width: 601px) and (max-width: 1024px) {
+  .map-key-button {
+    right: 89px;
+  }
+}
+
+.map-key-button:active {
+  transform: translateY(2px); /* Slightly move down on click */
+}
+  
+.map-key-button-img {
+  height: 30px; /* Adjust image height */
+  width: auto; /* Maintain aspect ratio */
+  background-color: #FFFFFF;
+  border-radius: 50px;
+}
+
+/* Medium screens (e.g., tablets) */
+@media screen and (min-width: 601px) and (max-width: 1024px) {
+  .map-key-button-img {
+    height: 44px;
+  }
+}
+  
+/* Map Key Popup */
+.map-key-popup {
+  display: none; /* Hidden by default */
+  position: fixed; 
+  z-index: 1; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent black background */
+  font-family: 'Courier New';
+}
+  
+.map-key-content {
+  background-color: #fefefe;
+  margin: 15% auto; 
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; 
+  max-width: 600px; 
+  border-radius: 20px;
+  font-family: 'Courier New';
+}
+  
+.map-key-close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+  
+.map-key-close:hover,
+.map-key-close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
 
 /* For popups from buttons at bottom of screen */
 .popup-container {
@@ -244,6 +361,20 @@ to {
   height: 70px;
   width: auto;
   z-index: 1000;
+}
+
+/* Small screens (e.g., mobile) */
+@media screen and (max-width: 600px) {
+  .logo-title img {
+    height: 46px;
+  }
+}
+
+/* Medium screens (e.g., tablets) */
+@media screen and (min-width: 601px) and (max-width: 1024px) {
+  .logo-title img {
+    height: 68px;
+  }
 }
 
 /* For map info window */
@@ -474,7 +605,6 @@ to {
   text-decoration: underline;
 }
 
-<style>
 /*report button*/
 .popup-container {
 display: none;
@@ -550,9 +680,29 @@ font-size: 16px;
 .btn-submit:hover {
 background-color: #0056b3;
 }
-</style>
- 
 
+.leaflet-touch .leaflet-bar a {
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+}
 
- 
+/* Medium screens (e.g., tablets) */
+@media screen and (min-width: 601px) and (max-width: 1024px) {
+  .leaflet-touch .leaflet-bar a {
+    width: 42px;
+    height: 30px;
+  }
+}
 
+.leaflet-touch .leaflet-control-zoom-in, .leaflet-touch .leaflet-control-zoom-out {
+  font-size: 22px;
+}
+
+/* Medium screens (e.g., tablets) */
+@media screen and (min-width: 601px) and (max-width: 1024px) {
+  .leaflet-touch .leaflet-control-zoom-in, .leaflet-touch .leaflet-control-zoom-out {
+    padding: 5px 0px;
+    font-size: 31px;
+  }
+}
