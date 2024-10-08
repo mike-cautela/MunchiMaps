@@ -290,7 +290,8 @@ function initMap() {
       });
     }
   } // Icon object declaration ending.
-        
+
+  //creates an icon for each building      
   const academy_hall = new icon("Academy Hall", 42.72749913373329, -73.67858048827672, 8.00, 18.00, 1, 1, 0, 0, "N");
   const amos = new icon("Amos Eaton Hall", 42.730287323346445, -73.68258918979996, 7.00, 22.00, 0, 1, 0, 0, "N");
   const davison = new icon("Davison Hall", 42.72731130298223, -73.67414636096385, 0.00, 24.00, 0, 1,0, 0, "N");
