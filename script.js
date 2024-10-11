@@ -468,32 +468,58 @@ const infoWindowContent = `
 
       // Toggle between dark mode and light mode CSS sheets.
       let darkMode = false;
-      function toggleDarkMode() {
-        darkMode = !darkMode;
-        const light = document.getElementById('light-mode');
-        const dark = document.getElementById('dark-mode');
-        if (darkMode){
-          dark.disabled = false;
-          setTimeout(() => {
-            light.disabled = true;
-          }, 200); //Delay for smooth transition
-        } else {
-          light.disabled = false;
-          setTimeout(() => {
-            dark.disabled = true;
-          }, 200);
-        }
-      }
 
-      //Toggles dark mode when user presses 'd' or 'D.'
-      document.addEventListener('keydown', function(event) {
-        if ((event.key === 'd' || event.key === 'D') && 
-        (document.activeElement.tagName !== 'INPUT' && 
-          document.activeElement.tagName !== 'TEXTAREA' && 
-          document.activeElement.contentEditable !== 'true')){
-          toggleDarkMode();
-        }
+      function applyCurrentMode() {
+          const light = document.getElementById('light-mode');
+          const dark = document.getElementById('dark-mode');
+      
+          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      
+          if (prefersDark || darkMode) {
+              dark.disabled = false; // Enable dark mode styles
+              light.disabled = true;  // Disable light mode styles
+          } else {
+              light.disabled = false; // Enable light mode styles
+              dark.disabled = true;   // Disable dark mode styles
+          }
+      }
+      
+      // function toggleDarkMode() {
+      //   darkMode = !darkMode;
+      //   const light = document.getElementById('light-mode');
+      //   const dark = document.getElementById('dark-mode');
+      //   if (darkMode){
+      //     dark.disabled = false;
+      //     setTimeout(() => {
+      //       light.disabled = true;
+      //     }, 200); //Delay for smooth transition
+      //   } else {
+      //     light.disabled = false;
+      //     setTimeout(() => {
+      //       dark.disabled = true;
+      //     }, 200);
+      //   }
+      // }
+      
+      document.addEventListener('DOMContentLoaded', () => {
+          applyCurrentMode(); // Apply the mode on load
+      
+          // Listen for changes in the system's color scheme
+          const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+          mediaQuery.addEventListener('change', applyCurrentMode);
       });
+      
+      // Toggles dark mode when user presses 'd' or 'D'.
+      // document.addEventListener('keydown', function(event) {
+      //     if ((event.key === 'd' || event.key === 'D') && 
+      //         (document.activeElement.tagName !== 'INPUT' && 
+      //          document.activeElement.tagName !== 'TEXTAREA' && 
+      //          document.activeElement.contentEditable !== 'true')) {
+      //         toggleDarkMode();
+      //     }
+      // });
+      
+
     } // init map ending bracket here
 
     function openHelp() {
