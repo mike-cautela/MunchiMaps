@@ -255,23 +255,16 @@
           buildings.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
           console.log(buildings);
         
-          //Search function 
-          function search(){
-              var searchTerm = document.getElementById('searchInput').value.trim().toLowerCase();
-              var filtered = [];
-  
-              buildings.forEach(function(building){
-                  if(filter(building, searchTerm)){
-                      filtered.push(building);
-                  }
-              });
-  
-              displayResults(filtered);
+          // Search function
+          function search() {
+            var searchTerm = document.getElementById('searchInput').value.trim().toLowerCase();
+            var filtered = buildings.filter(building => filter(building, searchTerm));
+            displayResults(filtered);
           }
   
-          //Filter through the list
-          function filter(item, searchTerm){
-              return item.name.toLowerCase().startsWith(searchTerm);
+          // Filter function
+          function filter(item, searchTerm) {
+            return item.name.toLowerCase().includes(searchTerm);
           }
   
           //Display results
