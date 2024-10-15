@@ -447,10 +447,9 @@ document.addEventListener('DOMContentLoaded', function() {
    document.addEventListener('DOMContentLoaded', function () {
       initMap();
     });
+
 // Handle report form submission
 document.addEventListener('DOMContentLoaded', function () {
-    initMap();
-
     const reportForm = document.getElementById('reportForm');
     reportForm.addEventListener('submit', function(event) {
         event.preventDefault();
@@ -460,7 +459,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // Handle the form data (e.g., send it to a server or display it)
         console.log('Report Title:', reportTitle);
         console.log('Report Description:', reportDescription);
-
+        
         // Display a confirmation message or handle the submission
         alert('Report submitted successfully!');
 
