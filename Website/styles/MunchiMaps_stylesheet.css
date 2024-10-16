@@ -1,657 +1,785 @@
-@media (prefers-color-scheme: light) {
-  html, body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-      overflow: hidden; /* Prevent scrolling */
-      box-sizing: border-box; /* Include border and padding in width and height */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Prevent scrolling */
+  box-sizing: border-box; /* Include border and padding in width and height */
+}
+
+
+#map-container {
+  height: 100vh;
+  width: 100%;
+  z-index: 0;
+}
+#map {
+  height: 100%;
+  width: 100%;
+  z-index: 0;
+}
+
+/* Buttons at bottom of screen */
+#buttons-container {
+
+  /* Flexbox to prevent button orientation from changing */
+  display: flex;
+	justify-content: center;
+	align-items: flex-end;
+
+  bottom: 40px;
+  border-radius: 50px;
+  position: absolute;
+  z-index: 1;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  backdrop-filter: blur(10px); /* Apply a blur effect to the background */
+  background-color: rgba(255, 255, 255, 0.6); /* Semi-transparent white */
+  padding: 3px;
+  width: fit-content;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5); /* Window drop shadow */
+  outline: 4px solid rgba(255, 255, 255, 1); /* 3px white stroke */
+}
+
+/* Small screens (e.g., mobile) */
+@media screen and (max-width: 600px) {
+  #buttons-container {
+    bottom: 40px;
+  }
+}
+
+/* Medium screens (e.g., tablets) */
+@media screen and (min-width: 601px) and (max-width: 1024px) {
+  #buttons-container {
+    bottom: 21px;
+  }
+}
+
+.button {
+  padding: 5px 40px;
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0); /* Fully transparent */
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  transition: all 0.2s ease; /* Add transition for smooth animation */
+}
+
+/* Small screens (e.g., mobile) */
+@media screen and (max-width: 600px) {
+  .button {
+    padding: 0px 21px;
+  }
+}
+
+/* Medium screens (e.g., tablets) */
+@media screen and (min-width: 601px) and (max-width: 1024px) {
+  .button {
+    padding: 8px 35px;
+  }
+}
+
+.button:hover {
+  background-color: #92B3B5;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
+  transform: scale(1.1); /* Increase the size of the button */
+}
+.button:active {
+  background-color: #7A9C9E; /* Darker shade for pressed effect */
+  transform: scale(0.95); /* Slightly move the button down */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3); /* Adjust shadow for pressed effect */
+}
+
+.button-img {
+    height: 30px; /* Adjust the height of the image */
+    width: auto; /* Maintain the aspect ratio */
+    transition: filter 0.2s; /* Add transition for smooth effect */
+}
+
+.help-button{
+
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  z-index: 1000;
+  background-color: rgba(255, 255, 255, 0.0); /* Semi-transparent white */
+  border: none;
+  border-radius: 50px;
+  transition: all 0.3s ease; /* Add transition for smooth animation */
+  
   }
 
 
-  #map-container {
-      height: 100vh;
-      width: 100%;
-      z-index: 0;
-    }
-    #map {
-      height: 100%;
-      width: 100%;
-      z-index: 0;
-    }
-    /* Buttons at bottom of screen */
-    #buttons-container {
-      border-radius: 50px;
-      position: absolute;
-      z-index: 1;
-      bottom: 12px;
-      left: 50%;
-      transform: translateX(-50%);
-      backdrop-filter: blur(10px); /* Apply a blur effect to the background */
-      background-color: rgba(255, 255, 255, 0.6); /* Semi-transparent white */
-      padding: 3px;
-      width: fit-content;
-      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5); /* Window drop shadow */
-      outline: 4px solid rgba(255, 255, 255, 1); /* 3px white stroke */
-    }
-
-    .button {
+.help-button:hover {
     
-      padding: 5px 40px;
-      cursor: pointer;
-      background-color: rgba(255, 255, 255, 0); /* Fully transparent */
-      color: #fff;
-      border: none;
-      border-radius: 50px;
-      transition: all 0.2s ease; /* Add transition for smooth animation */
-
-    }
-
-
-
-    
-
-    .button:hover {
-      background-color: #92B3B5;
-      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
-      transform: scale(1.1); /* Increase the size of the button */
-    }
-    .button:active {
-      background-color: #7A9C9E; /* Darker shade for pressed effect */
-      transform: scale(0.95); /* Slightly move the button down */
-      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3); /* Adjust shadow for pressed effect */
-  }
-
-  .button-img {
-      height: 30px; /* Adjust the height of the image */
-      width: auto; /* Maintain the aspect ratio */
-      transition: filter 0.2s; /* Add transition for smooth effect */
-  }
-
-  .help-button{
-
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    z-index: 1000;
-    background-color: rgba(255, 255, 255, 0.0); /* Semi-transparent white */
-    border: none;
-    border-radius: 50px;
-    transition: all 0.3s ease; /* Add transition for smooth animation */
-    
-    }
-
-
-    .help-button:hover {
-      
-      transform: scale(1.1); /* Increase the size of the button */
-    }
-    .help-button:active {
-      transform: translateY(2px); /* Slightly move the button down */
-  }
-  .help-button-img {
-      height: 30px; /* Adjust the height of the image */
-      width: auto; /* Maintain the aspect ratio */
-      background-color: #FFFFFF;
-      border-radius: 50px;
-  }
-
-  /* Styles for the help popup */
-  .help-popup {
-    display: none; /* Hidden by default */
-    position: fixed; 
-    z-index: 1; 
-    left: 0;
-    top: 0;
-    width: 100%; 
-    height: 100%; 
-    overflow: auto; 
-    background-color: rgb(0,0,0); 
-    background-color: rgba(0,0,0,0.4); 
-    font-family: 'Courier New'; 
-  }
-
-  .help-content {
-    background-color: #fefefe;
-    margin: 15% auto; 
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%; 
-    max-width: 600px; 
-    font-family: 'Courier New'; 
-    border-radius: 20px;
-
-
-  }
-
-  .close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-  }
-
-  .close:hover,
-  .close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-  }
-
-  .icons-description, .map-key {
-    margin-top: 20px;
-  }
-
-  .icon-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-
-  .help-icon, .map-icon {
-    width: 30px;
-    height: 30px;
-    margin-right: 10px;
-  }
-
-  /* Map Key Button */
-  .map-key-button {
-    position: absolute;
-    top: 5px;
-    right: 80px; /* Adjusted position to avoid overlap with help button */
-    z-index: 1000;
-    background-color: rgba(255, 255, 255, 0.0); /* Transparent background */
-    border: none;
-    border-radius: 50px;
-    transition: all 0.3s ease; /* Smooth animation */
-  }
-
-  .map-key-button:hover {
-    transform: scale(1.1); /* Increase button size on hover */
-  }
-
-  .map-key-button:active {
-    transform: translateY(2px); /* Slightly move down on click */
-  }
-
-  .map-key-button-img {
-    height: 30px; /* Adjust image height */
-    width: auto; /* Maintain aspect ratio */
+  transform: scale(1.1); /* Increase the size of the button */
+}
+.help-button:active {
+  transform: translateY(2px); /* Slightly move the button down */
+}
+.help-button-img {
+    height: 30px; /* Adjust the height of the image */
+    width: auto; /* Maintain the aspect ratio */
     background-color: #FFFFFF;
     border-radius: 50px;
+}
+
+/* Medium screens (e.g., tablets) */
+@media screen and (min-width: 601px) and (max-width: 1024px) {
+  .help-button-img {
+    height: 44px;
   }
+}
 
-  /* Map Key Popup */
-  .map-key-popup {
-    display: none; /* Hidden by default */
-    position: fixed; 
-    z-index: 1; 
-    left: 0;
-    top: 0;
-    width: 100%; 
-    height: 100%; 
-    overflow: auto; 
-    background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent black background */
-    font-family: 'Courier New';
+ /* Styles for the help popup */
+.help-popup {
+  display: none; /* Hidden by default */
+  position: fixed; 
+  z-index: 1; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgb(0,0,0); 
+  background-color: rgba(0,0,0,0.4); 
+  font-family: 'Courier New'; 
+}
+
+.help-content {
+  background-color: #fefefe;
+  margin: 15% auto; 
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; 
+  max-width: 600px; 
+  font-family: 'Courier New'; 
+  border-radius: 20px;
+
+
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.icons-description, .map-key {
+  margin-top: 20px;
+}
+
+.icon-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.help-icon, .map-icon {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+
+/* Map Key Button */
+.map-key-button {
+  position: absolute;
+  top: 5px;
+  right: 80px; /* Adjusted position to avoid overlap with help button */
+  z-index: 1000;
+  background-color: rgba(255, 255, 255, 0.0); /* Transparent background */
+  border: none;
+  border-radius: 50px;
+  transition: all 0.3s ease; /* Smooth animation */
+}
+
+/* Small screens (e.g., mobile) */
+@media screen and (max-width: 600px) {
+  .map-key-button {
+    right: 45px;
   }
+}
 
-  .map-key-content {
-    background-color: #fefefe;
-    margin: 15% auto; 
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%; 
-    max-width: 600px; 
-    border-radius: 20px;
-    font-family: 'Courier New';
+/* Medium screens (e.g., tablets) */
+@media screen and (min-width: 601px) and (max-width: 1024px) {
+  .map-key-button {
+    right: 89px;
   }
+}
 
-  .map-key-close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
+.map-key-button:hover {
+  transform: scale(1.1); /* Increase button size on hover */
+}
+
+.map-key-button:active {
+  transform: translateY(2px); /* Slightly move down on click */
+}
+
+.map-key-button-img {
+  height: 30px; /* Adjust image height */
+  width: auto; /* Maintain aspect ratio */
+  background-color: #FFFFFF;
+  border-radius: 50px;
+}
+
+/* Medium screens (e.g., tablets) */
+@media screen and (min-width: 601px) and (max-width: 1024px) {
+  .map-key-button-img {
+    height: 44px;
   }
+}
 
-  .map-key-close:hover,
-  .map-key-close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-  }
+/* Map Key Popup */
+.map-key-popup {
+  display: none; /* Hidden by default */
+  position: fixed; 
+  z-index: 1; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent black background */
+  font-family: 'Courier New';
+}
 
+.map-key-content {
+  background-color: #fefefe;
+  margin: 15% auto; 
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; 
+  max-width: 600px; 
+  border-radius: 20px;
+  font-family: 'Courier New';
+}
 
+.map-key-close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
 
-    /* For popups from buttons at bottom of screen */
-    .popup-container {
-      display: none;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: #fff;
-      border: 1px solid #ccc;
-      padding: 20px;
-      z-index: 1000;
-      width: 500px;
-      height: 500px;
-      border-radius: 20px;
-      font-family: 'Courier New'; 
-      font-weight: bold;
-      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5); /* Window drop shadow */
-      animation: fadeIn 0.5s ease forwards; /* Fade in animation */
-    }
-
-    /* For popups from buttons at bottom of screen */
-    .popup-container img {
-      height: 25px;
-      width: auto;
-      animation: spin-animation 1.5s infinite linear;
-      display: inline-block;
-
-    }
-
-  @keyframes spin-animation {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-
-    .popup {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-    
-    .popup-title {
-      font-size: 50px;
-    }
-
-    .popup-close {
-      cursor: pointer;
-    }
-    
-    /* For logo at top left of screen */
-  .logo-title {
-      position: absolute;
-      backdrop-filter: blur(10px); /* Apply a blur effect to the background */
-      background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent white */
-      padding: 10px;
-      border-radius: 0 0 20px 0; /* Only round the bottom right corner */
-      z-index: 1000;
-      display: flex;
-      align-items: center;
-      margin-bottom: 0px;
-      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-      outline: 4px solid rgba(255, 255, 255, 1); /* 3px white stroke */
-
-  }
-
-  .logo-title img {
-      height: 70px;
-      width: auto;
-      z-index: 1000;
-  }
-
-
-    /* For map info window */
-    .info-window-content {
-      display: flex;
-      align-items: flex-start;
-
-    }
-    .info-window-image {
-      position: relative;
-      height: 300px; 
-      width: 200px; 
-      flex-shrink: 0;
-      margin-right: 10px;
-    }
-    .info-window-image img {
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 100%;
-      display: none;
-      border-radius: 10px;
-    }
-    .info-window-image img.active {
-      display: block;
-    }
-    .info-window-text {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-    }
-    .info-window-title {
-      font-family: 'Courier New';
-      font-size: 24px;
-      font-weight: bold;
-    }
-    .info-window-subtitle {
-      font-family: 'Courier New';
-      font-size: 12px;
-      color: grey;
-      font-weight: bold;
-    }
-    .info-window-icons {
-      display: flex;
-    }
+.map-key-close:hover,
+.map-key-close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
 
 
 
-    /* The green icons inside the info window */
-    .info-window-icons img {
-      height: 30px; 
-      width: auto; 
-      
-    }
-
-    /* The images inside the info window */
-    .carousel-controls {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-    }
-    .carousel-controls button {
-      background-color: rgba(0, 0, 0, 0.5);
-      color: white;
-      border: none;
-      cursor: pointer;
-      padding: 10px;
-    }
-
-    /*review section inside the info window */
-    .review-section {
-      margin-top: 20px;
-    }
-    
-    .review-section h3, .review-section h4 {
-      margin-bottom: 10px;
-    }
-    
-    .review {
-      background-color: #f9f9f9;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      padding: 10px;
-      margin-bottom: 10px;
-    }
-    
-    .review p {
-      margin: 5px 0;
-    }
-    
-    .submit-review {
-      display: flex;
-      flex-direction: column;
-    }
-    
-    .submit-review textarea {
-      width: 100%;
-      height: 60px;
-      padding: 10px;
-      margin-bottom: 10px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-    }
-    
-    .rating{
-      display:flex;
-      justify-content: flex-start;
-      /*flex-direction:row-reverse;*/
-      margin-left: -10px;
-    }
-    .rating span {
-      cursor: pointer;
-      transition: color .3s, transform .3s;
-      font-size:30px;
-    }
-    .rating span img{
-      filter: brightness(40%);
-      transition: fitler .3s;
-    }
-    .rating span:hover{
-      filter: brightness(200%);
-      transform: scale(1.5);
-    }
-    .rating span:hover~span{
-      filter: brightness(200%);
-    }
-    
-    .submit-review button {
-      align-self: flex-start;
-      padding: 5px 10px;
-      border: none;
-      background-color: #007bff;
-      color: white;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    
-    .submit-review button:hover {
-      background-color: #0056b3;
-    }
-
-
-
-  #popup-search {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: #fff;
-      z-index: 1000;
-      width: 465px; 
-      height: 500px;
-      border-radius: 20px; /* Curved corners */
-      font-family: 'Courier New';
-      font-weight: bold;
-      opacity: 0;
-      transition: opacity 0.5s ease, transform 0.5s ease; /* Fade-in/Fade-out transition */
-  }
-
-  #popup-search.show {
-      opacity: 1;
-      transform: translate(-50%, -50%) scale(1);
-      border-radius: 20px; /* Curved corners */
-  }
-
-  #popup-search .popup-close {
-      position: absolute;
-      top: 10px;
-      right: 20px;
-      cursor: pointer;
-      font-size: 24px;
-      font-weight: bold;
-      color: #333;
-      border-radius: 20px; /* Curved corners */
-  }
-
-    
-  /*search bar*/
-  .search-bar {
-      position: fixed;
-      top: 48%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: #fff;
-      z-index: 1000;
-      width: 465px; 
-      height: 500px; 
-      font-family: 'Courier New'; 
-      font-weight: bold;
-  }
-
-  /*search bar input*/
-  .search-bar input[type="search"] {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      box-sizing: border-box;
-      font-size: 16px;
-      font-family: 'Courier New';
-      margin-bottom: 10px;
-      font-weight: bold;
-  }
-
-  /*search bar results*/
-  .result {
-      width: 100%;
-      max-width: 600px;
-      max-height: 420px;
-      overflow-y: auto;
-      margin-top: 20px;
-  }
-
-  .result ul {
-      list-style-type: none;
-      font-family: 'Courier New';
-      padding: 0;
-      margin: 0;
-      font-weight: bold;
-  }
-
-  .result ul li {
-      padding: 15px;
-      border: 1px solid #e0e0e0;
-      border-radius: 4px;
-      margin-bottom: 10px;
-      background-color: white;
-      transition: box-shadow 0.3s;
-      font-family: 'Courier New';
-      font-weight: bold;
-  }
-
-  .result ul li:hover {
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-
-  .result ul li a {
-      text-decoration: none;
-      color: #333;
-      font-size: 18px;
-      font-family: 'Courier New';
-      font-weight: bold;
-  }
-
-  .result ul li a:hover {
-      text-decoration: underline;
-  }
-
-  /*report button*/
+  /* For popups from buttons at bottom of screen */
   .popup-container {
     display: none;
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 20px;
     z-index: 1000;
+    width: 500px;
+    height: 500px;
+    border-radius: 20px;
+    font-family: 'Courier New'; 
+    font-weight: bold;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5); /* Window drop shadow */
+    animation: fadeIn 0.5s ease forwards; /* Fade in animation */
   }
+
+   /* For popups from buttons at bottom of screen */
+  .popup-container img {
+    height: 25px;
+    width: auto;
+    animation: spin-animation 1.5s infinite linear;
+    display: inline-block;
+
+  }
+
+@keyframes spin-animation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
 
   .popup {
-    background: #fff;
-    margin: 50px auto;
-    padding: 20px;
-    border-radius: 10px;
-    max-width: 500px;
-    position: relative;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  }
-
-  .popup-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
   }
 
-  .popup-header h2 {
-    margin: 0;
+  @keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+   
+  .popup-title {
+    font-size: 50px;
   }
 
   .popup-close {
-    font-size: 24px;
     cursor: pointer;
   }
+  
+  /* For logo at top left of screen */
+.logo-title {
+    position: absolute;
+    backdrop-filter: blur(10px); /* Apply a blur effect to the background */
+    background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent white */
+    padding: 10px;
+    border-radius: 0 0 20px 0; /* Only round the bottom right corner */
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    margin-bottom: 0px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    outline: 4px solid rgba(255, 255, 255, 1); /* 3px white stroke */
 
-  .popup-form .form-group {
-    margin-bottom: 15px;
+}
+
+.logo-title img {
+    height: 70px;
+    width: auto;
+    z-index: 1000;
+}
+
+/* Small screens (e.g., mobile) */
+@media screen and (max-width: 600px) {
+  .logo-title img {
+    height: 46px;
   }
+}
 
-  .popup-form label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
+/* Medium screens (e.g., tablets) */
+@media screen and (min-width: 601px) and (max-width: 1024px) {
+  .logo-title img {
+    height: 68px;
   }
+}
 
-  /* Styles for the dropdown menu in the report form */
-  .popup-form select.form-control {
+  /* For map info window */
+  .info-window-content {
+    display: flex;
+    align-items: flex-start;
+
+  }
+  .info-window-image {
+    position: relative;
+    height: 300px; 
+    width: 200px; 
+    flex-shrink: 0;
+    margin-right: 10px;
+  }
+  .info-window-image img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
     width: 100%;
-    padding: 8px;
-    box-sizing: border-box;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #fff;
+    display: none;
+    border-radius: 10px;
+  }
+  .info-window-image img.active {
+    display: block;
+  }
+  .info-window-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  .info-window-title {
     font-family: 'Courier New';
-    font-size: 16px;
-    margin-bottom: 15px;
-    transition: border-color 0.3s ease;
+    font-size: 24px;
     font-weight: bold;
   }
-
-  .popup-form select.form-control:focus {
-    outline: none;
-    border-color: #007BFF;
+  .info-window-subtitle {
+    font-family: 'Courier New';
+    font-size: 12px;
+    color: grey;
+    font-weight: bold;
+  }
+  .info-window-icons {
+    display: flex;
   }
 
-  /* Adjusting button styles inside the popup */
-  .popup-form .btn-submit {
-    background-color: #007BFF;
+
+
+  /* The green icons inside the info window */
+  .info-window-icons img {
+    height: 30px; 
+    width: auto; 
+    
+  }
+
+  /* The images inside the info window */
+  .carousel-controls {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+  .carousel-controls button {
+    background-color: rgba(0, 0, 0, 0.5);
     color: white;
     border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    padding: 10px;
   }
 
-  .popup-form .btn-submit:hover {
+  /*review section inside the info window */
+  .review-section {
+    margin-top: 20px;
+  }
+  
+  .review-section h3, .review-section h4 {
+    margin-bottom: 10px;
+  }
+  
+  .review {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .review p {
+    margin: 5px 0;
+  }
+  
+  .submit-review {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .submit-review textarea {
+    width: 100%;
+    height: 60px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .rating{
+    display:flex;
+    justify-content: flex-start;
+    /*flex-direction:row-reverse;*/
+    margin-left: -10px;
+  }
+  .rating span {
+    cursor: pointer;
+    transition: color .3s, transform .3s;
+    font-size:30px;
+  }
+  .rating span img{
+    filter: brightness(40%);
+    transition: fitler .3s;
+  }
+  .rating span:hover{
+    filter: brightness(200%);
+    transform: scale(1.5);
+  }
+  .rating span:hover~span{
+    filter: brightness(200%);
+  }
+  
+  .submit-review button {
+    align-self: flex-start;
+    padding: 5px 10px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .submit-review button:hover {
     background-color: #0056b3;
   }
 
-  /* Additional padding for better spacing in form */
-  .popup-form .form-group {
-    margin-bottom: 20px;
-  }
 
-  /* General focus state for inputs and select */
-  .popup-form input:focus,
-  .popup-form textarea:focus,
-  .popup-form select:focus {
-    border-color: #007BFF;
-    outline: none;
-  }
-    
 
-    
-    
+#popup-search {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    z-index: 1000;
+    width: 465px; 
+    height: 500px;
+    border-radius: 20px; /* Curved corners */
+    font-family: 'Courier New';
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 0.5s ease, transform 0.5s ease; /* Fade-in/Fade-out transition */
 }
+
+/* Small screens (e.g., mobile) */
+@media screen and (max-width: 600px) {
+  #popup-search {
+    width: 344px;
+    height: 470px;
+  }
+}
+
+/* Medium screens (e.g., tablets) */
+@media screen and (min-width: 601px) and (max-width: 1024px) {
+  #popup-search {
+    width: 545px;
+    height: 565px;
+  }
+}
+
+#popup-search.show {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    border-radius: 20px; /* Curved corners */
+}
+
+#popup-search .popup-close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    border-radius: 20px; /* Curved corners */
+}
+
+  
+/*search bar*/
+.search-bar {
+    position: fixed;
+    top: 48%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    z-index: 1000;
+    width: 465px; 
+    height: 500px; 
+    font-family: 'Courier New'; 
+    font-weight: bold;
+}
+
+/* Small screens (e.g., mobile) */
+@media screen and (max-width: 600px) {
+  .search-bar {
+    width: 331px;
+    height: 437px;
+  }
+}
+
+/* Medium screens (e.g., tablets) */
+@media screen and (min-width: 601px) and (max-width: 1024px) {
+  .search-bar {
+    width: 520px;
+    height: 525px;
+  }
+}
+
+
+/*search bar input*/
+.search-bar input[type="search"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+    font-family: 'Courier New';
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+/*search bar results*/
+.result {
+    width: 100%;
+    max-width: 600px;
+    max-height: 420px;
+    overflow-y: auto;
+    margin-top: 20px;
+}
+
+/* Small screens (e.g., mobile) */
+@media screen and (max-width: 600px) {
+  .result {
+    max-height: 336px;
+    padding-left: 5px;
+  }
+}
+
+/* Medium screens (e.g., tablets) */
+@media screen and (min-width: 601px) and (max-width: 1024px) {
+  .result {
+    max-height: 425px;
+  }
+}
+
+.result ul {
+    list-style-type: none;
+    font-family: 'Courier New';
+    padding: 0;
+    margin: 0;
+    font-weight: bold;
+}
+
+.result ul li {
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    background-color: white;
+    transition: box-shadow 0.3s;
+    font-family: 'Courier New';
+    font-weight: bold;
+}
+
+.result ul li:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.result ul li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 18px;
+    font-family: 'Courier New';
+    font-weight: bold;
+}
+
+.result ul li a:hover {
+    text-decoration: underline;
+}
+
+/*report button*/
+.popup-container {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.popup {
+  background: #fff;
+  margin: 50px auto;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 500px;
+  position: relative;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.popup-header h2 {
+  margin: 0;
+}
+
+.popup-close {
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.popup-form .form-group {
+  margin-bottom: 15px;
+}
+
+.popup-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+/* Styles for the dropdown menu in the report form */
+.popup-form select.form-control {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  font-family: 'Courier New';
+  font-size: 16px;
+  margin-bottom: 15px;
+  transition: border-color 0.3s ease;
+  font-weight: bold;
+}
+
+.popup-form select.form-control:focus {
+  outline: none;
+  border-color: #007BFF;
+}
+
+/* Adjusting button styles inside the popup */
+.popup-form .btn-submit {
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.popup-form .btn-submit:hover {
+  background-color: #0056b3;
+}
+
+/* Additional padding for better spacing in form */
+.popup-form .form-group {
+  margin-bottom: 20px;
+}
+
+/* General focus state for inputs and select */
+.popup-form input:focus,
+.popup-form textarea:focus,
+.popup-form select:focus {
+  border-color: #007BFF;
+  outline: none;
+}
+
+.leaflet-bottom .leaflet-control {
+  margin-bottom: 10px;
+}
+
+/* Small screens (e.g., mobile) */
+@media screen and (max-width: 600px) {
+  .leaflet-bottom .leaflet-control {
+    margin-bottom: 16px;
+  }
+}
+ 
+  
+
+   
