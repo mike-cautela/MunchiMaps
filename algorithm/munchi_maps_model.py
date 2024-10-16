@@ -62,15 +62,25 @@ class MunchiMaps_model(object):
     
     # helper function: check if the current time is within the vending machine's hours of operation
     def check_time(self, time, day, time_range):
-        # process the time_range string
-        day_range, hours_range = time_range.split() # split the time_range by space
-        start_time, end_time = hours_range.split("–") # split the hours_range by "–"
+        try:
+            # process the time_range string
+            day_range, hours_range = time_range.split()  # split the time_range by space
+            # standardize dashes to handle inconsistencies between long and short dashes
+            hours_range = hours_range.replace("-", "–").strip()
+            # make sure the given time range has a dash
+            if ("–" in hours_range):
+                start_time, end_time = hours_range.split("–") # split the hours_range by "–"
+            else:
+                raise ValueError(f"Invalid hours format without dash: {hours_range}")
+        except ValueError:
+            raise ValueError(f"Invalid time range format with incorrect dash: {time_range}")
         
         # make sure the given day and the day_range are the same, so ignore the upper and lower case
         if (day.lower() != day_range.lower()):
             return False
         
         # need to convert the time to 24-hour format
+        # start time situation
         if ("AM" in start_time):
             start_hour = int(start_time.replace("AM", ""))
             # corner case: 12AM equals to 00
@@ -89,6 +99,7 @@ class MunchiMaps_model(object):
             else:
                 start_hour += 12 # add 12 hours to other PM times
                 start_hour = f"{start_hour:02d}"
+        # end time situation
         if ("AM" in end_time):
             end_hour = int(end_time.replace("AM", ""))
             # corner case: 12AM equals to 00
@@ -124,7 +135,11 @@ class MunchiMaps_model(object):
         for i in self.vendings_collection:
             if (i["Building"] == vending_machine_location):
                 time_str = i["Hours of operation"]
-                time_list = time_str.split("|") # hours is a list of strings
+                if (time_str == "open 24 hours"):
+                    return True
+                else:
+                    time_list = time_str.split("|") # hours is a list of strings
+        # time_list is a list of strings, each string is a day and its hours of operation
         for current_day in time_list:
             if (day_of_week in current_day):
                 if (self.check_time(time, day_of_week, current_day) == True):
@@ -141,4 +156,4 @@ class MunchiMaps_model(object):
                 available_vendings.append(location)
         # print out all the available vending machines' info  
         for location in available_vendings:
-            self.get_vending_info(location)
+            print(self.get_vending_info(location))
