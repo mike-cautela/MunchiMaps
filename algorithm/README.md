@@ -68,3 +68,49 @@ Returns a string representation of all the vending machine data loaded from the 
 Collects all the vending machine data into a list of dictionaries (`self.vendings_collection`). Each dictionary contains information for one vending machine.
 
 - **No parameters.**
+
+#### `get_vending_info(self, vending_machine_location)`
+Retrieves the information for a vending machine located in the specified building.
+
+- **Parameters:**
+  - `vending_machine_location` (str): The building name of the vending machine.
+  
+- **Returns:**
+  - A formatted string with the vending machines' details, including building, amount, drinks, foods, location description, hours of operation, and access information. If the vending machine location is not found, it returns a message saying "The vending machines' location is not found."
+
+#### `check_time(self, time, day, time_range)`
+Checks if the given time is within the vending machine's hours of operation for a specific day.
+
+- **Parameters:**
+  - `time` (str): The current time in 24-hour format (e.g., "14" for 2 PM).
+  - `day` (str): The current day of the week (e.g., "Monday").
+  - `time_range` (str): The hours of operation for that day, as listed in the CSV file (e.g., "Monday 9AM–5PM").
+  
+- **Returns:**
+  - `True` if the vending machine is operational at the given time, `False` otherwise.
+
+#### `time_system(self, time, day_of_week, vending_machine_location)`
+A real-time system that checks if a vending machine is operational based on the current time and day of the week.
+
+- **Parameters:**
+  - `time` (str): The current time in 24-hour format.
+  - `day_of_week` (str): The current day of the week.
+  - `vending_machine_location` (str): The building name of the vending machine.
+  
+- **Returns:**
+  - `True` if the vending machine is operational, `False` otherwise.
+
+#### `filtration_system(self)`
+Filters all the vending machines that are operational at the current time and prints out their details.
+
+- **No parameters.**
+
+- **How it works:**
+  - It gets the current time and day of the week using `datetime.now()`.
+  - It checks each vending machine's hours of operation and prints the details of those that are currently open.
+
+## Error Handling
+
+- The system will print an error message if the lengths of the lists (such as `building`, `amount`, etc.) are not equal. This ensures that the CSV data is consistent.
+
+- The `check_time` method raises `ValueError` if the time range format is incorrect or the dash separating start and end times is missing.
