@@ -1,5 +1,8 @@
 import csv # read the CSV file
 from datetime import datetime # get the current date and time
+import heapdict # the data structure used in the Dijkstra algorithm, a priority queue
+import folium # for drawing maps
+from haversine import haversine, Unit # used to calculate the distance between two longitudes and latitudes
 
 class MunchiMaps_model(object):
     def __init__(self, csv_file):
@@ -14,6 +17,7 @@ class MunchiMaps_model(object):
         self.coordinates = list()
         self.load_data() # load the data from the CSV file
         self.vendings_collection = list() # a list of dictionaries [{}], store all the vending machines info
+        self.distance_collect = dict() # a dictionary to store the distance between the locations, dictionaries of dictionary
     
     # read the CSV file and populate the lists
     def load_data(self):
@@ -66,7 +70,7 @@ class MunchiMaps_model(object):
             # process the time_range string
             day_range, hours_range = time_range.split()  # split the time_range by space
             # standardize dashes to handle inconsistencies between long and short dashes
-            hours_range = hours_range.replace("-", "–").strip()
+            hours_range = hours_range.replace("-", "—").strip()
             # make sure the given time range has a dash
             if ("–" in hours_range):
                 start_time, end_time = hours_range.split("–") # split the hours_range by "–"
@@ -157,3 +161,34 @@ class MunchiMaps_model(object):
         # print out all the available vending machines' info  
         for location in available_vendings:
             print(self.get_vending_info(location))
+    
+    #---------------------------------------------------------------------------------#
+    
+    # helper function: get the distance between two locations
+    def get_distance(self, location1, location2):
+        # get the coordinates of the two locations
+        lat1, lon1 = location1.split("\\")
+        lat2, lon2 = location2.split("\\")
+        # replace any em dash "—" with a regular minus sign "-"
+        lat1 = lat1.replace("–", "-")
+        lat2 = lat2.replace("–", "-")
+        lon1 = lon1.replace("–", "-")
+        lon2 = lon2.replace("–", "-")
+        # calculate the distance between the two locations
+        # distance = int(haversine((float(lat1), float(lon1)), (float(lat2), float(lon2)), unit=Unit.KILOMETERS))
+        distance = round(haversine((float(lat1), float(lon1)), (float(lat2), float(lon2)), unit=Unit.METERS))
+        return distance
+    
+    # helper function: get all the distance between the locations
+    def collect_distance(self):
+        for i in range(len(self.vendings_collection)):
+            distance1 = self.vendings_collection[i]["Coordinates"]
+            building1 = self.vendings_collection[i]["Building"]
+            for j in range(i + 1, len(self.vendings_collection)):
+                distance2 = self.vendings_collection[j]["Coordinates"]
+                building2 = self.vendings_collection[j]["Building"]
+                distance_between = self.get_distance(distance1, distance2)
+                self.distance_collect[(building1, building2)] = distance_between
+        return self.distance_collect
+    
+                

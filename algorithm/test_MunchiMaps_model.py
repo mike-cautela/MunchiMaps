@@ -75,3 +75,22 @@ if __name__ == "__main__":
     
     # test: filtration_system()
     vending_machine_tester.filtration_system()
+    
+    # test: get_distance()
+    if (vending_machine_tester.get_distance("42.72954131606436\–73.68250278794625", "42.72954131606436\–73.68250278794625") == 0):
+        print("get_distance() test 1 passed.")
+    else:
+        print("get_distance() test 1 failed.")
+    if (vending_machine_tester.get_distance("42.72954131606436\–73.68250278794625", "42.73022009495838\–73.68115317445492") == 134):
+        print("get_distance() test 2 passed.")
+    else:
+        print("get_distance() test 2 failed.")
+    
+    # test: collect_distance()
+    print(vending_machine_tester.collect_distance())
+    # combination problemC: (n, 2) = \dfrac{n(n - 1)}{2} = \dfrac{18 * 17}{2} = 153
+    # because there are 18 vending machines, the number of distances should be 153
+    if (len(vending_machine_tester.distance_collect) == 153):
+        print("collect_distance() test 1 passed.")
+    else:
+        print("collect_distance() test 1 failed.")
