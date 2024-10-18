@@ -1,4 +1,5 @@
 from munchi_maps_model import MunchiMaps_model
+
 if __name__ == "__main__":
     data = input("Type the name of the file: ").strip() # strip() removes leading and trailing whitespaces
     vending_machine_tester = MunchiMaps_model(data)
