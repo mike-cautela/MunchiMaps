@@ -1,7 +1,7 @@
 
 
  //initializes the map
-    function initMap() {
+function initMap() {
       const map = L.map('map').setView([42.72941085967446, -73.6792590320996], 17);
 
 
@@ -349,115 +349,115 @@
           toggleDarkMode();
         }
       });
-    } // init map ending bracket here
+} // init map ending bracket here
 
-    function openHelp() {
-      closeAllPopups('Report');
-      document.getElementById("help-popup").style.display = "block";
-    }
+function openHelp() {
+  closeAllPopups('Report');
+  document.getElementById("help-popup").style.display = "block";
+}
 
-    function closeHelp() {
-      document.getElementById("help-popup").style.display = "none";
-    }
+function closeHelp() {
+  document.getElementById("help-popup").style.display = "none";
+}
 
-    // Close the help popup if the user clicks outside of the help content
-    window.onclick = function(event) {
-      const popup = document.getElementById("help-popup");
-      if (event.target === popup) {
-        popup.style.display = "none";
-      }
-    }
+// Close the help popup if the user clicks outside of the help content
+window.onclick = function(event) {
+  const popup = document.getElementById("help-popup");
+  if (event.target === popup) {
+    popup.style.display = "none";
+  }
+}
 
-    function openMapKey(){
-      closeAllPopups('Report');
-      document.getElementById("map-key-popup").style.display = "block";
-    }
-    function closeMapKey(){
-        document.getElementById("map-key-popup").style.display = "none";
-    }
+function openMapKey(){
+  closeAllPopups('Report');
+  document.getElementById("map-key-popup").style.display = "block";
+}
+function closeMapKey(){
+    document.getElementById("map-key-popup").style.display = "none";
+}
 
 
 function openSearch() {
-    closeAllPopups('Report');
-    const searchPopup = document.getElementById("popup-search");
-    searchPopup.style.display = "block";
-    setTimeout(() => {
-        searchPopup.classList.add("show");
+  closeAllPopups('Report');
+  const searchPopup = document.getElementById("popup-search");
+  searchPopup.style.display = "block";
+  setTimeout(() => {
+      searchPopup.classList.add("show");
     }, 10); // Slight delay to trigger the CSS transition
 }
 
 function closeSearch() {
-    const searchPopup = document.getElementById("popup-search");
-    searchPopup.classList.remove("show");
-    setTimeout(() => {
+  const searchPopup = document.getElementById("popup-search");
+  searchPopup.classList.remove("show");
+  setTimeout(() => {
         searchPopup.style.display = "none";
     }, 500); // Match the delay to the transition duration
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    const searchButton = document.querySelector(".button[onclick='openSearch()']");
-    if (searchButton) {
-        searchButton.addEventListener("click", openSearch);
-    }
+  const searchButton = document.querySelector(".button[onclick='openSearch()']");
+  if (searchButton) {
+    searchButton.addEventListener("click", openSearch);
+  }
 });
 document.addEventListener('DOMContentLoaded', function() {
-    const searchButton = document.querySelector(".button[onclick='openSearch()']");
-    if (searchButton) {
-        searchButton.addEventListener("click", openSearch);
-    }
+  const searchButton = document.querySelector(".button[onclick='openSearch()']");
+  if (searchButton) {
+    searchButton.addEventListener("click", openSearch);
+  }
 });
 
 
-    window.onclick = function(event) {
-      const popup = document.getElementById("mapKeyPopup");
-      if (event.target === popup) {
-        popup.style.display = "none";
-      }
-    }
+window.onclick = function(event) {
+  const popup = document.getElementById("mapKeyPopup");
+  if (event.target === popup) {
+    popup.style.display = "none";
+  }
+}
 
-    function openPopup(id) {
-      closeAllPopups(id);
-      document.getElementById('popup-' + id.toLowerCase()).style.display = 'block';
-    }
+function openPopup(id) {
+  closeAllPopups(id);
+  document.getElementById('popup-' + id.toLowerCase()).style.display = 'block';
+}
 
-    function closePopup(id) {
+function closePopup(id) {
   document.getElementById('popup-' + id.toLowerCase()).style.display = 'none';
 }
-  //Closes all popups when user clicks on second popup. 
-  function closeAllPopups(id) {
-    document.getElementById("map-key-popup").style.display = "none";
-    document.getElementById("help-popup").style.display = "none";
-    document.getElementById("popup-search").style.display = "none";
-    document.getElementById('popup-' + id.toLowerCase()).style.display = 'none';
+//Closes all popups when user clicks on second popup. 
+function closeAllPopups(id) {
+  document.getElementById("map-key-popup").style.display = "none";
+  document.getElementById("help-popup").style.display = "none";
+  document.getElementById("popup-search").style.display = "none";
+  document.getElementById('popup-' + id.toLowerCase()).style.display = 'none';
 }
 
-   document.addEventListener('DOMContentLoaded', function () {
-      initMap();
-    });
+document.addEventListener('DOMContentLoaded', function () {
+  initMap();
+});
 
 // Handle report form submission
 document.addEventListener('DOMContentLoaded', function () {
-    const reportForm = document.getElementById('reportForm');
-    reportForm.addEventListener('submit', function(event) {
-        event.preventDefault();
-        const reportTitle = document.getElementById('reportTitle').value;
-        const reportDescription = document.getElementById('reportDescription').value;
+  const reportForm = document.getElementById('reportForm');
+  reportForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+    const reportTitle = document.getElementById('reportTitle').value;
+    const reportDescription = document.getElementById('reportDescription').value;
 
-        // Handle the form data (e.g., send it to a server or display it)
-        console.log('Report Title:', reportTitle);
-        console.log('Report Description:', reportDescription);
+    // Handle the form data (e.g., send it to a server or display it)
+    console.log('Report Title:', reportTitle);
+    console.log('Report Description:', reportDescription);
         
-        // Display a confirmation message or handle the submission
-        alert('Report submitted successfully!');
+    // Display a confirmation message or handle the submission
+    alert('Report submitted successfully!');
 
-        // Close the popup
-        closePopup('Report');
+    // Close the popup
+    closePopup('Report');
 
-        // Clear the form
-        reportForm.reset();
-    });
+    // Clear the form
+    reportForm.reset();
+  });
 });
 
 document.querySelector(".btn-fixx").onclick = function () {
-    window.location.href = "https://www.google.com";
+  window.location.href = "https://www.google.com";
 };
