@@ -1,4 +1,5 @@
 import heapdict
+from munchi_maps_model import MunchiMaps_model
 
 def dijkstra(distance_store, start_address):
     """
@@ -53,5 +54,34 @@ def dijkstra(distance_store, start_address):
     shortest_path = []  # record the shortest path
     for i in distances:
         shortest_path.append(i[0])
-    
     return shortest_path
+
+if __name__ == "__main__":
+    data = "vending_machine.csv" # default vending machine data file
+    munchimaps_info = MunchiMaps_model(data)
+    # collect all the vending machines info into self.vendings, a list of dictionaries
+    munchimaps_info.collect_vendings()
+    # get all the distance between the locations into a dictionary
+    distance_store = munchimaps_info.collect_distance()
+    # set the first address in vending_machine.csv as the start address for test
+    shortest_path_record = dijkstra(distance_store, "Folsom Library")
+    print(shortest_path_record) # print the shortest path record
+    """
+    ['Folsom Library', 'Voorhees Computing Center', 'Amos Eaton Hall', 'Greene Building',
+    'Russell Sage Laboratory', 'Jonsson–Rowland Science Center', 'j Erik Jonsson Engineering Center',
+    'Pittsburgh Building', 'West Hall', 'Darrin Communication Center', 'North Hall', 'Quadrangle Complex',
+    'Mueller Center', 'RPI Public Safety', 'Rensselaer Student Union', 'Warren Hall', 'Sharp Hall',
+    'Davison Hall']
+    """
+    
+    # calculate the whole distance of the shortest path
+    total_distance = 0
+    for i in range(1, len(shortest_path_record)):
+        # handle the key difference in the distance_store dictionary
+        if ((shortest_path_record[i - 1], shortest_path_record[i]) in distance_store.keys()):
+            total_distance += distance_store[(shortest_path_record[i - 1], shortest_path_record[i])]
+        elif ((shortest_path_record[i], shortest_path_record[i - 1]) in distance_store.keys()):
+            total_distance += distance_store[(shortest_path_record[i], shortest_path_record[i - 1])]
+    # print the total distance of the shortest path
+    print("The total distance of the shortest path is: ", total_distance, "miles.")
+    
