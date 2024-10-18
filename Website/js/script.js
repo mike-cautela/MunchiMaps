@@ -293,48 +293,33 @@
           });
         }
       } // Icon object declaration ending.
-      
-      const academy_hall = new icon("Academy Hall", 42.72749913373329, -73.67858048827672, 8.00, 18.00, 1, 1, 0, 0, "N");
-      const sharp = new icon("Sharp Hall", 42.72711006590162, -73.67448712656643, 0.00, 24.00, 0, 1, 0, 0, "N");
-      const union = new icon("Union", 42.730159761978896,-73.67663391678252, 7.00, 24.00, 1, 1, 0, 0, "N");
-      const quad = new icon("Quad",42.730706041764584,-73.67756264747236, 0.00, 24.00, 0, 2, 0, 0, "N");
-      const dcc = new icon("DCC", 42.72934781129576, -73.67895862471251, 7.00, 21.00, 1, 1, 0, 0, "N");
-      const vcc = new icon("Vorhees Computing Center", 42.72931448709032, -73.68164350143745, 7.00, 23.00, 1, 2, 0, 0, "N");
-      const amos = new icon("Amos Eaton Hall", 42.730287323346445, -73.68258918979996, 7.00, 22.00, 0, 1, 0, 0, "N");
-      const mueller = new icon("Mueller Center", 42.72891902003062, -73.67684441122128, 8.00, 10.00, 1, 2, 0, 0,"N");
-      const jec = new icon("JEC", 42.729847677153444, -73.68020218979997,6.00, 22.00, 1, 1,0, 0, "N");
-      const sage = new icon("Sage Labs",42.73097906477598, -73.68164141863616, 7.00, 24.00, 1, 1, 0, 0, "N");
-      const jrowl = new icon("JROWL", 42.72900301770575, -73.68045377630875, 6.00, 22.00, 1, 1, 0, 0, "N");
-      const pittsburgh = new icon("Pittsburgh Building",42.73125174093247, -73.68330210329108, 7.00, 21.00, 1, 1, 0, 0, "N");
-      const warren =  new icon("Warren Hall", 42.72809422047715, -73.67536297260132, 7.00, 21.00, 0, 1, 0, 0, "N");
-      const greene = new icon("Greene Building", 42.73022009495838, -73.68115317445492, 7.00, 21.00, 1, 1, 0, 0, "N");
-      const davison = new icon("Davison Hall", 42.72731130298223, -73.67414636096385, 0.00, 24.00, 0, 1,0, 0, "N");
-      const pub_safe = new icon("Pub Safe",42.72930295751444, -73.67676008238502, 0.00, 24.00, 0, 1, 0, 0, "N");
-      const north_hall = new icon("North Hall", 42.73142413669011, -73.67987080514486, 7.00, 24.00, 1, 2, 0, 0,"N");
-      const west_hall = new icon("West Hall", 42.731807801585866, -73.68320404747236, 0.00, 24.00, 0, 1, 0, 0, "N");
-      const folsom = new icon("Folsom Library", 42.72954131606436, -73.68250278794625, 8.00, 11.00, 1, 2, 0, 0, "N");
 
-      academy_hall.plot();
-      sharp.plot();
-      union.plot();
-      quad.plot();
-      dcc.plot();
-      vcc.plot();
-      amos.plot();
-      mueller.plot();
-      amos.plot();
-      jec.plot();
-      amos.plot();
-      sage.plot();
-      jrowl.plot();
-      pittsburgh.plot();
-      warren.plot();
-      greene.plot();
-      davison.plot();
-      pub_safe.plot();
-      north_hall.plot();
-      west_hall.plot();
-      folsom.plot();
+      const buildings = [
+        new icon("Academy Hall", 42.72749913373329, -73.67858048827672, 8.00, 18.00, 1, 1, 0, 0, "N"),
+        new icon("Amos Eaton Hall", 42.730287323346445, -73.68258918979996, 7.00, 22.00, 0, 1, 0, 0, "N"),
+        new icon("Davison Hall", 42.72731130298223, -73.67414636096385, 0.00, 24.00, 0, 1,0, 0, "N"),
+        new icon("DCC", 42.72934781129576, -73.67895862471251, 7.00, 21.00, 1, 1, 0, 0, "N"),
+        new icon("Folsom Library", 42.72954131606436, -73.68250278794625, 8.00, 11.00, 1, 2, 0, 0, "N"),
+        new icon("Greene Building", 42.73022009495838, -73.68115317445492, 7.00, 21.00, 1, 1, 0, 0, "N"),
+        new icon("JEC", 42.729847677153444, -73.68020218979997,6.00, 22.00, 1, 1,0, 0, "N"),
+        new icon("JROWL", 42.72900301770575, -73.68045377630875, 6.00, 22.00, 1, 1, 0, 0, "N"),
+        new icon("Mueller Center", 42.72891902003062, -73.67684441122128, 8.00, 10.00, 1, 2, 0, 0,"N"),
+        new icon("North Hall", 42.73142413669011, -73.67987080514486, 7.00, 24.00, 1, 2, 0, 0,"N"),
+        new icon("Pittsburgh Building",42.73125174093247, -73.68330210329108, 7.00, 21.00, 1, 1, 0, 0, "N"),
+        new icon("Pub Safe",42.72930295751444, -73.67676008238502, 0.00, 24.00, 0, 1, 0, 0, "N"),
+        new icon("Quad",42.730706041764584,-73.67756264747236, 0.00, 24.00, 0, 2, 0, 0, "N"),
+        new icon("Sage Labs",42.73097906477598, -73.68164141863616, 7.00, 24.00, 1, 1, 0, 0, "N"),
+        new icon("Sharp Hall", 42.72711006590162, -73.67448712656643, 0.00, 24.00, 0, 1, 0, 0, "N"),
+        new icon("Union", 42.730159761978896,-73.67663391678252, 7.00, 24.00, 1, 1, 0, 0, "N"),
+        new icon("Voorhees Computing Center", 42.72931448709032, -73.68164350143745, 7.00, 23.00, 1, 2, 0, 0, "N"),
+        new icon("Warren Hall", 42.72809422047715, -73.67536297260132, 7.00, 21.00, 0, 1, 0, 0, "N"),
+        new icon("West Hall", 42.731807801585866, -73.68320404747236, 0.00, 24.00, 0, 1, 0, 0, "N")
+      ];
+
+      for(let i=0; i<buildings.length; i++) {
+        buildings[i].plot();
+      }
+
 
       // Toggle between dark mode and light mode CSS sheets.
       let darkMode = false;
