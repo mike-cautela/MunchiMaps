@@ -293,7 +293,8 @@
           });
         }
       } // Icon object declaration ending.
-        
+      
+      const academy_hall = new icon("Academy Hall", 42.72749913373329, -73.67858048827672, 8.00, 18.00, 1, 1, 0, 0, "N");
       const sharp = new icon("Sharp Hall", 42.72711006590162, -73.67448712656643, 0.00, 24.00, 0, 1, 0, 0, "N");
       const union = new icon("Union", 42.730159761978896,-73.67663391678252, 7.00, 24.00, 1, 1, 0, 0, "N");
       const quad = new icon("Quad",42.730706041764584,-73.67756264747236, 0.00, 24.00, 0, 2, 0, 0, "N");
@@ -313,6 +314,7 @@
       const west_hall = new icon("West Hall", 42.731807801585866, -73.68320404747236, 0.00, 24.00, 0, 1, 0, 0, "N");
       const folsom = new icon("Folsom Library", 42.72954131606436, -73.68250278794625, 8.00, 11.00, 1, 2, 0, 0, "N");
 
+      academy_hall.plot();
       sharp.plot();
       union.plot();
       quad.plot();
