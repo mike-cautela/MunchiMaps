@@ -1,63 +1,93 @@
 html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    overflow: hidden; /* Prevent scrolling */
-    box-sizing: border-box; /* Include border and padding in width and height */
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Prevent scrolling */
+  box-sizing: border-box; /* Include border and padding in width and height */
 }
 
 
 #map-container {
-    height: 100vh;
-    width: 100%;
-    z-index: 0;
-  }
-  #map {
-    height: 100%;
-    width: 100%;
-    z-index: 0;
-  }
-  /* Buttons at bottom of screen */
+  height: 100vh;
+  width: 100%;
+  z-index: 0;
+}
+#map {
+  height: 100%;
+  width: 100%;
+  z-index: 0;
+}
+
+/* Buttons at bottom of screen */
+#buttons-container {
+
+  /* Flexbox to prevent button orientation from changing */
+  display: flex;
+	justify-content: center;
+	align-items: flex-end;
+
+  bottom: 40px;
+  border-radius: 50px;
+  position: absolute;
+  z-index: 1;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  backdrop-filter: blur(10px); /* Apply a blur effect to the background */
+  background-color: rgba(255, 255, 255, 0.6); /* Semi-transparent white */
+  padding: 3px;
+  width: fit-content;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5); /* Window drop shadow */
+  outline: 4px solid rgba(255, 255, 255, 1); /* 3px white stroke */
+}
+
+/* Small screens (e.g., mobile) */
+@media screen and (max-width: 600px) {
   #buttons-container {
-    border-radius: 50px;
-    position: absolute;
-    z-index: 1;
-    bottom: 12px;
-    left: 50%;
-    transform: translateX(-50%);
-    backdrop-filter: blur(10px); /* Apply a blur effect to the background */
-    background-color: rgba(255, 255, 255, 0.6); /* Semi-transparent white */
-    padding: 3px;
-    width: fit-content;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5); /* Window drop shadow */
-    outline: 4px solid rgba(255, 255, 255, 1); /* 3px white stroke */
+    bottom: 40px;
   }
+}
 
+/* Medium screens (e.g., tablets) */
+@media screen and (min-width: 601px) and (max-width: 1024px) {
+  #buttons-container {
+    bottom: 21px;
+  }
+}
+
+.button {
+  padding: 5px 40px;
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0); /* Fully transparent */
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  transition: all 0.2s ease; /* Add transition for smooth animation */
+}
+
+/* Small screens (e.g., mobile) */
+@media screen and (max-width: 600px) {
   .button {
-   
-    padding: 5px 40px;
-    cursor: pointer;
-    background-color: rgba(255, 255, 255, 0); /* Fully transparent */
-    color: #fff;
-    border: none;
-    border-radius: 50px;
-    transition: all 0.2s ease; /* Add transition for smooth animation */
-
+    padding: 0px 21px;
   }
+}
 
-
-
-  
-
-  .button:hover {
-    background-color: #92B3B5;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
-    transform: scale(1.1); /* Increase the size of the button */
+/* Medium screens (e.g., tablets) */
+@media screen and (min-width: 601px) and (max-width: 1024px) {
+  .button {
+    padding: 8px 35px;
   }
-  .button:active {
-    background-color: #7A9C9E; /* Darker shade for pressed effect */
-    transform: scale(0.95); /* Slightly move the button down */
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3); /* Adjust shadow for pressed effect */
+}
+
+.button:hover {
+  background-color: #92B3B5;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
+  transform: scale(1.1); /* Increase the size of the button */
+}
+.button:active {
+  background-color: #7A9C9E; /* Darker shade for pressed effect */
+  transform: scale(0.95); /* Slightly move the button down */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3); /* Adjust shadow for pressed effect */
 }
 
 .button-img {
@@ -80,18 +110,25 @@ html, body {
   }
 
 
-  .help-button:hover {
+.help-button:hover {
     
-    transform: scale(1.1); /* Increase the size of the button */
-  }
-  .help-button:active {
-    transform: translateY(2px); /* Slightly move the button down */
+  transform: scale(1.1); /* Increase the size of the button */
+}
+.help-button:active {
+  transform: translateY(2px); /* Slightly move the button down */
 }
 .help-button-img {
     height: 30px; /* Adjust the height of the image */
     width: auto; /* Maintain the aspect ratio */
     background-color: #FFFFFF;
     border-radius: 50px;
+}
+
+/* Medium screens (e.g., tablets) */
+@media screen and (min-width: 601px) and (max-width: 1024px) {
+  .help-button-img {
+    height: 44px;
+  }
 }
 
  /* Styles for the help popup */
@@ -164,6 +201,20 @@ html, body {
   transition: all 0.3s ease; /* Smooth animation */
 }
 
+/* Small screens (e.g., mobile) */
+@media screen and (max-width: 600px) {
+  .map-key-button {
+    right: 45px;
+  }
+}
+
+/* Medium screens (e.g., tablets) */
+@media screen and (min-width: 601px) and (max-width: 1024px) {
+  .map-key-button {
+    right: 89px;
+  }
+}
+
 .map-key-button:hover {
   transform: scale(1.1); /* Increase button size on hover */
 }
@@ -177,6 +228,13 @@ html, body {
   width: auto; /* Maintain aspect ratio */
   background-color: #FFFFFF;
   border-radius: 50px;
+}
+
+/* Medium screens (e.g., tablets) */
+@media screen and (min-width: 601px) and (max-width: 1024px) {
+  .map-key-button-img {
+    height: 44px;
+  }
 }
 
 /* Map Key Popup */
@@ -303,6 +361,19 @@ html, body {
     z-index: 1000;
 }
 
+/* Small screens (e.g., mobile) */
+@media screen and (max-width: 600px) {
+  .logo-title img {
+    height: 46px;
+  }
+}
+
+/* Medium screens (e.g., tablets) */
+@media screen and (min-width: 601px) and (max-width: 1024px) {
+  .logo-title img {
+    height: 68px;
+  }
+}
 
   /* For map info window */
   .info-window-content {
@@ -465,6 +536,22 @@ html, body {
     transition: opacity 0.5s ease, transform 0.5s ease; /* Fade-in/Fade-out transition */
 }
 
+/* Small screens (e.g., mobile) */
+@media screen and (max-width: 600px) {
+  #popup-search {
+    width: 344px;
+    height: 470px;
+  }
+}
+
+/* Medium screens (e.g., tablets) */
+@media screen and (min-width: 601px) and (max-width: 1024px) {
+  #popup-search {
+    width: 545px;
+    height: 565px;
+  }
+}
+
 #popup-search.show {
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
@@ -497,6 +584,23 @@ html, body {
     font-weight: bold;
 }
 
+/* Small screens (e.g., mobile) */
+@media screen and (max-width: 600px) {
+  .search-bar {
+    width: 331px;
+    height: 437px;
+  }
+}
+
+/* Medium screens (e.g., tablets) */
+@media screen and (min-width: 601px) and (max-width: 1024px) {
+  .search-bar {
+    width: 520px;
+    height: 525px;
+  }
+}
+
+
 /*search bar input*/
 .search-bar input[type="search"] {
     width: 100%;
@@ -517,6 +621,21 @@ html, body {
     max-height: 420px;
     overflow-y: auto;
     margin-top: 20px;
+}
+
+/* Small screens (e.g., mobile) */
+@media screen and (max-width: 600px) {
+  .result {
+    max-height: 336px;
+    padding-left: 5px;
+  }
+}
+
+/* Medium screens (e.g., tablets) */
+@media screen and (min-width: 601px) and (max-width: 1024px) {
+  .result {
+    max-height: 425px;
+  }
 }
 
 .result ul {
@@ -554,7 +673,6 @@ html, body {
     text-decoration: underline;
 }
 
-<style>
 /*report button*/
 .popup-container {
   display: none;
@@ -650,8 +768,18 @@ html, body {
   border-color: #007BFF;
   outline: none;
 }
-</style> 
+
+.leaflet-bottom .leaflet-control {
+  margin-bottom: 10px;
+}
+
+/* Small screens (e.g., mobile) */
+@media screen and (max-width: 600px) {
+  .leaflet-bottom .leaflet-control {
+    margin-bottom: 16px;
+  }
+}
+ 
   
 
    
-  
