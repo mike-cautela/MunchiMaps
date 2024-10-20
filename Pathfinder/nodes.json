@@ -66,7 +66,7 @@
         },
         {
             "name": "Erik Jonsson Engineering Center",
-            "location":["42.729847677153444,-73.68020218979997"],
+            "location":["42.729847677153444","-73.68020218979997"],
             "connections": [""],
             "hasVendingMachine": "true",
             "food": "true",
