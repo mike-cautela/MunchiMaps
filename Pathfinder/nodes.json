@@ -1,12 +1,21 @@
 {
-    "routes" : [
+    "machines" : [
         {
             "name": "Folsom Library",
             "location": ["42.72954131606436","-73.68250278794625"],
             "connections": [""],
             "hasVendingMachine": "true",
             "food": "true",
-            "drink": "true"
+            "drink": "true",
+            "hours":[{
+                "monday": ["", ""],
+                "tuesday": ["",""],
+                "wednesday": ["",""],
+                "thursday": ["",""],
+                "friday": ["",""],
+                "saturday": ["",""],
+                "sunday":["",""]
+            }]
         },
         {
             "name": "Sharp Hall",
@@ -14,7 +23,8 @@
             "connections": [""],
             "hasVendingMachine": "true",
             "food": "false",
-            "drink": "true"
+            "drink": "true",
+            "hours": ["","","","","","",""]
         },
         {
             "name": "Rensselaer Student Union",
@@ -22,7 +32,8 @@
             "connections": [""],
             "hasVendingMachine": "true",
             "food": "true",
-            "drink": "true"
+            "drink": "true",
+            "hours": ["","","","","","",""]
         },
         {
             "name": "Quadrangle Complex",
@@ -30,7 +41,8 @@
             "connections": [""],
             "hasVendingMachine": "true",
             "food": "false",
-            "drink": "true"
+            "drink": "true",
+            "hours": ["","","","","","",""]
         },
         {
             "name": "Darrin Communication Center", 
@@ -38,7 +50,8 @@
             "connections": [""],
             "hasVendingMachine": "true",
             "food": "true",
-            "drink": "true"
+            "drink": "true",
+            "hours": ["","","","","","",""]
         },
         {
             "name": "Voorhees Computing Center",
@@ -46,7 +59,8 @@
             "connections": [""],
             "hasVendingMachine": "true",
             "food": "true",
-            "drink": "true"
+            "drink": "true",
+            "hours": ["","","","","","",""]
         },
         {
             "name": "Amos Eaton Hall",
@@ -54,7 +68,8 @@
             "connections": [""],
             "hasVendingMachine": "true",
             "food": "false",
-            "drink": "true"
+            "drink": "true",
+            "hours": ["","","","","","",""]
         },
         {
             "name": "Mueller Center",
@@ -62,7 +77,8 @@
             "connections": [""],
             "hasVendingMachine": "true",
             "food": "true",
-            "drink": "true"
+            "drink": "true",
+            "hours": ["","","","","","",""]
         },
         {
             "name": "Erik Jonsson Engineering Center",
@@ -70,7 +86,8 @@
             "connections": [""],
             "hasVendingMachine": "true",
             "food": "true",
-            "drink": "true"
+            "drink": "true",
+            "hours": ["","","","","","",""]
         },
         {
             "name": "Russell Sage Laboratory",
@@ -78,7 +95,8 @@
             "connections": [""],
             "hasVendingMachine": "true",
             "food": "true",
-            "drink": "true"
+            "drink": "true",
+            "hours": ["","","","","","",""]
         },
         {
             "name": "Jonsson-Rowland Science Center",
@@ -86,7 +104,8 @@
             "connections": [""],
             "hasVendingMachine": "true",
             "food": "true",
-            "drink": "true"
+            "drink": "true",
+            "hours": ["","","","","","",""]
         },
         {
             "name": "Pittsburgh Building",
@@ -94,7 +113,8 @@
             "connections": [""],
             "hasVendingMachine": "true",
             "food": "true",
-            "drink": "true"
+            "drink": "true",
+            "hours": ["","","","","","",""]
         },
         {
             "name": "Warren Hall",
@@ -102,7 +122,8 @@
             "connections": [""],
             "hasVendingMachine": "true",
             "food": "false",
-            "drink": "true"
+            "drink": "true",
+            "hours": ["","","","","","",""]
         },
         {
             "name": "Greene Building",
@@ -110,7 +131,8 @@
             "connections": [""],
             "hasVendingMachine": "true",
             "food": "true",
-            "drink": "true"
+            "drink": "true",
+            "hours": ["","","","","","",""]
         },
         {
             "name": "Davison Hall",
@@ -118,7 +140,8 @@
             "connections": [""],
             "hasVendingMachine": "true",
             "food": "false",
-            "drink": "true"
+            "drink": "true",
+            "hours": ["","","","","","",""]
         },
         {
             "name": "RPI Public Safety",
@@ -126,7 +149,8 @@
             "connections": [""],
             "hasVendingMachine": "true",
             "food": "false",
-            "drink": "true"
+            "drink": "true",
+            "hours": ["","","","","","",""]
         },
         {
             "name": "North Hall",
@@ -134,7 +158,8 @@
             "connections": [""],
             "hasVendingMachine": "true",
             "food": "true",
-            "drink": "true"
+            "drink": "true",
+            "hours": ["","","","","","",""]
         },
         {
             "name": "West Hall",
@@ -142,7 +167,8 @@
             "connections": [""],
             "hasVendingMachine": "true",
             "food": "false",
-            "drink": "true"
+            "drink": "true",
+            "hours": ["","","","","","",""]
         }
     ]
 }
