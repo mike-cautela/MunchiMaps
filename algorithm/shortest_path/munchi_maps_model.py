@@ -17,7 +17,7 @@ class MunchiMaps_model(object):
         self.coordinates = list()
         self.load_data() # load the data from the CSV file
         self.vendings_collection = list() # a list of dictionaries [{}], store all the vending machines info
-        self.distance_collect = dict() # a dictionary to store the distance between the locations, dictionaries of dictionary
+        self.distance_store = dict() # a dictionary to store the distance between the locations, dictionaries of dictionary
     
     # read the CSV file and populate the lists
     def load_data(self):
@@ -188,7 +188,7 @@ class MunchiMaps_model(object):
                 distance2 = self.vendings_collection[j]["Coordinates"]
                 building2 = self.vendings_collection[j]["Building"]
                 distance_between = self.get_distance(distance1, distance2)
-                self.distance_collect[(building1, building2)] = distance_between
-        return self.distance_collect
+                self.distance_store[(building1, building2)] = distance_between
+        return self.distance_store
     
                 
