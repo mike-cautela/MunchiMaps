@@ -8,13 +8,13 @@
             "food": "true",
             "drink": "true",
             "hours":[{
-                "monday": ["", ""],
-                "tuesday": ["",""],
-                "wednesday": ["",""],
-                "thursday": ["",""],
-                "friday": ["",""],
-                "saturday": ["",""],
-                "sunday":["",""]
+                "monday": ["8AM", "12AM"],
+                "tuesday": ["8AM","12AM"],
+                "wednesday": ["8AM","12AM"],
+                "thursday": ["8AM","12AM"],
+                "friday": ["8AM","8PM"],
+                "saturday": ["12AM","8PM"],
+                "sunday":["2PM","10PM"]
             }]
         },
         {
@@ -24,7 +24,7 @@
             "hasVendingMachine": "true",
             "food": "false",
             "drink": "true",
-            "hours": ["","","","","","",""]
+            "hours": "24/7"
         },
         {
             "name": "Rensselaer Student Union",
@@ -33,7 +33,15 @@
             "hasVendingMachine": "true",
             "food": "true",
             "drink": "true",
-            "hours": ["","","","","","",""]
+            "hours":[{
+                "monday": ["7AM", "12AM"],
+                "tuesday": ["7AM", "12AM"],
+                "wednesday": ["7AM", "12AM"],
+                "thursday": ["7AM", "12AM"],
+                "friday": ["7AM", "12AM"],
+                "saturday": ["9AM","12AM"],
+                "sunday":["9AM","12AM"]
+            }]
         },
         {
             "name": "Quadrangle Complex",
@@ -42,7 +50,7 @@
             "hasVendingMachine": "true",
             "food": "false",
             "drink": "true",
-            "hours": ["","","","","","",""]
+            "hours": "24/7"
         },
         {
             "name": "Darrin Communication Center", 
@@ -51,7 +59,15 @@
             "hasVendingMachine": "true",
             "food": "true",
             "drink": "true",
-            "hours": ["","","","","","",""]
+            "hours":[{
+                "monday": ["7AM", "9PM"],
+                "tuesday": ["7AM", "9PM"],
+                "wednesday": ["7AM", "9PM"],
+                "thursday": ["7AM", "9PM"],
+                "friday": ["7AM", "9PM"],
+                "saturday": ["closed","closed"],
+                "sunday":["closed","closed"]
+            }]
         },
         {
             "name": "Voorhees Computing Center",
@@ -60,7 +76,15 @@
             "hasVendingMachine": "true",
             "food": "true",
             "drink": "true",
-            "hours": ["","","","","","",""]
+            "hours":[{
+                "monday": ["7AM", "11PM"],
+                "tuesday": ["7AM", "11PM"],
+                "wednesday": ["7AM", "11PM"],
+                "thursday": ["7AM", "11PM"],
+                "friday": ["7AM", "11PM"],
+                "saturday": ["7AM", "11PM"],
+                "sunday": ["7AM", "11PM"]
+            }]
         },
         {
             "name": "Amos Eaton Hall",
@@ -69,7 +93,15 @@
             "hasVendingMachine": "true",
             "food": "false",
             "drink": "true",
-            "hours": ["","","","","","",""]
+            "hours":[{
+                "monday": ["7AM", "10PM"],
+                "tuesday": ["7AM", "10PM"],
+                "wednesday": ["7AM", "10PM"],
+                "thursday": ["7AM", "10PM"],
+                "friday": ["7AM", "10PM"],
+                "saturday": ["closed","closed"],
+                "sunday":["closed","closed"]
+            }]
         },
         {
             "name": "Mueller Center",
@@ -78,7 +110,15 @@
             "hasVendingMachine": "true",
             "food": "true",
             "drink": "true",
-            "hours": ["","","","","","",""]
+            "hours":[{
+                "monday": ["7AM", "11PM"],
+                "tuesday": ["7AM", "11PM"],
+                "wednesday": ["7AM", "11PM"],
+                "thursday": ["7AM", "11PM"],
+                "friday": ["7AM", "11PM"],
+                "saturday": ["7AM", "11PM"],
+                "sunday": ["7AM", "11PM"]
+            }]
         },
         {
             "name": "Erik Jonsson Engineering Center",
@@ -87,7 +127,15 @@
             "hasVendingMachine": "true",
             "food": "true",
             "drink": "true",
-            "hours": ["","","","","","",""]
+            "hours":[{
+                "monday": ["6AM", "10PM"],
+                "tuesday": ["6AM", "10PM"],
+                "wednesday": ["6AM", "10PM"],
+                "thursday": ["6AM", "10PM"],
+                "friday": ["6AM", "10PM"],
+                "saturday": ["6AM", "10PM"],
+                "sunday": ["6AM", "10PM"]
+            }]
         },
         {
             "name": "Russell Sage Laboratory",
@@ -96,7 +144,15 @@
             "hasVendingMachine": "true",
             "food": "true",
             "drink": "true",
-            "hours": ["","","","","","",""]
+            "hours":[{
+                "monday": ["7AM", "12AM"],
+                "tuesday": ["7AM", "12AM"],
+                "wednesday": ["7AM", "12AM"],
+                "thursday": ["7AM", "12AM"],
+                "friday": ["7AM", "12AM"],
+                "saturday": ["closed","closed"],
+                "sunday":["closed","closed"]
+            }]
         },
         {
             "name": "Jonsson-Rowland Science Center",
@@ -105,7 +161,15 @@
             "hasVendingMachine": "true",
             "food": "true",
             "drink": "true",
-            "hours": ["","","","","","",""]
+            "hours":[{
+                "monday": ["6AM", "10PM"],
+                "tuesday": ["6AM", "10PM"],
+                "wednesday": ["6AM", "10PM"],
+                "thursday": ["6AM", "10PM"],
+                "friday": ["6AM", "10PM"],
+                "saturday": ["6AM", "10PM"],
+                "sunday": ["6AM", "10PM"]
+            }]
         },
         {
             "name": "Pittsburgh Building",
@@ -114,7 +178,15 @@
             "hasVendingMachine": "true",
             "food": "true",
             "drink": "true",
-            "hours": ["","","","","","",""]
+            "hours":[{
+                "monday": ["7AM", "9PM"],
+                "tuesday": ["7AM", "9PM"],
+                "wednesday": ["7AM", "9PM"],
+                "thursday": ["7AM", "9PM"],
+                "friday": ["7AM", "9PM"],
+                "saturday": ["closed","closed"],
+                "sunday":["closed","closed"]
+            }]
         },
         {
             "name": "Warren Hall",
@@ -123,7 +195,7 @@
             "hasVendingMachine": "true",
             "food": "false",
             "drink": "true",
-            "hours": ["","","","","","",""]
+            "hours":"24/7"
         },
         {
             "name": "Greene Building",
@@ -132,7 +204,15 @@
             "hasVendingMachine": "true",
             "food": "true",
             "drink": "true",
-            "hours": ["","","","","","",""]
+            "hours":[{
+                "monday": ["7AM", "9PM"],
+                "tuesday": ["7AM", "9PM"],
+                "wednesday": ["7AM", "9PM"],
+                "thursday": ["7AM", "9PM"],
+                "friday": ["7AM", "9PM"],
+                "saturday": ["closed","closed"],
+                "sunday":["closed","closed"]
+            }]
         },
         {
             "name": "Davison Hall",
@@ -141,7 +221,7 @@
             "hasVendingMachine": "true",
             "food": "false",
             "drink": "true",
-            "hours": ["","","","","","",""]
+            "hours":"24/7"
         },
         {
             "name": "RPI Public Safety",
@@ -150,7 +230,7 @@
             "hasVendingMachine": "true",
             "food": "false",
             "drink": "true",
-            "hours": ["","","","","","",""]
+            "hours": "24/7"
         },
         {
             "name": "North Hall",
@@ -159,7 +239,15 @@
             "hasVendingMachine": "true",
             "food": "true",
             "drink": "true",
-            "hours": ["","","","","","",""]
+            "hours":[{
+                "monday": ["7AM", "12AM"],
+                "tuesday": ["7AM", "12AM"],
+                "wednesday": ["7AM", "12AM"],
+                "thursday": ["7AM", "12AM"],
+                "friday": ["7AM", "12AM"],
+                "saturday": ["7AM", "12AM"],
+                "sunday":["7AM", "12AM"],
+            }]
         },
         {
             "name": "West Hall",
@@ -168,7 +256,7 @@
             "hasVendingMachine": "true",
             "food": "false",
             "drink": "true",
-            "hours": ["","","","","","",""]
+            "hours": "24/7"
         }
     ]
 }
