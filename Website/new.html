@@ -285,8 +285,63 @@
                       listItem.textContent = item.name;
                     
                       listItem.onclick = function() {
-                        showInfoHelper(item);
+                          if (item.name == "Folsom Library") {
+                              icons.folsom.plot();
+                              showInfoHelper("folsom");
+                          } else if (item.name == "Sharp Hall") {
+                              icons.sharp.plot();
+                              showInfoHelper("sharp");
+                          } else if (item.name == "Rensselaer Student Union") {
+                              icons.union.plot();
+                              showInfoHelper("union");
+                          } else if (item.name == "Quadrangle Complex") {
+                              icons.quad.plot();
+                              showInfoHelper("quad");
+                          } else if (item.name == "Darrin Communication Center") {
+                              icons.dcc.plot();
+                              showInfoHelper("dcc");
+                          } else if (item.name == "Woorhees Computing Center") {
+                              icons.vcc.plot();
+                              showInfoHelper("vcc");
+                          } else if (item.name == "Amos Eaton Hall") {
+                              icons.amos.plot();
+                              showInfoHelper("amos");
+                          } else if (item.name == "Mueller Center") {
+                              icons.mueller.plot();
+                              showInfoHelper("mueller");
+                          } else if (item.name == "J Erik Jonsson Engineering Center") {
+                              icons.jec.plot();
+                              showInfoHelper("jec");
+                          } else if (item.name == "Russell Sage Laboratory") {
+                              icons.sage.plot();
+                              showInfoHelper("sage");
+                          } else if (item.name == "Jonsson-Rowland Science Center") {
+                              icons.jrowl.plot();
+                              showInfoHelper("jrowl");
+                          } else if (item.name == "Pittsburgh Building") {
+                              icons.pittsburgh.plot();
+                              showInfoHelper("pittsburgh");
+                          } else if (item.name == "Warren Hall") {
+                              icons.warren.plot();
+                              showInfoHelper("warren");
+                          } else if (item.name == "Greene Building") {
+                              icons.greene.plot();
+                              showInfoHelper("greene");
+                          } else if (item.name == "Davison Hall") {
+                              icons.davison.plot();
+                              showInfoHelper("davison");
+                          } else if (item.name == "RPI Public Safety") {
+                              icons.pub_safe.plot();
+                              showInfoHelper("pub_safe");
+                          } else if (item.name == "North Hall") {
+                              icons.north_hall.plot();
+                              showInfoHelper("north_hall");
+                          } else if (item.name == "West Hall") {
+                              icons.west_hall.plot();
+                              showInfoHelper("west_hall");
+                          }
                       };
+
                     
                       resultList.appendChild(listItem);
                   });
