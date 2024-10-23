@@ -17,7 +17,7 @@ These are part of Python's standard library, so no external packages are needed.
 
 ### Data
 
-The vending_machine_update.csv is the updated version of all the vending machine data.
+The vending_machine.csv is the final version of all the vending machine data.
 
 - Precautions
     - For the section `Hours of operation`, better to type the hours of operation for each day in a week, even though every day have the same time. Except open 24 hours. And remember using `en dash —`, not `em dash –`, which may lead a bug in function `check_time(self, time, day, time_range)`. If you using mac, `en dash` is `option -`.
