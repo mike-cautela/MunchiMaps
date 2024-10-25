@@ -1,6 +1,25 @@
 
-let map;
-const icons = {};
+const building_data = [
+  {name:"Academy Hall", x_coord:42.72749913373329, y_coord:-73.67858048827672, time_opens:8.00, time_closes:18.00, num_snack_machines:1, num_drink_machines:1},
+  {name:"Amos Eaton Hall", x_coord:42.730287323346445, y_coord:-73.68258918979996, time_opens:7.00, time_closes:22.00, num_snack_machines:0, num_drink_machines:1},
+  {name:"Davison Hall", x_coord:42.72731130298223, y_coord:-73.67414636096385, time_opens:0.00, time_closes:24.00, num_snack_machines:0, num_drink_machines:1},
+  {name:"DCC", x_coord:42.72934781129576, y_coord:-73.67895862471251, time_opens:7.00, time_closes:21.00, num_snack_machines:1, num_drink_machines:1},
+  {name:"Folsom Library", x_coord:42.72954131606436, y_coord:-73.68250278794625, time_opens:8.00, time_closes:11.00, num_snack_machines:1, num_drink_machines:2},
+  {name:"Greene Building", x_coord:42.73022009495838, y_coord:-73.68115317445492, time_opens:7.00, time_closes:21.00, num_snack_machines:1, num_drink_machines:1},
+  {name:"JEC", x_coord:42.729847677153444, y_coord:-73.68020218979997, time_opens:6.00, time_closes:22.00, num_snack_machines:1, num_drink_machines:1},
+  {name:"JROWL", x_coord:42.72900301770575, y_coord:-73.68045377630875, time_opens:6.00, time_closes:22.00, num_snack_machines:1, num_drink_machines:1},
+  {name:"Mueller Center", x_coord:42.72891902003062, y_coord:-73.67684441122128, time_opens:8.00, time_closes:10.00, num_snack_machines:1, num_drink_machines:2},
+  {name:"North Hall", x_coord:42.73142413669011, y_coord:-73.67987080514486, time_opens:7.00, time_closes:24.00, num_snack_machines:1, num_drink_machines:2},
+  {name:"Pittsburgh Building", x_coord:42.73125174093247, y_coord:-73.68330210329108, time_opens:7.00, time_closes:21.00, num_snack_machines:1, num_drink_machines:1},
+  {name:"Pub Safe", x_coord:42.72930295751444, y_coord:-73.67676008238502, time_opens:0.00, time_closes:24.00, num_snack_machines:0, num_drink_machines:1},
+  {name:"Quad", x_coord:42.730706041764584, y_coord:-73.67756264747236, time_opens:0.00, time_closes:24.00, num_snack_machines:0, num_drink_machines:2},
+  {name:"Sage Labs", x_coord:42.73097906477598, y_coord:-73.68164141863616, time_opens:7.00, time_closes:24.00, num_snack_machines:1, num_drink_machines:1},
+  {name:"Sharp Hall", x_coord:42.72711006590162, y_coord:-73.67448712656643, time_opens:0.00, time_closes:24.00, num_snack_machines:0, num_drink_machines:1},
+  {name:"Union", x_coord:42.730159761978896, y_coord:-73.67663391678252, time_opens:7.00, time_closes:24.00, num_snack_machines:1, num_drink_machines:1},
+  {name:"Voorhees Computing Center", x_coord:42.72931448709032, y_coord:-73.68164350143745, time_opens:7.00, time_closes:23.00, num_snack_machines:1, num_drink_machines:2},
+  {name:"Warren Hall", x_coord:42.72809422047715, y_coord:-73.67536297260132, time_opens:7.00, time_closes:21.00, num_snack_machines:0, num_drink_machines:1},
+  {name:"West Hall", x_coord:42.731807801585866, y_coord:-73.68320404747236, time_opens:0.00, time_closes:24.00, num_snack_machines:0, num_drink_machines:1},
+];
 
  //initializes the map
     function initMap() {
@@ -295,6 +314,28 @@ const icons = {};
             });
           });
         }
+      } // Icon object declaration ending.
+
+      var buildings = [];
+      for(let i=0; i<building_data.length; i++) {
+        temp = new icon(
+            building_data[i].name,
+            building_data[i].x_coord,
+            building_data[i].y_coord,
+            building_data[i].time_opens,
+            building_data[i].time_closes,
+            building_data[i].num_snack_machines,
+            building_data[i].num_drink_machines,
+            0, //num_ratings
+            0, //average_ratings
+            "N" //needs_service
+          )
+        buildings.push(temp);
+      }
+
+      for(let i=0; i<buildings.length; i++) {
+        buildings[i].plot();
+      }
 
         
 //         showInfo() {
