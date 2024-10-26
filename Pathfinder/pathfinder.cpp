@@ -5,6 +5,8 @@
 #include <string>
 #include <iostream>
 #include "json.hpp"
+#include <ctime>
+
 
 
 std::vector<Locations> getnodes(std::ifstream &infile){
@@ -28,13 +30,20 @@ std::vector<Locations> getnodes(std::ifstream &infile){
     return locations;
 }
 
+std::vector<Locations> checkTimes(std::vector<Locations> machines){
+    
+}
 
 
 int main(){
     std::ifstream infile("nodes.json");
     std::vector<Locations> locations;
     locations = getnodes(infile);
-    
+    std::time_t currentTime = time(0);
+    tm* localTime = localtime(&currentTime);
+    int hour = localTime->tm_hour;
+    int min = localTime->tm_min;
+    std::cout << hour << " " << min << std::endl;
 
     return 0;
 }
