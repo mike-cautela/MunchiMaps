@@ -1,8 +1,8 @@
 import csv # read the CSV file
 from datetime import datetime # get the current date and time
-import heapdict # the data structure used in the Dijkstra algorithm, a priority queue
 import folium # for drawing maps
 from haversine import haversine, Unit # used to calculate the distance between two longitudes and latitudes
+import geocoder # get the current location of the user
 
 class MunchiMaps_model(object):
     def __init__(self, csv_file):
@@ -17,21 +17,21 @@ class MunchiMaps_model(object):
         self.coordinates = list()
         self.load_data() # load the data from the CSV file
         self.vendings_collection = list() # a list of dictionaries [{}], store all the vending machines info
-        self.distance_collect = dict() # a dictionary to store the distance between the locations, dictionaries of dictionary
+        self.distance_store = dict() # a dictionary to store the distance between the locations, dictionaries of dictionary
     
     # read the CSV file and populate the lists
     def load_data(self):
             with open(self.data, mode='r') as file:
                 csv_reader = csv.DictReader(file)
                 for row in csv_reader:
-                    self.building.append(row['Building'])
-                    self.amount.append(row['Amount'])
-                    self.drink.append(row['Drink'])
-                    self.food.append(row['Food'])
-                    self.location_description.append(row['Location description'])
-                    self.hours_of_operation.append(row['Hours of operation'])
-                    self.access_information.append(row['Access information'])
-                    self.coordinates.append(row['Coordinates'])
+                    self.building.append(row["Building"])
+                    self.amount.append(row["Amount"])
+                    self.drink.append(row["Drink"])
+                    self.food.append(row["Food"])
+                    self.location_description.append(row["Location description"])
+                    self.hours_of_operation.append(row["Hours of operation"])
+                    self.access_information.append(row["Access information"])
+                    self.coordinates.append(row["Coordinates"])
     
     # print out all the data we read from the CSV file
     def __str__(self):
@@ -169,7 +169,7 @@ class MunchiMaps_model(object):
         # get the coordinates of the two locations
         lat1, lon1 = location1.split("\\")
         lat2, lon2 = location2.split("\\")
-        # replace any em dash "—" with a regular minus sign "-"
+        # replace any en dash "–" with a regular minus sign "-"
         lat1 = lat1.replace("–", "-")
         lat2 = lat2.replace("–", "-")
         lon1 = lon1.replace("–", "-")
@@ -187,8 +187,70 @@ class MunchiMaps_model(object):
             for j in range(i + 1, len(self.vendings_collection)):
                 distance2 = self.vendings_collection[j]["Coordinates"]
                 building2 = self.vendings_collection[j]["Building"]
+                # calculate the distance between the two locations
                 distance_between = self.get_distance(distance1, distance2)
-                self.distance_collect[(building1, building2)] = distance_between
-        return self.distance_collect
+                # store the distance between the two locations into the distance_store dictionary
+                self.distance_store[(building1, building2)] = distance_between
+        return self.distance_store
     
-                
+    # helper function: get the nearest vending machine from the users' location, provide a start_address for the greedy algorithm
+    def nearest_vending_machine(self, user_lat, user_lon):
+        """
+        For geocoder, the latitude and longitude are not so accurate, so I more prefer the front-end
+        to get the user's location by using the HTML5 Geolocation API.
+        
+        # location = geocoder.ip('me')  # get the current location of the user
+        # user_location = location.latlng  # get the latitude and longitude of the user
+        """
+        user_location = f"{user_lat}\\{user_lon}" # get the user's location as the same format as the vending machines' location
+        shortest_distance = float("inf")  # set the initial distance to be infinity
+        nearest_vending = ""  # store the closest vending machine
+        for vending in self.vendings_collection:
+            if (self.get_distance(user_location, vending["Coordinates"]) < shortest_distance):
+                shortest_distance = self.get_distance(user_location, vending["Coordinates"])
+                nearest_vending = vending["Building"]
+        return nearest_vending     
+    
+    # greedy algorithm to calculate the shortest path from the first vending machine to all other vending machines
+    def greedy(self, distance_store, start_address):
+        """
+        Using Greedy Algorithm to calculate the shortest path from the start point to all other nodes
+        and returns a list of nodes in the order they are visited.
+        
+        Args:
+            distance_store: a dictionary where the keys are tuples of two addresses and the value is the distance between them
+            start_address: the starting address
+
+        Returns:
+            shortest_path: a list of nodes in the order they are visited starting from the start address
+        """
+        shortest_path = [start_address] # record the shortest path
+        visited = set() # record the visited nodes
+        graph = {} # a dictionary of dictionaries to store all the distances from one location to others
+        for (address1, address2), distance in distance_store.items():
+            if (address1 not in graph):
+                graph[address1] = {}
+                visited.add(address1)
+            if (address2 not in graph):
+                graph[address2] = {}
+                visited.add(address2)
+            graph[address1][address2] = distance
+            graph[address2][address1] = distance
+        # sort the graph by the distance
+        sorted_graph = {} # a sorted version of the graph container
+        for i in graph.keys():
+            for _, distance in graph[i].items():
+                sorted_distance = dict(sorted(graph[i].items(), key=lambda x: x[1]))
+                sorted_graph[i] = sorted_distance
+        current_location = start_address # set the start address as the current location
+        visited.remove(current_location)
+        while (len(visited) != 0):
+            for next_location in sorted_graph[current_location].keys():
+                if (next_location in visited):
+                    shortest_path.append(next_location)
+                    visited.remove(next_location)
+                    current_location = next_location
+                    break
+                else:
+                    continue
+        return shortest_path
