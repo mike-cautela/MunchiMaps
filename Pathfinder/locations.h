@@ -14,6 +14,7 @@ class Locations{
         void setLocationY(double Y);
         void food(bool exists);
         void drinks(bool exists);
+        int compareTime();
 
     private:
         std::string name;
@@ -22,6 +23,8 @@ class Locations{
         Node* connection;
         bool hasFood;
         bool hasDrinks;
+        int openTime;
+        int closeTime;
 
 };
 Locations::Locations(){
@@ -55,5 +58,8 @@ void Locations::food(bool exists){
 }
 void Locations::drinks(bool exists){
     hasDrinks = exists;
+}
+int Locations::compareTime(){
+    
 }
 #endif
