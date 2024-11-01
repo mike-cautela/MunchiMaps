@@ -316,6 +316,9 @@ const building_data = [
         }
       } // Icon object declaration ending.
 
+/////////////////////////////////////////////////////////
+// NOTE: this code replaces the old way of plotting icons
+// It allows the search feature and the map plotting to use the same building_data array (which can be found at the top of this file)
       var buildings = [];
       for(let i=0; i<building_data.length; i++) {
         temp = new icon(
@@ -336,7 +339,7 @@ const building_data = [
       for(let i=0; i<buildings.length; i++) {
         buildings[i].plot();
       }
-
+/////////////////////////////////////////////////////////
         
 //         showInfo() {
 //                    this.infoWindow = L.popup({maxWidth: 500})
@@ -365,51 +368,6 @@ const building_data = [
 //                 showImage(currentIndex);
 //               }); // end next
 //         }
-        
-        
-        
-        
-      } // Icon object declaration ending.
-        
-      icons.sharp = new icon("Sharp Hall", 42.72711006590162, -73.67448712656643, 0.00, 24.00, 0, 1, 0, 0, "N");
-      icons.union = new icon("Union", 42.730159761978896,-73.67663391678252, 7.00, 24.00, 1, 1, 0, 0, "N");
-      icons.quad = new icon("Quad",42.730706041764584,-73.67756264747236, 0.00, 24.00, 0, 2, 0, 0, "N");
-      icons.dcc = new icon("DCC", 42.72934781129576, -73.67895862471251, 7.00, 21.00, 1, 1, 0, 0, "N");
-      icons.vcc = new icon("Vorhees Computing Center", 42.72931448709032, -73.68164350143745, 7.00, 23.00, 1, 2, 0, 0, "N");
-      icons.amos = new icon("Amos Eaton Hall", 42.730287323346445, -73.68258918979996, 7.00, 22.00, 0, 1, 0, 0, "N");
-      icons.mueller = new icon("Mueller Center", 42.72891902003062, -73.67684441122128, 8.00, 10.00, 1, 2, 0, 0,"N");
-      icons.jec = new icon("JEC", 42.729847677153444, -73.68020218979997,6.00, 22.00, 1, 1,0, 0, "N");
-      icons.sage = new icon("Sage Labs",42.73097906477598, -73.68164141863616, 7.00, 24.00, 1, 1, 0, 0, "N");
-      icons.jrowl = new icon("JROWL", 42.72900301770575, -73.68045377630875, 6.00, 22.00, 1, 1, 0, 0, "N");
-      icons.pittsburgh = new icon("Pittsburgh Building",42.73125174093247, -73.68330210329108, 7.00, 21.00, 1, 1, 0, 0, "N");
-      icons.warren =  new icon("Warren Hall", 42.72809422047715, -73.67536297260132, 7.00, 21.00, 0, 1, 0, 0, "N");
-      icons.greene = new icon("Greene Building", 42.73022009495838, -73.68115317445492, 7.00, 21.00, 1, 1, 0, 0, "N");
-      icons.davison = new icon("Davison Hall", 42.72731130298223, -73.67414636096385, 0.00, 24.00, 0, 1,0, 0, "N");
-      icons.pub_safe = new icon("Pub Safe",42.72930295751444, -73.67676008238502, 0.00, 24.00, 0, 1, 0, 0, "N");
-      icons.north_hall = new icon("North Hall", 42.73142413669011, -73.67987080514486, 7.00, 24.00, 1, 2, 0, 0,"N");
-      icons.west_hall = new icon("West Hall", 42.731807801585866, -73.68320404747236, 0.00, 24.00, 0, 1, 0, 0, "N");
-      icons.folsom = new icon("Folsom Library", 42.72954131606436, -73.68250278794625, 8.00, 11.00, 1, 2, 0, 0, "N");
-
-      icons.sharp.plot();
-      icons.union.plot();
-      icons.quad.plot();
-      icons.dcc.plot();
-      icons.vcc.plot();
-      icons.amos.plot();
-      icons.mueller.plot();
-      icons.amos.plot();
-      icons.jec.plot();
-      icons.amos.plot();
-      icons.sage.plot();
-      icons.jrowl.plot();
-      icons.pittsburgh.plot();
-      icons.warren.plot();
-      icons.greene.plot();
-      icons.davison.plot();
-      icons.pub_safe.plot();
-      icons.north_hall.plot();
-      icons.west_hall.plot();
-      icons.folsom.plot();
 
       // Toggle between dark mode and light mode CSS sheets.
       let darkMode = false;
