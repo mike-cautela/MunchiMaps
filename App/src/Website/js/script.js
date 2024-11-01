@@ -1,29 +1,8 @@
 
-const building_data = [
-  {name:"Academy Hall", x_coord:42.72749913373329, y_coord:-73.67858048827672, time_opens:8.00, time_closes:18.00, num_snack_machines:1, num_drink_machines:1},
-  {name:"Amos Eaton Hall", x_coord:42.730287323346445, y_coord:-73.68258918979996, time_opens:7.00, time_closes:22.00, num_snack_machines:0, num_drink_machines:1},
-  {name:"Davison Hall", x_coord:42.72731130298223, y_coord:-73.67414636096385, time_opens:0.00, time_closes:24.00, num_snack_machines:0, num_drink_machines:1},
-  {name:"DCC", x_coord:42.72934781129576, y_coord:-73.67895862471251, time_opens:7.00, time_closes:21.00, num_snack_machines:1, num_drink_machines:1},
-  {name:"Folsom Library", x_coord:42.72954131606436, y_coord:-73.68250278794625, time_opens:8.00, time_closes:11.00, num_snack_machines:1, num_drink_machines:2},
-  {name:"Greene Building", x_coord:42.73022009495838, y_coord:-73.68115317445492, time_opens:7.00, time_closes:21.00, num_snack_machines:1, num_drink_machines:1},
-  {name:"JEC", x_coord:42.729847677153444, y_coord:-73.68020218979997, time_opens:6.00, time_closes:22.00, num_snack_machines:1, num_drink_machines:1},
-  {name:"JROWL", x_coord:42.72900301770575, y_coord:-73.68045377630875, time_opens:6.00, time_closes:22.00, num_snack_machines:1, num_drink_machines:1},
-  {name:"Mueller Center", x_coord:42.72891902003062, y_coord:-73.67684441122128, time_opens:8.00, time_closes:10.00, num_snack_machines:1, num_drink_machines:2},
-  {name:"North Hall", x_coord:42.73142413669011, y_coord:-73.67987080514486, time_opens:7.00, time_closes:24.00, num_snack_machines:1, num_drink_machines:2},
-  {name:"Pittsburgh Building", x_coord:42.73125174093247, y_coord:-73.68330210329108, time_opens:7.00, time_closes:21.00, num_snack_machines:1, num_drink_machines:1},
-  {name:"Pub Safe", x_coord:42.72930295751444, y_coord:-73.67676008238502, time_opens:0.00, time_closes:24.00, num_snack_machines:0, num_drink_machines:1},
-  {name:"Quad", x_coord:42.730706041764584, y_coord:-73.67756264747236, time_opens:0.00, time_closes:24.00, num_snack_machines:0, num_drink_machines:2},
-  {name:"Sage Labs", x_coord:42.73097906477598, y_coord:-73.68164141863616, time_opens:7.00, time_closes:24.00, num_snack_machines:1, num_drink_machines:1},
-  {name:"Sharp Hall", x_coord:42.72711006590162, y_coord:-73.67448712656643, time_opens:0.00, time_closes:24.00, num_snack_machines:0, num_drink_machines:1},
-  {name:"Union", x_coord:42.730159761978896, y_coord:-73.67663391678252, time_opens:7.00, time_closes:24.00, num_snack_machines:1, num_drink_machines:1},
-  {name:"Voorhees Computing Center", x_coord:42.72931448709032, y_coord:-73.68164350143745, time_opens:7.00, time_closes:23.00, num_snack_machines:1, num_drink_machines:2},
-  {name:"Warren Hall", x_coord:42.72809422047715, y_coord:-73.67536297260132, time_opens:7.00, time_closes:21.00, num_snack_machines:0, num_drink_machines:1},
-  {name:"West Hall", x_coord:42.731807801585866, y_coord:-73.68320404747236, time_opens:0.00, time_closes:24.00, num_snack_machines:0, num_drink_machines:1},
-];
 
  //initializes the map
     function initMap() {
-      map = L.map('map').setView([42.72941085967446, -73.6792590320996], 17);
+      const map = L.map('map').setView([42.72941085967446, -73.6792590320996], 17);
 
 
       var currentMarker = null;  // Variable to keep track of the current marker
@@ -284,90 +263,76 @@ const building_data = [
         this.infoWindow;
       }
         plot() {
-          this.marker = L.marker([this.x_coord, this.y_coord], { icon: options[this.img_icon] }).addTo(map);
+          const marker = L.marker([this.x_coord, this.y_coord], {icon: options[this.img_icon] }).addTo(map);
+          marker.on('click', () => {
+                   this.infoWindow = L.popup({maxWidth: 500})
+          .setLatLng([this.x_coord, this.y_coord])
+          .setContent(this.infoWindowContent)
+          .openOn(map);
 
-          this.marker.on('click', () => {
-            this.infoWindow = L.popup({ maxWidth: 500 })
-              .setLatLng([this.x_coord, this.y_coord])
-              .setContent(this.infoWindowContent)
-              .openOn(map);
+          //Handles image selector for Location
+          const images = document.querySelectorAll('.info-window-image img');
+          const prevButton = document.querySelector('.prev');
+          const nextButton = document.querySelector('.next');
+          let currentIndex = 0;
 
-            const images = document.querySelectorAll('.info-window-image img');
-            const prevButton = document.querySelector('.prev');
-            const nextButton = document.querySelector('.next');
-            let currentIndex = 0;
-
-            function showImage(index) {
-              images.forEach((img, i) => {
-                img.classList.toggle('active', i === index);
-              });
-            }
-
-            prevButton.addEventListener('click', () => {
-              currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-              showImage(currentIndex);
+          function showImage(index) {
+            images.forEach((img, i) => {
+              img.classList.toggle('active', i === index);
             });
+          } // End showImage
+              prevButton.addEventListener('click', () => {
+                currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
+                showImage(currentIndex);
+              }); // End prev
 
-            nextButton.addEventListener('click', () => {
-              currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-              showImage(currentIndex);
-            });
+              nextButton.addEventListener('click', () => {
+                currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
+                showImage(currentIndex);
+              }); // end next
           });
         }
       } // Icon object declaration ending.
-
-/////////////////////////////////////////////////////////
-// NOTE: this code replaces the old way of plotting icons
-// It allows the search feature and the map plotting to use the same building_data array (which can be found at the top of this file)
-      var buildings = [];
-      for(let i=0; i<building_data.length; i++) {
-        temp = new icon(
-            building_data[i].name,
-            building_data[i].x_coord,
-            building_data[i].y_coord,
-            building_data[i].time_opens,
-            building_data[i].time_closes,
-            building_data[i].num_snack_machines,
-            building_data[i].num_drink_machines,
-            0, //num_ratings
-            0, //average_ratings
-            "N" //needs_service
-          )
-        buildings.push(temp);
-      }
-
-      for(let i=0; i<buildings.length; i++) {
-        buildings[i].plot();
-      }
-/////////////////////////////////////////////////////////
         
-//         showInfo() {
-//                    this.infoWindow = L.popup({maxWidth: 500})
-//           .setLatLng([this.x_coord, this.y_coord])
-//           .setContent(this.infoWindowContent)
-//           .openOn(map);
+      const sharp = new icon("Sharp Hall", 42.72711006590162, -73.67448712656643, 0.00, 24.00, 0, 1, 0, 0, "N");
+      const union = new icon("Union", 42.730159761978896,-73.67663391678252, 7.00, 24.00, 1, 1, 0, 0, "N");
+      const quad = new icon("Quad",42.730706041764584,-73.67756264747236, 0.00, 24.00, 0, 2, 0, 0, "N");
+      const dcc = new icon("DCC", 42.72934781129576, -73.67895862471251, 7.00, 21.00, 1, 1, 0, 0, "N");
+      const vcc = new icon("Vorhees Computing Center", 42.72931448709032, -73.68164350143745, 7.00, 23.00, 1, 2, 0, 0, "N");
+      const amos = new icon("Amos Eaton Hall", 42.730287323346445, -73.68258918979996, 7.00, 22.00, 0, 1, 0, 0, "N");
+      const mueller = new icon("Mueller Center", 42.72891902003062, -73.67684441122128, 8.00, 10.00, 1, 2, 0, 0,"N");
+      const jec = new icon("JEC", 42.729847677153444, -73.68020218979997,6.00, 22.00, 1, 1,0, 0, "N");
+      const sage = new icon("Sage Labs",42.73097906477598, -73.68164141863616, 7.00, 24.00, 1, 1, 0, 0, "N");
+      const jrowl = new icon("JROWL", 42.72900301770575, -73.68045377630875, 6.00, 22.00, 1, 1, 0, 0, "N");
+      const pittsburgh = new icon("Pittsburgh Building",42.73125174093247, -73.68330210329108, 7.00, 21.00, 1, 1, 0, 0, "N");
+      const warren =  new icon("Warren Hall", 42.72809422047715, -73.67536297260132, 7.00, 21.00, 0, 1, 0, 0, "N");
+      const greene = new icon("Greene Building", 42.73022009495838, -73.68115317445492, 7.00, 21.00, 1, 1, 0, 0, "N");
+      const davison = new icon("Davison Hall", 42.72731130298223, -73.67414636096385, 0.00, 24.00, 0, 1,0, 0, "N");
+      const pub_safe = new icon("Pub Safe",42.72930295751444, -73.67676008238502, 0.00, 24.00, 0, 1, 0, 0, "N");
+      const north_hall = new icon("North Hall", 42.73142413669011, -73.67987080514486, 7.00, 24.00, 1, 2, 0, 0,"N");
+      const west_hall = new icon("West Hall", 42.731807801585866, -73.68320404747236, 0.00, 24.00, 0, 1, 0, 0, "N");
+      const folsom = new icon("Folsom Library", 42.72954131606436, -73.68250278794625, 8.00, 11.00, 1, 2, 0, 0, "N");
 
-//           //Handles image selector for Location
-//           const images = document.querySelectorAll('.info-window-image img');
-//           const prevButton = document.querySelector('.prev');
-//           const nextButton = document.querySelector('.next');
-//           let currentIndex = 0;
-
-//           function showImage(index) {
-//             images.forEach((img, i) => {
-//               img.classList.toggle('active', i === index);
-//             });
-//           } // End showImage
-//               prevButton.addEventListener('click', () => {
-//                 currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-//                 showImage(currentIndex);
-//               }); // End prev
-
-//               nextButton.addEventListener('click', () => {
-//                 currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-//                 showImage(currentIndex);
-//               }); // end next
-//         }
+      sharp.plot();
+      union.plot();
+      quad.plot();
+      dcc.plot();
+      vcc.plot();
+      amos.plot();
+      mueller.plot();
+      amos.plot();
+      jec.plot();
+      amos.plot();
+      sage.plot();
+      jrowl.plot();
+      pittsburgh.plot();
+      warren.plot();
+      greene.plot();
+      davison.plot();
+      pub_safe.plot();
+      north_hall.plot();
+      west_hall.plot();
+      folsom.plot();
 
       // Toggle between dark mode and light mode CSS sheets.
       let darkMode = false;
@@ -425,26 +390,6 @@ const building_data = [
     }
 
 
-function showInfoHelper(locationName){
-  const icon = icons[locationName];
-  console.log("External function called for:", icon);
-  console.log('Toggling icon:', icon);
-  console.log('Coordinates:', icon.x_coord, icon.y_coord);
-
-  // if (icon.infoWindow && map.hasLayer(icon.infoWindow)) {
-  //   // If the popup is open, close it
-  //   map.closePopup(icon.infoWindow);
-  // } else {
-    // If the popup is closed, open it
-    icon.infoWindow = L.popup({ maxWidth: 500 })
-      .setLatLng([icon.x_coord, icon.y_coord])
-      .setContent(icon.infoWindowContent)
-      .openOn(map);
-  //}
-  
-}
-
-
 function openSearch() {
     closeAllPopups('Report');
     const searchPopup = document.getElementById("popup-search");
@@ -462,12 +407,12 @@ function closeSearch() {
     }, 500); // Match the delay to the transition duration
 }
 
-// document.addEventListener('DOMContentLoaded', function() {
-//     const searchButton = document.querySelector(".button[onclick='openSearch()']");
-//     if (searchButton) {
-//         searchButton.addEventListener("click", openSearch);
-//     }
-// });
+document.addEventListener('DOMContentLoaded', function() {
+    const searchButton = document.querySelector(".button[onclick='openSearch()']");
+    if (searchButton) {
+        searchButton.addEventListener("click", openSearch);
+    }
+});
 document.addEventListener('DOMContentLoaded', function() {
     const searchButton = document.querySelector(".button[onclick='openSearch()']");
     if (searchButton) {
