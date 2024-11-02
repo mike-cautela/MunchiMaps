@@ -11,3 +11,11 @@
 3. Clone personal GitHub branch repository onto computer  
     a. git clone https://github.com/phanl2/MunchiMaps (github branch link)
 
+4. Using Vite (builder)
+    a. npm create vite@latest
+        i. Project Name: munchimaps
+        ii. Framework: React
+        iii. Variant: JavaScript
+    b. cd vite-project
+    c. npm install 
+    d. npm run dev (runs the app)
