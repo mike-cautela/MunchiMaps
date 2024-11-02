@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <ctime>
 
 class Locations{
     public:
@@ -14,7 +15,7 @@ class Locations{
         void setLocationY(double Y);
         void food(bool exists);
         void drinks(bool exists);
-        int compareTime();
+        bool compareTime();
 
     private:
         std::string name;
@@ -23,8 +24,10 @@ class Locations{
         Node* connection;
         bool hasFood;
         bool hasDrinks;
-        int openTime;
-        int closeTime;
+        int openHour;
+        int openMin;
+        int closeHour;
+        int closeMin;
 
 };
 Locations::Locations(){
@@ -59,7 +62,19 @@ void Locations::food(bool exists){
 void Locations::drinks(bool exists){
     hasDrinks = exists;
 }
-int Locations::compareTime(){
-    
+bool Locations::compareTime(){
+    std::time_t currentTime = time(0);
+    tm* localTime = localtime(&currentTime);
+    int hour = localTime->tm_hour;
+    int min = localTime->tm_min;
+    if(hour < closeHour && hour > openHour){
+        return true;
+    }
+    else if((hour == openHour && min >= openMin) || (hour == closeHour && min < closeMin)){
+        return true;
+    }
+    else{
+        return false;
+    }
 }
 #endif
