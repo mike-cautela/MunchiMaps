@@ -2,7 +2,6 @@ import csv # read the CSV file
 from datetime import datetime # get the current date and time
 import folium # for drawing maps
 from haversine import haversine, Unit # used to calculate the distance between two longitudes and latitudes
-import geocoder # get the current location of the user
 
 class MunchiMaps_model(object):
     def __init__(self, csv_file):
@@ -199,6 +198,7 @@ class MunchiMaps_model(object):
         For geocoder, the latitude and longitude are not so accurate, so I more prefer the front-end
         to get the user's location by using the HTML5 Geolocation API.
         
+        # import geocoder
         # location = geocoder.ip('me')  # get the current location of the user
         # user_location = location.latlng  # get the latitude and longitude of the user
         """
@@ -254,3 +254,74 @@ class MunchiMaps_model(object):
                 else:
                     continue
         return shortest_path
+    
+    # main function for help the user to find vending machines to get the food and drink with the shortest distance
+    def vending_machine_recommendation(self, drink, food, user_lat, user_lon):
+        """
+        Args:
+            drink: a boolean value to indicate if the user wants to get a drink
+            food: a boolean value to indicate if the user wants to get food
+            user_lat: the latitude of the user's location
+            user_lon: the longitude of the user's location
+        
+        Returns:
+            a string that contains the name of the vending machines in the order he or she should visit
+        """
+        check_drink = drink
+        check_food = food
+        # get the nearest vending machine from the user's location
+        start_address = self.nearest_vending_machine(user_lat, user_lon)
+        shortest_path = self.greedy(self.collect_distance(), start_address)
+        vending_visit = [] # store all the vending machines that the user need to visit
+        both_true_vending = None # check if there is a vending machine that has both drink and food
+        for vending in shortest_path:
+            # when both drink and food are False, the user does not need to visit any vending machines, so break the loop
+            if ((drink == False) and (food == False)):
+                break
+            for j in self.vendings_collection:
+                if (vending == j["Building"]):
+                    if ((j["Drink"] == "TRUE") and (j["Food"] == "TRUE")):
+                        vending_visit.append(j["Building"])
+                        drink = False
+                        food = False
+                        both_true_vending = vending
+                        break
+                    elif ((j["Drink"] == "TRUE") and (j["Food"] == "FALSE")):
+                        if (drink == True):
+                            vending_visit.append(j["Building"])
+                            drink = False
+                            break
+                        else:
+                            continue
+                    elif ((j["Drink"] == "FALSE") and (j["Food"] == "TRUE")):
+                        if (food == True):
+                            vending_visit.append(j["Building"])
+                            food = False
+                            break
+                        else:
+                            continue
+        """
+        Two cases:
+        if:
+        when we get the first closest vending machine only has drink or food, and then we get
+        another closest vending machine that has both drink and food.
+        In this case, we will let the user directly go to the vending machine that has both drink and food,
+        for save time.
+        Also when we get the first closest vending machine has both drink and food.
+        
+        elif:
+        when we get both closest vending machines, one has only drink and the other has only food.
+        
+        else:
+        when user only needs to get drink or food, we will let the user go to the closest vending machine.
+        """
+        # return the message to the user
+        if (both_true_vending != None):
+            return "Please go to the {} to get the food and drink.\n".format(both_true_vending)
+        elif ((check_drink == True) and (check_food == True)):
+            return "Please go to the {} first and then go to the {} for get the food and drink.\n".format(vending_visit[0], vending_visit[1])
+        elif ((check_drink == True)):
+            return "Please go to the {} to get the drink.\n".format(vending_visit[0])
+        elif ((check_food == True)):
+            return "Please go to the {} to get the food.\n".format(vending_visit[0])
+
