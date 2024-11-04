@@ -112,3 +112,20 @@ if __name__ == "__main__":
         print("nearest_vending_machine() test 2 passed.\n")
     else:
         print("nearest_vending_machine() test 2 failed.\n")
+        
+    # test: vending_machine_recommendation()
+    # the latitude and longitude of North Hall is 42.73142413669011\–73.67987080514486, and North Hall has both food and drink
+    if (vending_machine_tester.vending_machine_recommendation(True, True, 42.73142413669011, -73.67986080514586) == "Please go to the North Hall to get the food and drink.\n"):
+        print("vending_machine_recommendation() test 1 passed.\n")
+    else:
+        print("vending_machine_recommendation() test 1 failed.\n")
+    # the latitude and longitude of Davison Hall is 42.72731130298223\–73.67414636096385, and Davison Hall has only drink
+    if (vending_machine_tester.vending_machine_recommendation(True, False, 42.72731130298223, -73.67414636097385) == "Please go to the Davison Hall to get the drink.\n"):
+        print("vending_machine_recommendation() test 2 passed.\n")
+    else:
+        print("vending_machine_recommendation() test 2 failed.\n")
+    # the latitude and longitude of Davison Hall is 42.72731130298223\–73.67414636096385, and Davison Hall has only drink
+    if (vending_machine_tester.vending_machine_recommendation(True, True, 42.72731130298223, -73.67414636097385) == "Please go to the Mueller Center to get the food and drink.\n"):
+        print("vending_machine_recommendation() test 3 passed.\n")
+    else:
+        print("vending_machine_recommendation() test 3 failed.\n")
