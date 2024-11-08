@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/x-icon" href="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/CookieFavicon.png?raw=true">
  
   <title>MunchiMaps</title>
@@ -26,10 +25,6 @@
   </div>
 
   <!-- Add the help button -->
-    <icon class="help-button" onclick="openHelp()">
-    <img src="https://raw.githubusercontent.com/mike-cautela/MunchiMaps/main/Website/MunchiMaps%20Assets/MenuIcons/help-circle-grey.svg" alt="Help" class="help-button-img">
-    </icon>
-
 <icon class="help-button" onclick="openHelp()">
   <img src="https://raw.githubusercontent.com/mike-cautela/MunchiMaps/main/Website/MunchiMaps%20Assets/MenuIcons/help-circle-grey.svg" alt="Help" class="help-button-img">
 </icon>
@@ -114,7 +109,7 @@
             </svg>
         </td>
         <td>
-            <span>Use the Review feature to review Vending Machine's quality of items! </span>
+            <span>Hover over a map icon to review the corresponding Vending Machine's quality of items! </span>
         </td>
     </tr>
     <tr class="icon-item">
@@ -233,39 +228,18 @@
         <div id="searchResult" class="result"></div>
     </div>
 </div>
-        <script>
-          //Temporary buildings list 
-          var buildings = [
-                  {name: 'Folsom Library', drink: true, food: true},
-                  {name: 'Sharp Hall', drink: true, food: true},
-                  {name: 'Rensselaer Student Union', drink: true, food: true},
-                  {name: 'Quadrangle Complex', drink: true, food: false},
-                  {name: 'Darrin Communication Center', drink: true, food: true},
-                  {name: 'Woorhees Computing Center', drink: true, food: true},
-                  {name: 'Amos Eaton Hall', drink: true, food: false},
-                  {name: 'Mueller Center', drink: true, food: true},
-                  {name: 'J Erik Jonsson Engineering Center', drink: true, food: true},
-                  {name: 'Russell Sage Laboratory', drink: true, food: true},
-                  {name: 'Jonsson-Rowland Science Center', drink: true, food: true},
-                  {name: 'Pittsburgh Building', drink: true, food: true},
-                  {name: 'Warren Hall', drink: true, food: false},
-                  {name: 'Greene Building', drink: true, food: true},
-                  {name: 'Davison Hall', drink: true, food: false},
-                  {name: 'RPI Public Safety', drink: true, food: false},
-                  {name: 'North Hall', drink: true, food: true},
-                  {name: 'West Hall', drink: true, food: false}
-          ];
-          
+        <script> 
           //Building sort
-          buildings.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
-          console.log(buildings);
+          building_data.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
+          console.log(building_data);
         
+
           //Search function 
           function search(){
               var searchTerm = document.getElementById('searchInput').value.trim().toLowerCase();
               var filtered = [];
   
-              buildings.forEach(function(building){
+              building_data.forEach(function(building){
                   if(filter(building, searchTerm)){
                       filtered.push(building);
                   }
@@ -274,10 +248,15 @@
               displayResults(filtered);
           }
   
-          //Filter through the list
-          function filter(item, searchTerm){
-              return item.name.toLowerCase().startsWith(searchTerm);
+          // Filter function
+          function filter(item, searchTerm) {
+            return item.name.toLowerCase().includes(searchTerm);
           }
+          
+//           // Handle click event on a search result
+//           function handleClick(building) {
+//             //alert('Building selected: ' + building.name);
+//           }
   
           //Display results
           function displayResults(results){
@@ -290,6 +269,66 @@
                   results.forEach(function(item) {
                       var listItem = document.createElement('li');
                       listItem.textContent = item.name;
+                    
+                      listItem.onclick = function() {
+                          if (item.name == "Folsom Library") {
+                              icons.folsom.plot();
+                              showInfoHelper("folsom");
+                          } else if (item.name == "Sharp Hall") {
+                              icons.sharp.plot();
+                              showInfoHelper("sharp");
+                          } else if (item.name == "Rensselaer Student Union") {
+                              icons.union.plot();
+                              showInfoHelper("union");
+                          } else if (item.name == "Quadrangle Complex") {
+                              icons.quad.plot();
+                              showInfoHelper("quad");
+                          } else if (item.name == "Darrin Communication Center") {
+                              icons.dcc.plot();
+                              showInfoHelper("dcc");
+                          } else if (item.name == "Woorhees Computing Center") {
+                              icons.vcc.plot();
+                              showInfoHelper("vcc");
+                          } else if (item.name == "Amos Eaton Hall") {
+                              icons.amos.plot();
+                              showInfoHelper("amos");
+                          } else if (item.name == "Mueller Center") {
+                              icons.mueller.plot();
+                              showInfoHelper("mueller");
+                          } else if (item.name == "J Erik Jonsson Engineering Center") {
+                              icons.jec.plot();
+                              showInfoHelper("jec");
+                          } else if (item.name == "Russell Sage Laboratory") {
+                              icons.sage.plot();
+                              showInfoHelper("sage");
+                          } else if (item.name == "Jonsson-Rowland Science Center") {
+                              icons.jrowl.plot();
+                              showInfoHelper("jrowl");
+                          } else if (item.name == "Pittsburgh Building") {
+                              icons.pittsburgh.plot();
+                              showInfoHelper("pittsburgh");
+                          } else if (item.name == "Warren Hall") {
+                              icons.warren.plot();
+                              showInfoHelper("warren");
+                          } else if (item.name == "Greene Building") {
+                              icons.greene.plot();
+                              showInfoHelper("greene");
+                          } else if (item.name == "Davison Hall") {
+                              icons.davison.plot();
+                              showInfoHelper("davison");
+                          } else if (item.name == "RPI Public Safety") {
+                              icons.pub_safe.plot();
+                              showInfoHelper("pub_safe");
+                          } else if (item.name == "North Hall") {
+                              icons.north_hall.plot();
+                              showInfoHelper("north_hall");
+                          } else if (item.name == "West Hall") {
+                              icons.west_hall.plot();
+                              showInfoHelper("west_hall");
+                          }
+                      };
+
+                    
                       resultList.appendChild(listItem);
                   });
                   
