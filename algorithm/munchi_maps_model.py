@@ -17,6 +17,7 @@ class MunchiMaps_model(object):
         self.load_data() # load the data from the CSV file
         self.vendings_collection = list() # a list of dictionaries [{}], store all the vending machines info
         self.distance_store = dict() # a dictionary to store the distance between the locations, dictionaries of dictionary
+        self.shortest_path = list() # a list of nodes in the order they are visited starting from the start address
     
     # read the CSV file and populate the lists
     def load_data(self):
@@ -253,6 +254,7 @@ class MunchiMaps_model(object):
                     break
                 else:
                     continue
+        self.shortest_path = shortest_path
         return shortest_path
     
     # main function for help the user to find vending machines to get the food and drink with the shortest distance
@@ -324,4 +326,62 @@ class MunchiMaps_model(object):
             return "Please go to the {} to get the drink.\n".format(vending_visit[0])
         elif ((check_food == True)):
             return "Please go to the {} to get the food.\n".format(vending_visit[0])
+        
+    #---------------------------------------------------------------------------------#
 
+    # helper function: draw the vending machines on the map
+    def vendings_map(self):
+        address_info = []  # record the address information of the vending machines
+        
+        # process vending machine locations
+        for i in self.vendings_collection:
+            lat, lon = i["Coordinates"].split("\\")
+            # replace any en dash "–" with a regular minus sign "-"
+            lat = lat.replace("–", "-")
+            lon = lon.replace("–", "-")
+            address_info.append([i["Building"], lat, lon])
+
+        # calculate the center of the map based on the average latitude and longitude of all vending machines
+        latitudes = [float(info[1]) for info in address_info]
+        longitudes = [float(info[2]) for info in address_info]
+        center_lat = sum(latitudes) / len(latitudes)
+        center_lon = sum(longitudes) / len(longitudes)
+
+        # initialize the map with the calculated center location
+        vending_map = folium.Map(location=[center_lat, center_lon], zoom_start=16)
+
+        # create a dictionary for quick lookup of coordinates by building name
+        address_dict = {info[0]: (float(info[1]), float(info[2])) for info in address_info}
+
+        # store path coordinates and add markers
+        path_coordinates = []
+        for idx, building in enumerate(self.shortest_path):
+            if (building in address_dict):
+                lat, lon = address_dict[building]
+                path_coordinates.append((lat, lon))  # Add to path
+                
+                # place a red marker for the starting point, regular markers for the rest
+                if (idx == 0):
+                    folium.Marker(
+                        [lat, lon],
+                        popup=building,
+                        tooltip=building,
+                        icon=folium.Icon(color="red")
+                    ).add_to(vending_map)
+                else:
+                    folium.Marker(
+                        [lat, lon],
+                        popup=building,
+                        tooltip=building
+                    ).add_to(vending_map)
+
+        # draw the path
+        folium.PolyLine(
+            path_coordinates,
+            color="blue",
+            weight=2.5,
+            opacity=0.7
+        ).add_to(vending_map)
+
+        # save the map to an HTML file
+        vending_map.save("vending_machines_shortest_path.html")

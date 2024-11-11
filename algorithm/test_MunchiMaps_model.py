@@ -129,3 +129,7 @@ if __name__ == "__main__":
         print("vending_machine_recommendation() test 3 passed.\n")
     else:
         print("vending_machine_recommendation() test 3 failed.\n")
+    
+    # test: vendings_map()
+    vending_machine_tester.vendings_map()
+    
