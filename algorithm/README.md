@@ -10,19 +10,25 @@ Additionally, you will need the following modules:
 
 - `csv`: to read data from the CSV file.
 - `datetime`: to handle current time and date operations.
+- `folium`: to generate and display maps.
+- `haversine`: to calculate the distance between geographical coordinates.
 
-These are part of Python's standard library, so no external packages are needed.
+To install the additional modules:
+```bash
+pip install folium
+pip install haversine
+```
 
 ## How to Use
 
 ### Data
 
-The vending_machine_update.csv is the updated version of all the vending machine data.
+The `vending_machine.csv` file is the final version of all the vending machine data.
 
-- Precautions
-    - For the section `Hours of operation`, better to type the hours of operation for each day in a week, even though every day have the same time. Except open 24 hours. And remember using `en dash —`, not `em dash –`, which may lead a bug in function `check_time(self, time, day, time_range)`. If you using mac, `en dash` is `option -`.
+- **Precautions**:
+  - For the `Hours of operation` field, ensure hours are provided for each day of the week, even if they are the same, except when open 24 hours. Use `en dash —`, not `em dash –`, in `check_time(self, time, day, time_range)`, as the latter may cause issues. On Mac, use `option -` for `en dash`.
 
-1. Prepare a CSV file containing the vending machine information. The CSV file should have the following headers:
+1. Prepare a CSV file containing the vending machine information with the following headers:
    - `Building`
    - `Amount`
    - `Drink`
@@ -59,64 +65,86 @@ The constructor method initializes the class with a CSV file containing vending 
   - `access_information`: A list to store access details.
   - `coordinates`: A list to store coordinates of the machines.
   - `vendings_collection`: A list of dictionaries to store all the vending machine data collected.
+  - `distance_store`: A dictionary for distances between locations.
+  - `shortest_path`: A list representing the shortest path in terms of vending machine visits.
 
 #### `load_data(self)`
 Reads the CSV file and populates the lists for building names, amounts, drinks, foods, and other details. This method is automatically called when the class is initialized.
 
-- **No parameters.**
-
 #### `__str__(self)`
 Returns a string representation of all the vending machine data loaded from the CSV file.
-
-- **Returns:**
-  - A formatted string containing all the details read from the CSV file.
 
 #### `collect_vendings(self)`
 Collects all the vending machine data into a list of dictionaries (`self.vendings_collection`). Each dictionary contains information for one vending machine.
 
-- **No parameters.**
-
 #### `get_vending_info(self, vending_machine_location)`
 Retrieves the information for a vending machine located in the specified building.
-
-- **Parameters:**
-  - `vending_machine_location` (str): The building name of the vending machine.
-  
-- **Returns:**
-  - A formatted string with the vending machines' details, including building, amount, drinks, foods, location description, hours of operation, and access information. If the vending machine location is not found, it returns a message saying "The vending machines' location is not found."
 
 #### `check_time(self, time, day, time_range)`
 Checks if the given time is within the vending machine's hours of operation for a specific day.
 
-- **Parameters:**
-  - `time` (str): The current time in 24-hour format (e.g., "14" for 2 PM).
-  - `day` (str): The current day of the week (e.g., "Monday").
-  - `time_range` (str): The hours of operation for that day, as listed in the CSV file (e.g., "Monday 9AM–5PM").
-  
-- **Returns:**
-  - `True` if the vending machine is operational at the given time, `False` otherwise.
-
 #### `time_system(self, time, day_of_week, vending_machine_location)`
 A real-time system that checks if a vending machine is operational based on the current time and day of the week.
-
-- **Parameters:**
-  - `time` (str): The current time in 24-hour format.
-  - `day_of_week` (str): The current day of the week.
-  - `vending_machine_location` (str): The building name of the vending machine.
-  
-- **Returns:**
-  - `True` if the vending machine is operational, `False` otherwise.
 
 #### `filtration_system(self)`
 Filters all the vending machines that are operational at the current time and prints out their details.
 
-- **No parameters.**
+#### `get_distance(self, location1, location2)`
+Calculates the distance between two vending machine locations using their coordinates.
+
+- **Parameters:**
+  - `location1` (str): The coordinates (latitude and longitude) of the first location.
+  - `location2` (str): The coordinates of the second location.
+  
+- **Returns:**
+  - The distance in meters between the two locations.
+
+#### `collect_distance(self)`
+Generates a dictionary of distances between all pairs of vending machines, storing them in `self.distance_store` for efficient lookup in routing algorithms.
+
+- **Returns:**
+  - `distance_store` (dict): A dictionary with distances between locations.
+
+#### `nearest_vending_machine(self, user_lat, user_lon)`
+Finds the closest vending machine to the user's current location based on latitude and longitude.
+
+- **Parameters:**
+  - `user_lat` (float): The user's latitude.
+  - `user_lon` (float): The user's longitude.
+  
+- **Returns:**
+  - The name of the nearest vending machine.
+
+#### `greedy(self, distance_store, start_address)`
+Implements a greedy algorithm to find the shortest path from a starting location to all other vending machines.
+
+- **Parameters:**
+  - `distance_store` (dict): A dictionary of distances between vending machines.
+  - `start_address` (str): The initial vending machine location.
+  
+- **Returns:**
+  - A list representing the shortest path in order of vending machine locations.
+
+#### `vending_machine_recommendation(self, drink, food, user_lat, user_lon)`
+Provides a vending machine recommendation based on the user's location and need for food or drink, using the shortest path.
+
+- **Parameters:**
+  - `drink` (bool): Indicates if the user wants a drink.
+  - `food` (bool): Indicates if the user wants food.
+  - `user_lat` (float): User's latitude.
+  - `user_lon` (float): User's longitude.
+  
+- **Returns:**
+  - Instructions on the optimal vending machine(s) to visit.
+
+#### `vendings_map(self)`
+Generates an HTML map with vending machine locations marked, highlighting the shortest path using lines between the closest machines.
 
 - **How it works:**
-  - It gets the current time and day of the week using `datetime.now()`.
-  - It checks each vending machine's hours of operation and prints the details of those that are currently open.
+  - Places markers on a map based on `self.shortest_path` locations.
+  - Draws lines between locations to represent the shortest path.
 
-## Error Handling
+### Error Handling
 
 - The system will print an error message if the lengths of the lists (such as `building`, `amount`, etc.) are not equal. This ensures that the CSV data is consistent.
 

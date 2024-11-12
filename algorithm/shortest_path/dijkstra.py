@@ -3,15 +3,15 @@ from munchi_maps_model import MunchiMaps_model
 
 def dijkstra(distance_store, start_address):
     """
-    Uses Dijkstra's algorithm to calculate the shortest path from the start point to all other nodes
+    Using Dijkstra's Algorithm to calculate the shortest path from the start point to all other nodes
     and returns a list of nodes in the order they are visited.
     
-    # parameters:
-    distance_store: a dictionary where the keys are tuples of two addresses and the value is the distance between them
-    start_address: the starting address
+    Args:
+        distance_store: a dictionary where the keys are tuples of two addresses and the value is the distance between them
+        start_address: the starting address
     
-    # return
-    a list of nodes in the order they are visited starting from the start address
+    Returns:
+        shortest_path: a list of nodes in the order they are visited starting from the start address
     """
     # create an adjacency list representation of the graph
     graph = {}
@@ -67,10 +67,10 @@ if __name__ == "__main__":
     shortest_path_record = dijkstra(distance_store, "Folsom Library")
     print(shortest_path_record) # print the shortest path record
     """
-    ['Folsom Library', 'Voorhees Computing Center', 'Amos Eaton Hall', 'Greene Building',
-    'Russell Sage Laboratory', 'Jonsson–Rowland Science Center', 'j Erik Jonsson Engineering Center',
-    'Pittsburgh Building', 'West Hall', 'Darrin Communication Center', 'North Hall', 'Quadrangle Complex',
-    'Mueller Center', 'RPI Public Safety', 'Rensselaer Student Union', 'Warren Hall', 'Sharp Hall',
+    ['Folsom Library', 'Voorhees Computing Center', 'Amos Eaton Hall', 'Greene Building', 
+    'Russell Sage Laboratory', 'Jonsson–Rowland Science Center', 'j Erik Jonsson Engineering Center', 
+    'Pittsburgh Building', 'West Hall', 'Darrin Communication Center', 'North Hall', 'Quadrangle Complex', 
+    'Mueller Center', 'RPI Public Safety', 'Rensselaer Student Union', 'Warren Hall', 'Sharp Hall', 
     'Davison Hall']
     """
     
