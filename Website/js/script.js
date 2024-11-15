@@ -339,35 +339,6 @@ const building_data = [
       for(let i=0; i<buildings.length; i++) {
         buildings[i].plot();
       }
-/////////////////////////////////////////////////////////
-        
-//         showInfo() {
-//                    this.infoWindow = L.popup({maxWidth: 500})
-//           .setLatLng([this.x_coord, this.y_coord])
-//           .setContent(this.infoWindowContent)
-//           .openOn(map);
-
-//           //Handles image selector for Location
-//           const images = document.querySelectorAll('.info-window-image img');
-//           const prevButton = document.querySelector('.prev');
-//           const nextButton = document.querySelector('.next');
-//           let currentIndex = 0;
-
-//           function showImage(index) {
-//             images.forEach((img, i) => {
-//               img.classList.toggle('active', i === index);
-//             });
-//           } // End showImage
-//               prevButton.addEventListener('click', () => {
-//                 currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-//                 showImage(currentIndex);
-//               }); // End prev
-
-//               nextButton.addEventListener('click', () => {
-//                 currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-//                 showImage(currentIndex);
-//               }); // end next
-//         }
 
       // Toggle between dark mode and light mode CSS sheets.
       let darkMode = false;
