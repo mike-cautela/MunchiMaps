@@ -1,6 +1,5 @@
 import csv # read the CSV file
 from datetime import datetime # get the current date and time
-import heapdict # the data structure used in the Dijkstra algorithm, a priority queue
 import folium # for drawing maps
 from haversine import haversine, Unit # used to calculate the distance between two longitudes and latitudes
 
@@ -17,21 +16,22 @@ class MunchiMaps_model(object):
         self.coordinates = list()
         self.load_data() # load the data from the CSV file
         self.vendings_collection = list() # a list of dictionaries [{}], store all the vending machines info
-        self.distance_collect = dict() # a dictionary to store the distance between the locations, dictionaries of dictionary
+        self.distance_store = dict() # a dictionary to store the distance between the locations, dictionaries of dictionary
+        self.shortest_path = list() # a list of nodes in the order they are visited starting from the start address
     
     # read the CSV file and populate the lists
     def load_data(self):
             with open(self.data, mode='r') as file:
                 csv_reader = csv.DictReader(file)
                 for row in csv_reader:
-                    self.building.append(row['Building'])
-                    self.amount.append(row['Amount'])
-                    self.drink.append(row['Drink'])
-                    self.food.append(row['Food'])
-                    self.location_description.append(row['Location description'])
-                    self.hours_of_operation.append(row['Hours of operation'])
-                    self.access_information.append(row['Access information'])
-                    self.coordinates.append(row['Coordinates'])
+                    self.building.append(row["Building"])
+                    self.amount.append(row["Amount"])
+                    self.drink.append(row["Drink"])
+                    self.food.append(row["Food"])
+                    self.location_description.append(row["Location description"])
+                    self.hours_of_operation.append(row["Hours of operation"])
+                    self.access_information.append(row["Access information"])
+                    self.coordinates.append(row["Coordinates"])
     
     # print out all the data we read from the CSV file
     def __str__(self):
@@ -169,7 +169,7 @@ class MunchiMaps_model(object):
         # get the coordinates of the two locations
         lat1, lon1 = location1.split("\\")
         lat2, lon2 = location2.split("\\")
-        # replace any em dash "—" with a regular minus sign "-"
+        # replace any en dash "–" with a regular minus sign "-"
         lat1 = lat1.replace("–", "-")
         lat2 = lat2.replace("–", "-")
         lon1 = lon1.replace("–", "-")
@@ -187,8 +187,201 @@ class MunchiMaps_model(object):
             for j in range(i + 1, len(self.vendings_collection)):
                 distance2 = self.vendings_collection[j]["Coordinates"]
                 building2 = self.vendings_collection[j]["Building"]
+                # calculate the distance between the two locations
                 distance_between = self.get_distance(distance1, distance2)
-                self.distance_collect[(building1, building2)] = distance_between
-        return self.distance_collect
+                # store the distance between the two locations into the distance_store dictionary
+                self.distance_store[(building1, building2)] = distance_between
+        return self.distance_store
     
+    # helper function: get the nearest vending machine from the users' location, provide a start_address for the greedy algorithm
+    def nearest_vending_machine(self, user_lat, user_lon):
+        """
+        For geocoder, the latitude and longitude are not so accurate, so I more prefer the front-end
+        to get the user's location by using the HTML5 Geolocation API.
+        
+        # import geocoder
+        # location = geocoder.ip('me')  # get the current location of the user
+        # user_location = location.latlng  # get the latitude and longitude of the user
+        """
+        user_location = f"{user_lat}\\{user_lon}" # get the user's location as the same format as the vending machines' location
+        shortest_distance = float("inf")  # set the initial distance to be infinity
+        nearest_vending = ""  # store the closest vending machine
+        for vending in self.vendings_collection:
+            if (self.get_distance(user_location, vending["Coordinates"]) < shortest_distance):
+                shortest_distance = self.get_distance(user_location, vending["Coordinates"])
+                nearest_vending = vending["Building"]
+        return nearest_vending     
+    
+    # greedy algorithm to calculate the shortest path from the first vending machine to all other vending machines
+    def greedy(self, distance_store, start_address):
+        """
+        Using Greedy Algorithm to calculate the shortest path from the start point to all other nodes
+        and returns a list of nodes in the order they are visited.
+        
+        Args:
+            distance_store: a dictionary where the keys are tuples of two addresses and the value is the distance between them
+            start_address: the starting address
+
+        Returns:
+            shortest_path: a list of nodes in the order they are visited starting from the start address
+        """
+        shortest_path = [start_address] # record the shortest path
+        visited = set() # record the visited nodes
+        graph = {} # a dictionary of dictionaries to store all the distances from one location to others
+        for (address1, address2), distance in distance_store.items():
+            if (address1 not in graph):
+                graph[address1] = {}
+                visited.add(address1)
+            if (address2 not in graph):
+                graph[address2] = {}
+                visited.add(address2)
+            graph[address1][address2] = distance
+            graph[address2][address1] = distance
+        # sort the graph by the distance
+        sorted_graph = {} # a sorted version of the graph container
+        for i in graph.keys():
+            for _, distance in graph[i].items():
+                sorted_distance = dict(sorted(graph[i].items(), key=lambda x: x[1]))
+                sorted_graph[i] = sorted_distance
+        current_location = start_address # set the start address as the current location
+        visited.remove(current_location)
+        while (len(visited) != 0):
+            for next_location in sorted_graph[current_location].keys():
+                if (next_location in visited):
+                    shortest_path.append(next_location)
+                    visited.remove(next_location)
+                    current_location = next_location
+                    break
+                else:
+                    continue
+        self.shortest_path = shortest_path
+        return shortest_path
+    
+    # main function for help the user to find vending machines to get the food and drink with the shortest distance
+    def vending_machine_recommendation(self, drink, food, user_lat, user_lon):
+        """
+        Args:
+            drink: a boolean value to indicate if the user wants to get a drink
+            food: a boolean value to indicate if the user wants to get food
+            user_lat: the latitude of the user's location
+            user_lon: the longitude of the user's location
+        
+        Returns:
+            a string that contains the name of the vending machines in the order he or she should visit
+        """
+        check_drink = drink
+        check_food = food
+        # get the nearest vending machine from the user's location
+        start_address = self.nearest_vending_machine(user_lat, user_lon)
+        shortest_path = self.greedy(self.collect_distance(), start_address)
+        vending_visit = [] # store all the vending machines that the user need to visit
+        both_true_vending = None # check if there is a vending machine that has both drink and food
+        for vending in shortest_path:
+            # when both drink and food are False, the user does not need to visit any vending machines, so break the loop
+            if ((drink == False) and (food == False)):
+                break
+            for j in self.vendings_collection:
+                if (vending == j["Building"]):
+                    if ((j["Drink"] == "TRUE") and (j["Food"] == "TRUE")):
+                        vending_visit.append(j["Building"])
+                        drink = False
+                        food = False
+                        both_true_vending = vending
+                        break
+                    elif ((j["Drink"] == "TRUE") and (j["Food"] == "FALSE")):
+                        if (drink == True):
+                            vending_visit.append(j["Building"])
+                            drink = False
+                            break
+                        else:
+                            continue
+                    elif ((j["Drink"] == "FALSE") and (j["Food"] == "TRUE")):
+                        if (food == True):
+                            vending_visit.append(j["Building"])
+                            food = False
+                            break
+                        else:
+                            continue
+        """
+        Two cases:
+        if:
+        when we get the first closest vending machine only has drink or food, and then we get
+        another closest vending machine that has both drink and food.
+        In this case, we will let the user directly go to the vending machine that has both drink and food,
+        for save time.
+        Also when we get the first closest vending machine has both drink and food.
+        
+        elif:
+        when we get both closest vending machines, one has only drink and the other has only food.
+        
+        else:
+        when user only needs to get drink or food, we will let the user go to the closest vending machine.
+        """
+        # return the message to the user
+        if (both_true_vending != None):
+            return "Please go to the {} to get the food and drink.\n".format(both_true_vending)
+        elif ((check_drink == True) and (check_food == True)):
+            return "Please go to the {} first and then go to the {} for get the food and drink.\n".format(vending_visit[0], vending_visit[1])
+        elif ((check_drink == True)):
+            return "Please go to the {} to get the drink.\n".format(vending_visit[0])
+        elif ((check_food == True)):
+            return "Please go to the {} to get the food.\n".format(vending_visit[0])
+        
+    #---------------------------------------------------------------------------------#
+
+    # helper function: draw the vending machines on the map
+    def vendings_map(self):
+        address_info = []  # record the address information of the vending machines
+        
+        # process vending machine locations
+        for i in self.vendings_collection:
+            lat, lon = i["Coordinates"].split("\\")
+            # replace any en dash "–" with a regular minus sign "-"
+            lat = lat.replace("–", "-")
+            lon = lon.replace("–", "-")
+            address_info.append([i["Building"], lat, lon])
+
+        # calculate the center of the map based on the average latitude and longitude of all vending machines
+        latitudes = [float(info[1]) for info in address_info]
+        longitudes = [float(info[2]) for info in address_info]
+        center_lat = sum(latitudes) / len(latitudes)
+        center_lon = sum(longitudes) / len(longitudes)
+
+        # initialize the map with the calculated center location
+        vending_map = folium.Map(location=[center_lat, center_lon], zoom_start=16)
+
+        # create a dictionary for quick lookup of coordinates by building name
+        address_dict = {info[0]: (float(info[1]), float(info[2])) for info in address_info}
+
+        # store path coordinates and add markers
+        path_coordinates = []
+        for idx, building in enumerate(self.shortest_path):
+            if (building in address_dict):
+                lat, lon = address_dict[building]
+                path_coordinates.append((lat, lon))  # Add to path
                 
+                # place a red marker for the starting point, regular markers for the rest
+                if (idx == 0):
+                    folium.Marker(
+                        [lat, lon],
+                        popup=building,
+                        tooltip=building,
+                        icon=folium.Icon(color="red")
+                    ).add_to(vending_map)
+                else:
+                    folium.Marker(
+                        [lat, lon],
+                        popup=building,
+                        tooltip=building
+                    ).add_to(vending_map)
+
+        # draw the path
+        folium.PolyLine(
+            path_coordinates,
+            color="blue",
+            weight=2.5,
+            opacity=0.7
+        ).add_to(vending_map)
+
+        # save the map to an HTML file
+        vending_map.save("vending_machines_shortest_path.html")
