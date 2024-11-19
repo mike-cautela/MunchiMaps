@@ -271,46 +271,13 @@
                       listItem.textContent = item.name;
                     
                       listItem.onclick = function() {
-                          if (item.name == "Folsom Library") {
-                              showInfoHelper("folsom");
-                          } else if (item.name == "Sharp Hall") {
-                              showInfoHelper("sharp");
-                          } else if (item.name == "Rensselaer Student Union") {
-                              showInfoHelper("union");
-                          } else if (item.name == "Quadrangle Complex") {
-                              showInfoHelper("quad");
-                          } else if (item.name == "Darrin Communication Center") {
-                              showInfoHelper("dcc");
-                          } else if (item.name == "Woorhees Computing Center") {
-                              showInfoHelper("vcc");
-                          } else if (item.name == "Amos Eaton Hall") {
-                              showInfoHelper("amos");
-                          } else if (item.name == "Mueller Center") {
-                              showInfoHelper("mueller");
-                          } else if (item.name == "J Erik Jonsson Engineering Center") {
-                              showInfoHelper("jec");
-                          } else if (item.name == "Russell Sage Laboratory") {
-                              showInfoHelper("sage");
-                          } else if (item.name == "Jonsson-Rowland Science Center") {
-                              showInfoHelper("jrowl");
-                          } else if (item.name == "Pittsburgh Building") {
-                              showInfoHelper("pittsburgh");
-                          } else if (item.name == "Warren Hall") {
-                              showInfoHelper("warren");
-                          } else if (item.name == "Greene Building") {
-                              showInfoHelper("greene");
-                          } else if (item.name == "Davison Hall") {
-                              showInfoHelper("davison");
-                          } else if (item.name == "RPI Public Safety") {
-                              icons.pub_safe.plot();
-                          } else if (item.name == "North Hall") {
-                              showInfoHelper("north_hall");
-                          } else if (item.name == "West Hall") {
-                              showInfoHelper("west_hall");
+                          for (let i = 0; i < building_data.length; i++){
+                            if(building_data[i].name == item.name){
+                              showInfoHelper(i);
+                            }
                           }
                       };
-
-                    
+                      
                       resultList.appendChild(listItem);
                   });
                   
