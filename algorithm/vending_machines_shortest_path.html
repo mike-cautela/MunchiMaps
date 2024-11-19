@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_1ee659b08fda2847d9f35125b265a2a1 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_1ee659b08fda2847d9f35125b265a2a1" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_1ee659b08fda2847d9f35125b265a2a1 = L.map(
+                "map_1ee659b08fda2847d9f35125b265a2a1",
+                {
+                    center: [42.729701546791574, -73.67929550761095],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 16,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_478cbd9623128d01fb6f280ad2239fd4 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors", "detectRetina": false, "maxNativeZoom": 19, "maxZoom": 19, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            );
+        
+    
+            tile_layer_478cbd9623128d01fb6f280ad2239fd4.addTo(map_1ee659b08fda2847d9f35125b265a2a1);
+        
+    
+            var marker_ae2a470e511589150359760aba319dd2 = L.marker(
+                [42.72731130298223, -73.67414636096385],
+                {}
+            ).addTo(map_1ee659b08fda2847d9f35125b265a2a1);
+        
+    
+            var icon_781dd76cab7440eed073457e518a401d = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_ae2a470e511589150359760aba319dd2.setIcon(icon_781dd76cab7440eed073457e518a401d);
+        
+    
+        var popup_e9fadf02d4952029f31b36ea7ac4c3df = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_2d67bb28328a43e95ac7d4a67139da37 = $(`<div id="html_2d67bb28328a43e95ac7d4a67139da37" style="width: 100.0%; height: 100.0%;">Davison Hall</div>`)[0];
+                popup_e9fadf02d4952029f31b36ea7ac4c3df.setContent(html_2d67bb28328a43e95ac7d4a67139da37);
+            
+        
+
+        marker_ae2a470e511589150359760aba319dd2.bindPopup(popup_e9fadf02d4952029f31b36ea7ac4c3df)
+        ;
+
+        
+    
+    
+            marker_ae2a470e511589150359760aba319dd2.bindTooltip(
+                `<div>
+                     Davison Hall
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_d47d203a8bde76ee8a261e1bd19277fb = L.marker(
+                [42.72711006590162, -73.67448712656643],
+                {}
+            ).addTo(map_1ee659b08fda2847d9f35125b265a2a1);
+        
+    
+        var popup_35dda87b479d497965f1719a6de83511 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_5bafe7719a673bc7d929936c73900f3d = $(`<div id="html_5bafe7719a673bc7d929936c73900f3d" style="width: 100.0%; height: 100.0%;">Sharp Hall</div>`)[0];
+                popup_35dda87b479d497965f1719a6de83511.setContent(html_5bafe7719a673bc7d929936c73900f3d);
+            
+        
+
+        marker_d47d203a8bde76ee8a261e1bd19277fb.bindPopup(popup_35dda87b479d497965f1719a6de83511)
+        ;
+
+        
+    
+    
+            marker_d47d203a8bde76ee8a261e1bd19277fb.bindTooltip(
+                `<div>
+                     Sharp Hall
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_e304fe6412ff8200f42f007f668a38c6 = L.marker(
+                [42.72809422047715, -73.67536297260132],
+                {}
+            ).addTo(map_1ee659b08fda2847d9f35125b265a2a1);
+        
+    
+        var popup_3bf9435cf7a5dc4f680477ef4c3f8dbd = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_a8b4ed97557df34c02be6aa48d231bcf = $(`<div id="html_a8b4ed97557df34c02be6aa48d231bcf" style="width: 100.0%; height: 100.0%;">Warren Hall</div>`)[0];
+                popup_3bf9435cf7a5dc4f680477ef4c3f8dbd.setContent(html_a8b4ed97557df34c02be6aa48d231bcf);
+            
+        
+
+        marker_e304fe6412ff8200f42f007f668a38c6.bindPopup(popup_3bf9435cf7a5dc4f680477ef4c3f8dbd)
+        ;
+
+        
+    
+    
+            marker_e304fe6412ff8200f42f007f668a38c6.bindTooltip(
+                `<div>
+                     Warren Hall
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_de1b0be40a3bff550ccddda016104a61 = L.marker(
+                [42.72891902003062, -73.67684441122128],
+                {}
+            ).addTo(map_1ee659b08fda2847d9f35125b265a2a1);
+        
+    
+        var popup_85c4b48bf597d4f5f493c73ac5994917 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_bf7abb7c6f913d538e2555053134c7b6 = $(`<div id="html_bf7abb7c6f913d538e2555053134c7b6" style="width: 100.0%; height: 100.0%;">Mueller Center</div>`)[0];
+                popup_85c4b48bf597d4f5f493c73ac5994917.setContent(html_bf7abb7c6f913d538e2555053134c7b6);
+            
+        
+
+        marker_de1b0be40a3bff550ccddda016104a61.bindPopup(popup_85c4b48bf597d4f5f493c73ac5994917)
+        ;
+
+        
+    
+    
+            marker_de1b0be40a3bff550ccddda016104a61.bindTooltip(
+                `<div>
+                     Mueller Center
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_c56eebfa17ba16e5a82f8282dce883ae = L.marker(
+                [42.72930295751444, -73.67676008238502],
+                {}
+            ).addTo(map_1ee659b08fda2847d9f35125b265a2a1);
+        
+    
+        var popup_74e78462666fea3aae5ebf8b04a6c30a = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_a4c27cb68a4b8db39f344ef0cc92001c = $(`<div id="html_a4c27cb68a4b8db39f344ef0cc92001c" style="width: 100.0%; height: 100.0%;">RPI Public Safety</div>`)[0];
+                popup_74e78462666fea3aae5ebf8b04a6c30a.setContent(html_a4c27cb68a4b8db39f344ef0cc92001c);
+            
+        
+
+        marker_c56eebfa17ba16e5a82f8282dce883ae.bindPopup(popup_74e78462666fea3aae5ebf8b04a6c30a)
+        ;
+
+        
+    
+    
+            marker_c56eebfa17ba16e5a82f8282dce883ae.bindTooltip(
+                `<div>
+                     RPI Public Safety
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_344e8321b2fda995f2294cd3d29bdc79 = L.marker(
+                [42.730159761978896, -73.67663391678252],
+                {}
+            ).addTo(map_1ee659b08fda2847d9f35125b265a2a1);
+        
+    
+        var popup_db5e3dc2bc8111be14dfccb146d54225 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_082caf10856d40f643f182d13f2b2789 = $(`<div id="html_082caf10856d40f643f182d13f2b2789" style="width: 100.0%; height: 100.0%;">Rensselaer Student Union</div>`)[0];
+                popup_db5e3dc2bc8111be14dfccb146d54225.setContent(html_082caf10856d40f643f182d13f2b2789);
+            
+        
+
+        marker_344e8321b2fda995f2294cd3d29bdc79.bindPopup(popup_db5e3dc2bc8111be14dfccb146d54225)
+        ;
+
+        
+    
+    
+            marker_344e8321b2fda995f2294cd3d29bdc79.bindTooltip(
+                `<div>
+                     Rensselaer Student Union
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_c63a845df94b5e297b8a72e9add0d6fe = L.marker(
+                [42.730706041764584, -73.67756264747236],
+                {}
+            ).addTo(map_1ee659b08fda2847d9f35125b265a2a1);
+        
+    
+        var popup_2ab568cbb3b1f70028ad562394d3bd25 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_9abb64f996f9e75550a6c69b863bdb78 = $(`<div id="html_9abb64f996f9e75550a6c69b863bdb78" style="width: 100.0%; height: 100.0%;">Quadrangle Complex</div>`)[0];
+                popup_2ab568cbb3b1f70028ad562394d3bd25.setContent(html_9abb64f996f9e75550a6c69b863bdb78);
+            
+        
+
+        marker_c63a845df94b5e297b8a72e9add0d6fe.bindPopup(popup_2ab568cbb3b1f70028ad562394d3bd25)
+        ;
+
+        
+    
+    
+            marker_c63a845df94b5e297b8a72e9add0d6fe.bindTooltip(
+                `<div>
+                     Quadrangle Complex
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_1c63199a2afe3acf71197ac31f21d4a0 = L.marker(
+                [42.72934781129576, -73.67895862471251],
+                {}
+            ).addTo(map_1ee659b08fda2847d9f35125b265a2a1);
+        
+    
+        var popup_5424e39834f5bfe1302a65eac7b274ef = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_75559e923a5b7f6b83584ece3ee6a547 = $(`<div id="html_75559e923a5b7f6b83584ece3ee6a547" style="width: 100.0%; height: 100.0%;">Darrin Communication Center</div>`)[0];
+                popup_5424e39834f5bfe1302a65eac7b274ef.setContent(html_75559e923a5b7f6b83584ece3ee6a547);
+            
+        
+
+        marker_1c63199a2afe3acf71197ac31f21d4a0.bindPopup(popup_5424e39834f5bfe1302a65eac7b274ef)
+        ;
+
+        
+    
+    
+            marker_1c63199a2afe3acf71197ac31f21d4a0.bindTooltip(
+                `<div>
+                     Darrin Communication Center
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_75f00ed407a4bc83639a7109f6407519 = L.marker(
+                [42.729847677153444, -73.68020218979997],
+                {}
+            ).addTo(map_1ee659b08fda2847d9f35125b265a2a1);
+        
+    
+        var popup_95d4efb8782525d300c2c57fb177debe = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_1853be27d02ed08ffad93d3894d14944 = $(`<div id="html_1853be27d02ed08ffad93d3894d14944" style="width: 100.0%; height: 100.0%;">j Erik Jonsson Engineering Center</div>`)[0];
+                popup_95d4efb8782525d300c2c57fb177debe.setContent(html_1853be27d02ed08ffad93d3894d14944);
+            
+        
+
+        marker_75f00ed407a4bc83639a7109f6407519.bindPopup(popup_95d4efb8782525d300c2c57fb177debe)
+        ;
+
+        
+    
+    
+            marker_75f00ed407a4bc83639a7109f6407519.bindTooltip(
+                `<div>
+                     j Erik Jonsson Engineering Center
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_fa8e2a15caa85516056833620eac0a67 = L.marker(
+                [42.73022009495838, -73.68115317445492],
+                {}
+            ).addTo(map_1ee659b08fda2847d9f35125b265a2a1);
+        
+    
+        var popup_8a2bc906e8ff761f37daabe317f354c2 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_15db7a96353e487a3dce426e040e35fa = $(`<div id="html_15db7a96353e487a3dce426e040e35fa" style="width: 100.0%; height: 100.0%;">Greene Building</div>`)[0];
+                popup_8a2bc906e8ff761f37daabe317f354c2.setContent(html_15db7a96353e487a3dce426e040e35fa);
+            
+        
+
+        marker_fa8e2a15caa85516056833620eac0a67.bindPopup(popup_8a2bc906e8ff761f37daabe317f354c2)
+        ;
+
+        
+    
+    
+            marker_fa8e2a15caa85516056833620eac0a67.bindTooltip(
+                `<div>
+                     Greene Building
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_153365a2393fdd48a4af91c1ca468519 = L.marker(
+                [42.73097906477598, -73.68164141863616],
+                {}
+            ).addTo(map_1ee659b08fda2847d9f35125b265a2a1);
+        
+    
+        var popup_2323e7711b83dd38816c057248440e1d = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_0a8191a795b820c05bd54b43e2dc98a2 = $(`<div id="html_0a8191a795b820c05bd54b43e2dc98a2" style="width: 100.0%; height: 100.0%;">Russell Sage Laboratory</div>`)[0];
+                popup_2323e7711b83dd38816c057248440e1d.setContent(html_0a8191a795b820c05bd54b43e2dc98a2);
+            
+        
+
+        marker_153365a2393fdd48a4af91c1ca468519.bindPopup(popup_2323e7711b83dd38816c057248440e1d)
+        ;
+
+        
+    
+    
+            marker_153365a2393fdd48a4af91c1ca468519.bindTooltip(
+                `<div>
+                     Russell Sage Laboratory
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_32dbd745ec681d0d3101acf51c5535e8 = L.marker(
+                [42.730287323346445, -73.68258918979996],
+                {}
+            ).addTo(map_1ee659b08fda2847d9f35125b265a2a1);
+        
+    
+        var popup_cb68285b2f3b3353203fc8a6aacae713 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_ea3b5ef24edec442126057fa498f6d25 = $(`<div id="html_ea3b5ef24edec442126057fa498f6d25" style="width: 100.0%; height: 100.0%;">Amos Eaton Hall</div>`)[0];
+                popup_cb68285b2f3b3353203fc8a6aacae713.setContent(html_ea3b5ef24edec442126057fa498f6d25);
+            
+        
+
+        marker_32dbd745ec681d0d3101acf51c5535e8.bindPopup(popup_cb68285b2f3b3353203fc8a6aacae713)
+        ;
+
+        
+    
+    
+            marker_32dbd745ec681d0d3101acf51c5535e8.bindTooltip(
+                `<div>
+                     Amos Eaton Hall
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_aa8dd246106b1262799d1e1f8ce98bf1 = L.marker(
+                [42.72954131606436, -73.68250278794625],
+                {}
+            ).addTo(map_1ee659b08fda2847d9f35125b265a2a1);
+        
+    
+        var popup_7589c9db23905cd4700ca1376d884bb2 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_212891b0462834622852b255f40fb8c4 = $(`<div id="html_212891b0462834622852b255f40fb8c4" style="width: 100.0%; height: 100.0%;">Folsom Library</div>`)[0];
+                popup_7589c9db23905cd4700ca1376d884bb2.setContent(html_212891b0462834622852b255f40fb8c4);
+            
+        
+
+        marker_aa8dd246106b1262799d1e1f8ce98bf1.bindPopup(popup_7589c9db23905cd4700ca1376d884bb2)
+        ;
+
+        
+    
+    
+            marker_aa8dd246106b1262799d1e1f8ce98bf1.bindTooltip(
+                `<div>
+                     Folsom Library
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_2cc1a3c047c09f7c63772fb68a3732af = L.marker(
+                [42.72931448709032, -73.68164350143745],
+                {}
+            ).addTo(map_1ee659b08fda2847d9f35125b265a2a1);
+        
+    
+        var popup_d60a9b5dcc0cad1860c770e26466c19e = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_ad77dc32bb42619565f49cb9dfb04a02 = $(`<div id="html_ad77dc32bb42619565f49cb9dfb04a02" style="width: 100.0%; height: 100.0%;">Voorhees Computing Center</div>`)[0];
+                popup_d60a9b5dcc0cad1860c770e26466c19e.setContent(html_ad77dc32bb42619565f49cb9dfb04a02);
+            
+        
+
+        marker_2cc1a3c047c09f7c63772fb68a3732af.bindPopup(popup_d60a9b5dcc0cad1860c770e26466c19e)
+        ;
+
+        
+    
+    
+            marker_2cc1a3c047c09f7c63772fb68a3732af.bindTooltip(
+                `<div>
+                     Voorhees Computing Center
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_5956315fdf0689b5076069bad032874d = L.marker(
+                [42.72900301770575, -73.68045377630875],
+                {}
+            ).addTo(map_1ee659b08fda2847d9f35125b265a2a1);
+        
+    
+        var popup_ec5eb5b65a7340f348d15fe77e38af67 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_67b1156d7514fdd7230a8a8a7b2a0d5b = $(`<div id="html_67b1156d7514fdd7230a8a8a7b2a0d5b" style="width: 100.0%; height: 100.0%;">Jonsson–Rowland Science Center</div>`)[0];
+                popup_ec5eb5b65a7340f348d15fe77e38af67.setContent(html_67b1156d7514fdd7230a8a8a7b2a0d5b);
+            
+        
+
+        marker_5956315fdf0689b5076069bad032874d.bindPopup(popup_ec5eb5b65a7340f348d15fe77e38af67)
+        ;
+
+        
+    
+    
+            marker_5956315fdf0689b5076069bad032874d.bindTooltip(
+                `<div>
+                     Jonsson–Rowland Science Center
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_85461867dd596e129be371cd1f1bf0a4 = L.marker(
+                [42.73142413669011, -73.67987080514486],
+                {}
+            ).addTo(map_1ee659b08fda2847d9f35125b265a2a1);
+        
+    
+        var popup_2cfbdf1aafbc58fe5488d5d0e6c6ad07 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_89683120e3d9ea90fae9afcac61c32b8 = $(`<div id="html_89683120e3d9ea90fae9afcac61c32b8" style="width: 100.0%; height: 100.0%;">North Hall</div>`)[0];
+                popup_2cfbdf1aafbc58fe5488d5d0e6c6ad07.setContent(html_89683120e3d9ea90fae9afcac61c32b8);
+            
+        
+
+        marker_85461867dd596e129be371cd1f1bf0a4.bindPopup(popup_2cfbdf1aafbc58fe5488d5d0e6c6ad07)
+        ;
+
+        
+    
+    
+            marker_85461867dd596e129be371cd1f1bf0a4.bindTooltip(
+                `<div>
+                     North Hall
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_c8d730e1ca403196421f86a1d7021d4b = L.marker(
+                [42.731807801585866, -73.68320404747236],
+                {}
+            ).addTo(map_1ee659b08fda2847d9f35125b265a2a1);
+        
+    
+        var popup_22a8d227b275e8b2532525e4d9319f76 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_ac3ae17ab0cf6f4c5100ee590a752cc4 = $(`<div id="html_ac3ae17ab0cf6f4c5100ee590a752cc4" style="width: 100.0%; height: 100.0%;">West Hall</div>`)[0];
+                popup_22a8d227b275e8b2532525e4d9319f76.setContent(html_ac3ae17ab0cf6f4c5100ee590a752cc4);
+            
+        
+
+        marker_c8d730e1ca403196421f86a1d7021d4b.bindPopup(popup_22a8d227b275e8b2532525e4d9319f76)
+        ;
+
+        
+    
+    
+            marker_c8d730e1ca403196421f86a1d7021d4b.bindTooltip(
+                `<div>
+                     West Hall
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_201069553f7375c6861c6374d96b6a1e = L.marker(
+                [42.73125174093247, -73.68330210329108],
+                {}
+            ).addTo(map_1ee659b08fda2847d9f35125b265a2a1);
+        
+    
+        var popup_cee1c9bfc2793abd08920f7486076a95 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_7ea44b2104a225745922c4af2d1ce7d6 = $(`<div id="html_7ea44b2104a225745922c4af2d1ce7d6" style="width: 100.0%; height: 100.0%;">Pittsburgh Building</div>`)[0];
+                popup_cee1c9bfc2793abd08920f7486076a95.setContent(html_7ea44b2104a225745922c4af2d1ce7d6);
+            
+        
+
+        marker_201069553f7375c6861c6374d96b6a1e.bindPopup(popup_cee1c9bfc2793abd08920f7486076a95)
+        ;
+
+        
+    
+    
+            marker_201069553f7375c6861c6374d96b6a1e.bindTooltip(
+                `<div>
+                     Pittsburgh Building
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var poly_line_770d682bfef4dd8366eab2ff1d8e53d3 = L.polyline(
+                [[42.72731130298223, -73.67414636096385], [42.72711006590162, -73.67448712656643], [42.72809422047715, -73.67536297260132], [42.72891902003062, -73.67684441122128], [42.72930295751444, -73.67676008238502], [42.730159761978896, -73.67663391678252], [42.730706041764584, -73.67756264747236], [42.72934781129576, -73.67895862471251], [42.729847677153444, -73.68020218979997], [42.73022009495838, -73.68115317445492], [42.73097906477598, -73.68164141863616], [42.730287323346445, -73.68258918979996], [42.72954131606436, -73.68250278794625], [42.72931448709032, -73.68164350143745], [42.72900301770575, -73.68045377630875], [42.73142413669011, -73.67987080514486], [42.731807801585866, -73.68320404747236], [42.73125174093247, -73.68330210329108]],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "blue", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.7, "smoothFactor": 1.0, "stroke": true, "weight": 2.5}
+            ).addTo(map_1ee659b08fda2847d9f35125b265a2a1);
+        
+</script>
+</html>
