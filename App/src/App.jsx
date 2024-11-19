@@ -31,7 +31,7 @@ function App() {
 
   const filterBuildings = (term) => {
     return buildings.filter((building) =>
-      building.name.toLowerCase().startsWith(term.toLowerCase())
+      building.name.toLowerCase().includes(term.toLowerCase())
     );
   };
 
@@ -39,8 +39,18 @@ function App() {
     setSearchTerm(e.target.value);
   };
 
+  const handleResultClick = (building) => {
+    console.log(`Selected: ${building.name}`);
+    closeAllPopups();
+    highlightBuildingOnMap(building);
+  };
+
+  const highlightBuildingOnMap = (building) => {
+    console.log(`Highlighting building on map: ${building.name}`);
+    // Implement map API integration here to highlight the building
+  };
+
   const closeAllPopups = () => {
-    // Close all popups (like report and search popups)
     if (searchPopupRef.current) {
       searchPopupRef.current.style.display = 'none';
       searchPopupRef.current.classList.remove('show');
@@ -97,10 +107,19 @@ function App() {
             onChange={handleSearch}
           />
           <div id="searchResult" className="result">
-            {searchTerm &&
-              filterBuildings(searchTerm).map((building, index) => (
-                <li key={index}>{building.name}</li>
-              ))}
+            {searchTerm ? (
+              filterBuildings(searchTerm).length > 0 ? (
+                <ul>
+                  {filterBuildings(searchTerm).map((building, index) => (
+                    <li key={index} onClick={() => handleResultClick(building)}>
+                      {building.name}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p>No results found.</p>
+              )
+            ) : null}
           </div>
         </div>
       </div>
