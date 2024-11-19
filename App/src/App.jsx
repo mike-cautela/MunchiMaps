@@ -6,6 +6,7 @@ import './styles/loading_animation_stylesheet.css';
 
 function App() {
   const [searchTerm, setSearchTerm] = useState('');
+
   const buildings = [
     { name: 'Folsom Library', drink: true, food: true },
     { name: 'Sharp Hall', drink: true, food: true },
@@ -26,13 +27,19 @@ function App() {
     { name: 'North Hall', drink: true, food: true },
     { name: 'West Hall', drink: true, food: false },
   ];
-
+  // Filter buildings by name
   const filterBuildings = (term) => {
     return buildings.filter((building) =>
       building.name.toLowerCase().startsWith(term.toLowerCase())
     );
   };
 
+  // Toggle popups
+  const toggleSearchPopup = () => setShowSearchPopup(!showSearchPopup);
+  const toggleReportPopup = () => setShowReportPopup(!showReportPopup);
+  
+
+  // Handle search input change
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
   };
