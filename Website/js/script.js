@@ -396,7 +396,7 @@ const building_data = [
     }
 
 
-function showInfoHelper(locationName){
+/*function showInfoHelper(locationName){
   const icon = icons[locationName];
   console.log("External function called for:", icon);
   console.log('Toggling icon:', icon);
@@ -413,6 +413,19 @@ function showInfoHelper(locationName){
       .openOn(map);
   //}
   
+}*/
+
+
+function showInfoHelper(id){
+  const icon = building_data[id];
+  console.log("External function called for:", icon);
+  console.log('Toggling icon:', icon);
+  console.log('Coordinates:', icon.x_coord, icon.y_coord);
+
+    icon.infoWindow = L.popup({ maxWidth: 500 })
+      .setLatLng([icon.x_coord, icon.y_coord])
+      .setContent(icon.infoWindowContent)
+      .openOn(map);  
 }
 
 
