@@ -426,6 +426,8 @@ function showInfoHelper(id){
       .setLatLng([icon.x_coord, icon.y_coord])
       .setContent(icon.infoWindowContent)
       .openOn(map);  
+
+  closeSearch();
 }
 
 
