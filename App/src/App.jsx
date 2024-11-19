@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import './styles/MunchiMaps_stylesheet.css';
 import './styles/dark.css';
 import './styles/Location_Style_Sheet.css';
@@ -6,8 +6,7 @@ import './styles/loading_animation_stylesheet.css';
 
 function App() {
   const [searchTerm, setSearchTerm] = useState('');
-  const [showSearchPopup, setShowSearchPopup] = useState(false);
-  const [showReportPopup, setShowReportPopup] = useState(false);
+  const searchPopupRef = useRef(null);
 
   const buildings = [
     { name: 'Folsom Library', drink: true, food: true },
@@ -29,21 +28,33 @@ function App() {
     { name: 'North Hall', drink: true, food: true },
     { name: 'West Hall', drink: true, food: false },
   ];
-  // Filter buildings by name
+
   const filterBuildings = (term) => {
     return buildings.filter((building) =>
       building.name.toLowerCase().startsWith(term.toLowerCase())
     );
   };
 
-  // Toggle popups
-  const toggleSearchPopup = () => setShowSearchPopup(!showSearchPopup);
-  const toggleReportPopup = () => setShowReportPopup(!showReportPopup);
-  
-
-  // Handle search input change
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
+  };
+
+  const closeAllPopups = () => {
+    // Close all popups (like report and search popups)
+    if (searchPopupRef.current) {
+      searchPopupRef.current.style.display = 'none';
+      searchPopupRef.current.classList.remove('show');
+    }
+  };
+
+  const openSearch = () => {
+    closeAllPopups();
+    if (searchPopupRef.current) {
+      searchPopupRef.current.style.display = 'block';
+      setTimeout(() => {
+        searchPopupRef.current.classList.add('show');
+      }, 10); // Trigger CSS transition
+    }
   };
 
   return (
@@ -59,7 +70,7 @@ function App() {
         <div id="map"></div>
       </div>
 
-      <button className="help-button" onClick={() => console.log("Open Help")}>
+      <button className="help-button" onClick={() => console.log('Open Help')}>
         <img
           src="https://raw.githubusercontent.com/mike-cautela/MunchiMaps/main/Website/MunchiMaps%20Assets/MenuIcons/help-circle-grey.svg"
           alt="Help"
@@ -67,7 +78,7 @@ function App() {
         />
       </button>
 
-      <button className="map-key-button" onClick={() => console.log("Open Map Key")}>
+      <button className="map-key-button" onClick={() => console.log('Open Map Key')}>
         <img
           src="https://github.com/mike-cautela/MunchiMaps/blob/main/Website/MunchiMaps%20Assets/CookieFavicon.png?raw=true"
           alt="Map Key"
@@ -75,9 +86,9 @@ function App() {
         />
       </button>
 
-      <div id="popup-search" style={{ display: 'none' }}>
+      <div id="popup-search" ref={searchPopupRef} style={{ display: 'none' }}>
         <div className="search-bar">
-          <span className="close" onClick={() => console.log("Close Search")}>&times;</span>
+          <span className="close" onClick={closeAllPopups}>&times;</span>
           <input
             type="search"
             id="searchInput"
@@ -97,7 +108,7 @@ function App() {
       <div id="popup-report" className="popup-container">
         <div className="popup">
           <div className="popup-header">
-            <span className="popup-close" onClick={() => console.log("Close Report")}>
+            <span className="popup-close" onClick={closeAllPopups}>
               &times;
             </span>
             <h2>Report Issue</h2>
@@ -107,7 +118,7 @@ function App() {
             className="popup-form"
             onSubmit={(e) => {
               e.preventDefault();
-              console.log("Submit Report");
+              console.log('Submit Report');
             }}
           >
             <div className="form-group">
@@ -135,21 +146,21 @@ function App() {
       </div>
 
       <div id="buttons-container">
-        <button className="button" onClick={() => console.log("Open Search")}>
+        <button className="button" onClick={openSearch}>
           <img
             src="https://raw.githubusercontent.com/mike-cautela/MunchiMaps/main/Website/MunchiMaps%20Assets/MenuIcons/search-grey.svg"
             alt="Search"
             className="button-img"
           />
         </button>
-        <button className="button" onClick={() => console.log("Open Report")}>
+        <button className="button" onClick={() => console.log('Open Report')}>
           <img
             src="https://raw.githubusercontent.com/mike-cautela/MunchiMaps/main/Website/MunchiMaps%20Assets/MenuIcons/alert-triangle-grey.svg"
             alt="Report"
             className="button-img"
           />
         </button>
-        <button className="button" id="Location" onClick={() => console.log("Update Location")}>
+        <button className="button" id="Location" onClick={() => console.log('Update Location')}>
           <img
             src="https://raw.githubusercontent.com/mike-cautela/MunchiMaps/main/Website/MunchiMaps%20Assets/MenuIcons/crosshair-grey.svg"
             alt="Location"
