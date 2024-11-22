@@ -398,26 +398,6 @@ class EventEmitter {
     }
 
 
-/*function showInfoHelper(locationName){
-  const icon = icons[locationName];
-  console.log("External function called for:", icon);
-  console.log('Toggling icon:', icon);
-  console.log('Coordinates:', icon.x_coord, icon.y_coord);
-
-  // if (icon.infoWindow && map.hasLayer(icon.infoWindow)) {
-  //   // If the popup is open, close it
-  //   map.closePopup(icon.infoWindow);
-  // } else {
-    // If the popup is closed, open it
-    icon.infoWindow = L.popup({ maxWidth: 500 })
-      .setLatLng([icon.x_coord, icon.y_coord])
-      .setContent(icon.infoWindowContent)
-      .openOn(map);
-  //}
-  
-}*/
-
-
 function showInfoHelper(id){
   const icon = buildings[id];
   console.log("External function called for:", icon);
