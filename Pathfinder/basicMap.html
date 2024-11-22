@@ -5,6 +5,8 @@
     <title>Display a map</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="jquery-3.1.1.min.js"></script>
+    <script src="mapScripts.js"></script>
     <style>
       #map {position: absolute; top: 0; right: 0; bottom: 0; left: 0;}
     </style>
@@ -16,7 +18,7 @@
     <p><a href="https://www.maptiler.com/copyright/" target="_blank" rel="noopener">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">&copy; OpenStreetMap contributors</a></p>
     <script>
       const key = '9WMehRx2YDAf43HaOnfd';
-      const map = L.map('map').setView([49.2125578, 16.62662018], 14); //starting position
+      const map = L.map('map').setView([42.729787, -73.679913], 17); //starting position
       L.tileLayer(`https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}.png?key=${key}`,{ //style URL
         tileSize: 512,
         zoomOffset: -1,
@@ -24,6 +26,9 @@
         attribution: "\u003ca href=\"https://www.maptiler.com/copyright/\" target=\"_blank\"\u003e\u0026copy; MapTiler\u003c/a\u003e \u003ca href=\"https://www.openstreetmap.org/copyright\" target=\"_blank\"\u003e\u0026copy; OpenStreetMap contributors\u003c/a\u003e",
         crossOrigin: true
       }).addTo(map);
+      var marker = L.marker([42.72931448709032,-73.68164350143745]).addTo(map);
+      
+      
     </script>
   </body>
 </html>
