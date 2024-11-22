@@ -1,5 +1,5 @@
 
-const building_data = [
+/*const building_data = [
   {name:"Academy Hall", x_coord:42.72749913373329, y_coord:-73.67858048827672, time_opens:8.00, time_closes:18.00, num_snack_machines:1, num_drink_machines:1},
   {name:"Amos Eaton Hall", x_coord:42.730287323346445, y_coord:-73.68258918979996, time_opens:7.00, time_closes:22.00, num_snack_machines:0, num_drink_machines:1},
   {name:"Davison Hall", x_coord:42.72731130298223, y_coord:-73.67414636096385, time_opens:0.00, time_closes:24.00, num_snack_machines:0, num_drink_machines:1},
@@ -20,7 +20,8 @@ const building_data = [
   {name:"Warren Hall", x_coord:42.72809422047715, y_coord:-73.67536297260132, time_opens:7.00, time_closes:21.00, num_snack_machines:0, num_drink_machines:1},
   {name:"West Hall", x_coord:42.731807801585866, y_coord:-73.68320404747236, time_opens:0.00, time_closes:24.00, num_snack_machines:0, num_drink_machines:1},
 ];
-var buildings = []; //this is initialized in initMap()
+var buildings = []; //this is initialized in initMap()*/
+
 
 class EventEmitter {
   constructor() {
@@ -218,6 +219,28 @@ class EventEmitter {
         }
       } // Icon object declaration ending.
 
+const buildings = [
+  new icon("Academy Hall",              42.72749913373329, -73.67858048827672, 8.00, 18.00, 1, 1, 0, 0, "N"),
+  new icon("Amos Eaton Hall",           42.73028732334645, -73.68258918979996, 7.00, 22.00, 0, 1, 0, 0, "N"),
+  new icon("Davison Hall",              42.72731130298223, -73.67414636096385, 0.00, 24.00, 0, 1, 0, 0, "N"),
+  new icon("DCC",                       42.72934781129576, -73.67895862471251, 7.00, 21.00, 1, 1, 0, 0, "N"),
+  new icon("Folsom Library",            42.72954131606436, -73.68250278794625, 8.00, 11.00, 1, 2, 0, 0, "N"),//closing time wrong, fix plz
+  new icon("Greene Building",           42.73022009495838, -73.68115317445492, 7.00, 21.00, 1, 1, 0, 0, "N"),
+  new icon("JEC",                       42.72984767715344, -73.68020218979997, 6.00, 22.00, 1, 1, 0, 0, "N"),
+  new icon("JROWL",                     42.72900301770575, -73.68045377630875, 6.00, 22.00, 1, 1, 0, 0, "N"),
+  new icon("Mueller Center",            42.72891902003062, -73.67684441122128, 8.00, 10.00, 1, 2, 0, 0, "N"),//check closing time
+  new icon("North Hall",                42.73142413669011, -73.67987080514486, 7.00, 24.00, 1, 2, 0, 0, "N"),
+  new icon("Pittsburgh Building",       42.73125174093247, -73.68330210329108, 7.00, 21.00, 1, 1, 0, 0, "N"),
+  new icon("Pub Safe",                  42.72930295751444, -73.67676008238502, 0.00, 24.00, 0, 1, 0, 0, "N"),
+  new icon("Quad",                      42.73070604176458, -73.67756264747236, 0.00, 24.00, 0, 2, 0, 0, "N"),
+  new icon("Sage Labs",                 42.73097906477598, -73.68164141863616, 7.00, 24.00, 1, 1, 0, 0, "N"),
+  new icon("Sharp Hall",                42.72711006590162, -73.67448712656643, 0.00, 24.00, 0, 1, 0, 0, "N"),
+  new icon("Union",                     42.73015976197890, -73.67663391678252, 7.00, 24.00, 1, 1, 0, 0, "N"),
+  new icon("Voorhees Computing Center", 42.72931448709032, -73.68164350143745, 7.00, 23.00, 1, 2, 0, 0, "N"),
+  new icon("Warren Hall",               42.72809422047715, -73.67536297260132, 7.00, 21.00, 0, 1, 0, 0, "N"),
+  new icon("West Hall",                 42.73180780158587, -73.68320404747236, 0.00, 24.00, 0, 1, 0, 0, "N")
+];
+
 
  //initializes the map
     function initMap() {
@@ -322,7 +345,7 @@ class EventEmitter {
       
 // NOTE: this code replaces the old way of plotting icons
 // It allows the search feature and the map plotting to use the same building_data array (which can be found at the top of this file)
-      for(let i=0; i<building_data.length; i++) {
+      /*for(let i=0; i<building_data.length; i++) {
         temp = new icon(
             building_data[i].name,
             building_data[i].x_coord,
@@ -336,7 +359,7 @@ class EventEmitter {
             "N" //needs_service
           )
         buildings.push(temp);
-      }
+      }*/
 
       for(let i=0; i<buildings.length; i++) {
         buildings[i].plot();
