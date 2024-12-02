@@ -230,8 +230,8 @@
 </div>
         <script> 
           //Building sort
-          building_data.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
-          console.log(building_data);
+          buildings.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
+          console.log(buildings);
         
 
           //Search function 
@@ -239,7 +239,7 @@
               var searchTerm = document.getElementById('searchInput').value.trim().toLowerCase();
               var filtered = [];
   
-              building_data.forEach(function(building){
+              buildings.forEach(function(building){
                   if(filter(building, searchTerm)){
                       filtered.push(building);
                   }
@@ -271,8 +271,8 @@
                       listItem.textContent = item.name;
                     
                       listItem.onclick = function() {
-                          for (let i = 0; i < building_data.length; i++){
-                            if(building_data[i].name == item.name){
+                          for (let i = 0; i < buildings.length; i++){
+                            if(buildings[i].name == item.name){
                               showInfoHelper(i);
                             }
                           }
