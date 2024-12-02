@@ -10,12 +10,9 @@ $(document).ready(function(){
             //Gets todays date
             const d = new Date();
             let day = d.getDay();
-            console.log(day);
             const todaysDay = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
             const today = todaysDay[day];
-            console.log(today);
             let h = d.getHours();
-            console.log(h);
 
             $.each(responseData.machines, function(i, machine){
                 //filters machines that are closed
@@ -24,6 +21,7 @@ $(document).ready(function(){
                     var lon = parseFloat(machine.location[1]);
                     counter++;
                     output += 'var marker' + counter + ' = L.marker(['+ lat + ',' + lon +']).addTo(map);';
+                    output += 'marker' + counter + '.bindPopup("<b> '+ machine.name +'</b>").openPopup();';
                 }
                 else{
                     if(machine.hours[0][today][0] < h && machine.hours[0][today][1] > h){
@@ -31,6 +29,7 @@ $(document).ready(function(){
                         var lon = parseFloat(machine.location[1]);
                         counter++;
                         output += 'var marker' + counter + ' = L.marker(['+ lat + ',' + lon +']).addTo(map);';
+                        output += 'marker' + counter + '.bindPopup("<b> '+ machine.name +'</b>").openPopup();';
                     }
                 }
                 
