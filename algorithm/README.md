@@ -144,8 +144,15 @@ Generates an HTML map with vending machine locations marked, highlighting the sh
   - Places markers on a map based on `self.shortest_path` locations.
   - Draws lines between locations to represent the shortest path.
 
+- **Vending map sample**
+  ![vending_map_sample](vending_map_sample.png)
+
 ### Error Handling
 
 - The system will print an error message if the lengths of the lists (such as `building`, `amount`, etc.) are not equal. This ensures that the CSV data is consistent.
 
 - The `check_time` method raises `ValueError` if the time range format is incorrect or the dash separating start and end times is missing.
+
+## Backend Workflow graph
+
+![vending_map_sample](workflow.png)
