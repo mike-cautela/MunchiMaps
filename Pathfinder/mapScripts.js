@@ -21,7 +21,17 @@ $(document).ready(function(){
                     var lon = parseFloat(machine.location[1]);
                     counter++;
                     output += 'var marker' + counter + ' = L.marker(['+ lat + ',' + lon +']).addTo(map);';
-                    output += 'marker' + counter + '.bindPopup("<b> '+ machine.name +'</b>").openPopup();';
+                    output += 'marker' + counter + '.bindPopup("<b> '+ machine.name +'</b>';
+                    if(machine.food == "true" && machine.drink == "true"){
+                        output += ': Snacks and Drinks';
+                    }
+                    else if(machine.food == "true"){
+                        output += ': Snacks';
+                    }
+                    else if(machine.drink == "true"){
+                        output += ': Drinks';
+                    }
+                    output += '").openPopup();'
                 }
                 else{
                     if(machine.hours[0][today][0] < h && machine.hours[0][today][1] > h){
@@ -29,7 +39,17 @@ $(document).ready(function(){
                         var lon = parseFloat(machine.location[1]);
                         counter++;
                         output += 'var marker' + counter + ' = L.marker(['+ lat + ',' + lon +']).addTo(map);';
-                        output += 'marker' + counter + '.bindPopup("<b> '+ machine.name +'</b>").openPopup();';
+                        output += 'marker' + counter + '.bindPopup("<b> '+ machine.name +'</b>';
+                        if(machine.food == "true" && machine.drink == "true"){
+                            output += ': Snacks and Drinks';
+                        }
+                        else if(machine.food == "true"){
+                            output += ': Snacks';
+                        }
+                        else if(machine.drink == "true"){
+                            output += ': Drinks';
+                        }
+                        output += '").openPopup();'
                     }
                 }
                 
