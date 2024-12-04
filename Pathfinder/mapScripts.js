@@ -15,7 +15,7 @@ $(document).ready(function(){
             let h = d.getHours();
 
             $.each(responseData.machines, function(i, machine){
-                //filters machines that are closed
+                //filters machines that are closed and adds them to the map
                 if(machine.alwaysOpen == "true"){
                     var lat = parseFloat(machine.location[0]);
                     var lon = parseFloat(machine.location[1]);
@@ -38,5 +38,46 @@ $(document).ready(function(){
             scriptTag.textContent = output;
             document.getElementById('markers').appendChild(scriptTag); // Append the new script to the markers script tag
         }
-    })
-})
+    });
+    
+    map.once("locationfound", function (e) {
+        let userLat = e.latlng.lat;
+        let userLon = e.latlng.lng;
+        console.log(userLat);
+        console.log(userLon);
+        $.ajax({
+            type: "GET",
+            url: "./nodes.json",
+            dataType: "json",
+            success: function(responseData, status){
+                
+                // Find the closest marker
+                var closestLat;
+                var closestLon;
+                let closestDistance = Infinity;
+                $.each(responseData.machines, function(i, machine){
+                    let distance = map.distance([userLat, userLon], [machine.location[0], machine.location[1]]);
+                    if (distance < closestDistance) {
+                        closestDistance = distance;
+                        closestLat = machine.location[0];
+                        closestLat = machine.location[1];
+                    }
+                });
+                
+                var output = 'L.Routing.control({';
+                output += 'waypoints: [';
+                output += 'L.latLng('+ userLat + ',' + userLon + '),';
+                output += 'L.latLng('+ closestLat+ ','+ closestLon+ '),';
+                output += '],';
+                output += 'routeWhileDragging: true,';
+                output += '}).addTo(map);';
+
+                var scriptTag = document.createElement('script');
+                scriptTag.textContent = output;
+                document.getElementById('route').appendChild(scriptTag);
+            }
+        })
+
+    });
+});
+
