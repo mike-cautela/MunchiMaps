@@ -60,10 +60,9 @@ $(document).ready(function(){
                     if (distance < closestDistance) {
                         closestDistance = distance;
                         closestLat = machine.location[0];
-                        closestLat = machine.location[1];
+                        closestLon = machine.location[1];
                     }
                 });
-                
                 var output = 'L.Routing.control({';
                 output += 'waypoints: [';
                 output += 'L.latLng('+ userLat + ',' + userLon + '),';
