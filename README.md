@@ -9,7 +9,7 @@ Key Features that were implemented: Search function, Review function, Report fun
 
 This project is being continued for the RCOS Fall 2024 semester.
 
-Current Members: Anannya Punia (Co-lead), Kevin Shreenauth (Co-Lead), Hanzhen Qin, Ansh Revankar, Kaia Lind, Laura Phan, Aliya Yang, Braden Lam
+Current Members: Anannya Punia (Co-lead), Kevin Shreenauth (Co-Lead), Hanzhen "Ryan" Qin, Ansh Revankar, Kaia Lind, Laura Phan, Aliya Yang, Braden Lam
 
 Want to visit our website? Go here! ** https://uneven-gilded-omelet.glitch.me (Present live site) **
 Original site (still active server) faceted-pear-amaryllis.glitch.me (Summer 2024 Original site)

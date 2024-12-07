@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import './styles/MunchiMaps_stylesheet.css';
 import './styles/dark.css';
 import './styles/Location_Style_Sheet.css';
@@ -6,6 +6,8 @@ import './styles/loading_animation_stylesheet.css';
 
 function App() {
   const [searchTerm, setSearchTerm] = useState('');
+  const searchPopupRef = useRef(null);
+
   const buildings = [
     { name: 'Folsom Library', drink: true, food: true },
     { name: 'Sharp Hall', drink: true, food: true },
@@ -37,6 +39,24 @@ function App() {
     setSearchTerm(e.target.value);
   };
 
+  const closeAllPopups = () => {
+    // Close all popups (like report and search popups)
+    if (searchPopupRef.current) {
+      searchPopupRef.current.style.display = 'none';
+      searchPopupRef.current.classList.remove('show');
+    }
+  };
+
+  const openSearch = () => {
+    closeAllPopups();
+    if (searchPopupRef.current) {
+      searchPopupRef.current.style.display = 'block';
+      setTimeout(() => {
+        searchPopupRef.current.classList.add('show');
+      }, 10); // Trigger CSS transition
+    }
+  };
+
   return (
     <>
       <div className="logo-title">
@@ -50,7 +70,7 @@ function App() {
         <div id="map"></div>
       </div>
 
-      <button className="help-button" onClick={() => console.log("Open Help")}>
+      <button className="help-button" onClick={() => console.log('Open Help')}>
         <img
           src="https://raw.githubusercontent.com/mike-cautela/MunchiMaps/main/Website/MunchiMaps%20Assets/MenuIcons/help-circle-grey.svg"
           alt="Help"
@@ -58,7 +78,7 @@ function App() {
         />
       </button>
 
-      <button className="map-key-button" onClick={() => console.log("Open Map Key")}>
+      <button className="map-key-button" onClick={() => console.log('Open Map Key')}>
         <img
           src="https://github.com/mike-cautela/MunchiMaps/blob/main/Website/MunchiMaps%20Assets/CookieFavicon.png?raw=true"
           alt="Map Key"
@@ -66,9 +86,9 @@ function App() {
         />
       </button>
 
-      <div id="popup-search" style={{ display: 'none' }}>
+      <div id="popup-search" ref={searchPopupRef} style={{ display: 'none' }}>
         <div className="search-bar">
-          <span className="close" onClick={() => console.log("Close Search")}>&times;</span>
+          <span className="close" onClick={closeAllPopups}>&times;</span>
           <input
             type="search"
             id="searchInput"
@@ -88,7 +108,7 @@ function App() {
       <div id="popup-report" className="popup-container">
         <div className="popup">
           <div className="popup-header">
-            <span className="popup-close" onClick={() => console.log("Close Report")}>
+            <span className="popup-close" onClick={closeAllPopups}>
               &times;
             </span>
             <h2>Report Issue</h2>
@@ -98,7 +118,7 @@ function App() {
             className="popup-form"
             onSubmit={(e) => {
               e.preventDefault();
-              console.log("Submit Report");
+              console.log('Submit Report');
             }}
           >
             <div className="form-group">
@@ -126,21 +146,21 @@ function App() {
       </div>
 
       <div id="buttons-container">
-        <button className="button" onClick={() => console.log("Open Search")}>
+        <button className="button" onClick={openSearch}>
           <img
             src="https://raw.githubusercontent.com/mike-cautela/MunchiMaps/main/Website/MunchiMaps%20Assets/MenuIcons/search-grey.svg"
             alt="Search"
             className="button-img"
           />
         </button>
-        <button className="button" onClick={() => console.log("Open Report")}>
+        <button className="button" onClick={() => console.log('Open Report')}>
           <img
             src="https://raw.githubusercontent.com/mike-cautela/MunchiMaps/main/Website/MunchiMaps%20Assets/MenuIcons/alert-triangle-grey.svg"
             alt="Report"
             className="button-img"
           />
         </button>
-        <button className="button" id="Location" onClick={() => console.log("Update Location")}>
+        <button className="button" id="Location" onClick={() => console.log('Update Location')}>
           <img
             src="https://raw.githubusercontent.com/mike-cautela/MunchiMaps/main/Website/MunchiMaps%20Assets/MenuIcons/crosshair-grey.svg"
             alt="Location"
@@ -153,39 +173,3 @@ function App() {
 }
 
 export default App;
-
-// import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
-// import './App.css'
-
-// function App() {
-//   const [count, setCount] = useState(0)
-
-//   return (
-//     <>
-//       <div>
-//         <a href="https://vite.dev" target="_blank">
-//           <img src={viteLogo} className="logo" alt="Vite logo" />
-//         </a>
-//         <a href="https://react.dev" target="_blank">
-//           <img src={reactLogo} className="logo react" alt="React logo" />
-//         </a>
-//       </div>
-//       <h1>Vite + React</h1>
-//       <div className="card">
-//         <button onClick={() => setCount((count) => count + 1)}>
-//           count is {count}
-//         </button>
-//         <p>
-//           Edit <code>src/App.jsx</code> and save to test HMR
-//         </p>
-//       </div>
-//       <p className="read-the-docs">
-//         Click on the Vite and React logos to learn more
-//       </p>
-//     </>
-//   )
-// }
-
-// export default App
