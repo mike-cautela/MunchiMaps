@@ -24,7 +24,7 @@
             "hasVendingMachine": "true",
             "food": "false",
             "drink": "true",
-            "hours": "24/7"
+            "hours": ["24/7"]
         },
         {
             "name": "Rensselaer Student Union",
@@ -50,7 +50,7 @@
             "hasVendingMachine": "true",
             "food": "false",
             "drink": "true",
-            "hours": "24/7"
+            "hours": ["24/7"]
         },
         {
             "name": "Darrin Communication Center", 
@@ -195,7 +195,7 @@
             "hasVendingMachine": "true",
             "food": "false",
             "drink": "true",
-            "hours":"24/7"
+            "hours": ["24/7"]
         },
         {
             "name": "Greene Building",
@@ -256,7 +256,7 @@
             "hasVendingMachine": "true",
             "food": "false",
             "drink": "true",
-            "hours": "24/7"
+            "hours": ["24/7"]
         }
     ]
 }
