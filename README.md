@@ -7,9 +7,14 @@ Founding Members: (Co-Lead) Mila Zlatkovic,(Co-Lead) Mike Cautela,(Sub-Lead) Ana
 
 Key Features that were implemented: Search function, Review function, Report function, Relocate function, Dark mode
 
-This project is being continued for the RCOS Fall 2024 semester.
+Fall 2024 Members: Anannya Punia (Co-Lead), Kevin Shreenauth (Co-Lead), Hanzhen "Ryan" Qin, Ansh Revankar, Kaia Lind, Laura Phan, Aliya Yang, Braden Lam
 
-Current Members: Anannya Punia (Co-lead), Kevin Shreenauth (Co-Lead), Hanzhen "Ryan" Qin, Ansh Revankar, Kaia Lind, Laura Phan, Aliya Yang, Braden Lam
+Key Features that were implemented: Path Finding Algorithim, Building Database, Backend creation, Mobile Application Tech Stack Research
 
-Want to visit our website? Go here! ** https://uneven-gilded-omelet.glitch.me (Present live site) **
-Original site (still active server) faceted-pear-amaryllis.glitch.me (Summer 2024 Original site)
+Current Members: Kevin Shreenauth (Lead), Devon Becker, Vincent Huang, Trivika Komatireddy, Chris Loc, Will Shockey, Andrew Wang
+
+Public Server to be found and shared soon for those curious to visit our website!
+
+Original site faceted-pear-amaryllis.glitch.me (Summer 2024 Original site RIP)
+https://uneven-gilded-omelet.glitch.me (Fall 2024 site RIP) **
+*Glitch's servers have shut down, links as such are no longer usable*
