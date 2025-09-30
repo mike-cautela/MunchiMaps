@@ -61,12 +61,12 @@ class EventEmitter {
         let image = name.split(" ").join("");
         let active = false;
         if(numSnack >= 1) {
-          images = "<img src='../MunchiMaps Assets/" + name + "/" + image + "Snack1.jpg'?raw=true\" alt=\"Logo 1\" class=\"active\">";
+          images = "<img src='./MunchiMaps Assets/" + name + "/" + image + "Snack1.jpg'?raw=true\" alt=\"Logo 1\" class=\"active\">";
           active = true;
           
           for(let i = 2; i <= numSnack; i++) {
             
-            images += "<img src='../MunchiMaps Assets/" + name + "/" + image + "Snack" + i + ".jpg'?raw=true\" alt=\"Logo " + i + "\">";
+            images += "<img src='./MunchiMaps Assets/" + name + "/" + image + "Snack" + i + ".jpg'?raw=true\" alt=\"Logo " + i + "\">";
             console.log(images);
           }
         }
@@ -74,13 +74,13 @@ class EventEmitter {
         
         if(numDrinks >= 1) {
           if(!active) {
-            images = "<img src='../MunchiMaps Assets/" + name + "/"+image+"Drink1.jpg'?raw=true\" alt=\"Logo 1\" class=\"active\">";
+            images = "<img src='./MunchiMaps Assets/" + name + "/"+image+"Drink1.jpg'?raw=true\" alt=\"Logo 1\" class=\"active\">";
             active = true;
           } else {
-            images += "<img src='../MunchiMaps Assets/" + name + "/" + image + "Drink1.jpg'?raw=true\" alt=\"Logo 1\">";
+            images += "<img src='./MunchiMaps Assets/" + name + "/" + image + "Drink1.jpg'?raw=true\" alt=\"Logo 1\">";
           }
           for(let i = 2; i <= numDrinks; i++) {
-            images += "<img src='../MunchiMaps Assets/" + name + "/" + image + "Drink" +i + ".jpg'?raw=true\" alt=\"Logo " + i + "\">";
+            images += "<img src='./MunchiMaps Assets/" + name + "/" + image + "Drink" +i + ".jpg'?raw=true\" alt=\"Logo " + i + "\">";
           }
         }
         
