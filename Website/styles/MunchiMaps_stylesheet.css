@@ -674,7 +674,7 @@ html, body {
 }
 
 /*report button*/
-.popup-container {
+.popup-report-container {
   display: none;
   position: fixed;
   top: 0;
@@ -683,6 +683,8 @@ html, body {
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
   z-index: 1000;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5); /* Window drop shadow */
+  animation: fadeIn 0.5s ease forwards; /* Fade in animation */
 }
 
 .popup {
@@ -723,7 +725,7 @@ html, body {
 
 /* Styles for the dropdown menu in the report form */
 .popup-form select.form-control {
-  width: 100%;
+  width: 50%;
   padding: 8px;
   box-sizing: border-box;
   border: 1px solid #ccc;
