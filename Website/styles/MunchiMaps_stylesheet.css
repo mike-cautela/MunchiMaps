@@ -781,6 +781,55 @@ html, body {
     margin-bottom: 16px;
   }
 }
+
+
+/* === POPUP LAYER FIXES === */
+.help-popup,
+.map-key-popup,
+.popup-report-container,
+#popup-search {
+  position: fixed;
+  inset: 0;                 /* top/right/bottom/left: 0 */
+  display: none;            /* shown via JS */
+  z-index: 5000;            /* above logo & Leaflet controls */
+  background: rgba(0,0,0,.4);
+  /* perfect centering for the child panel */
+  display: none;            /* default */
+}
+
+.help-popup.show,
+.map-key-popup.show,
+.popup-report-container.show,
+#popup-search.show {
+  display: grid;            /* turn on and center */
+  place-items: center;
+}
+
+/* Center the inner cards and prevent margin-based drifting */
+.help-content,
+.map-key-content,
+.popup,            /* the Report modal uses .popup as the card */
+.search-bar {      /* search modal's inner card */
+  margin: 0;                  /* override existing 15% auto margins */
+  width: min(92vw, 600px);
+  max-height: 85vh;
+  overflow: auto;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.5);
+}
+
+/* Search modal: remove its extra fixed centering so the overlay does it */
+.search-bar {
+  position: static !important;
+  transform: none !important;
+  height: auto;              /* let content drive size */
+}
+
+/* Keep the logo from blocking clicks and layer it lower than modals */
+.logo-title {
+  z-index: 100 !important;   /* below 5000 */
+  pointer-events: none;      /* don't steal clicks from modals */
+}
  
   
 
