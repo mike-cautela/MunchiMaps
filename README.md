@@ -11,7 +11,7 @@ Fall 2024 Members: Anannya Punia (Co-Lead), Kevin Shreenauth (Co-Lead), Hanzhen 
 
 Key Features that were implemented: Path Finding Algorithim, Building Database, Backend creation, Mobile Application Tech Stack Research
 
-Current Members: Kevin Shreenauth (Lead), Devon Becker, Vincent Huang, Trivika Komatireddy, Chris Loc, Will Shockey, Andrew Wang
+Current Members: Kevin Shreenauth (Lead), Devon Becker, Vincent Huang, Trivika Komatireddy, Chris Lo, Will Shockey, Andrew Wang
 
 Public Server to be found and shared soon for those curious to visit our website!
 

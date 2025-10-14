@@ -1,4 +1,4 @@
-console.log("Server.js running");
+console.log("[src] server.js running...");
 
 const fastify = require("fastify")({
   logger: true
@@ -10,8 +10,6 @@ const getData = require("../scripts/processData.js");
 
 const startServer = async () => {
   try {
-    
-    // Initialize database
     await dbFunctions.initializeDatabase();
     
     // Register static files
@@ -50,5 +48,4 @@ const startServer = async () => {
   }
 };
 
-// Start the server and run data processing
 startServer();
