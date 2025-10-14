@@ -675,6 +675,7 @@ html, body {
 
 /*report button*/
 .popup-report-container {
+  font-family: 'Courier New', Courier, monospace;
   display: none;
   position: fixed;
   top: 0;
@@ -711,6 +712,9 @@ html, body {
 .popup-close {
   font-size: 24px;
   cursor: pointer;
+  position: absolute;
+  top: 10px;
+  left: 10px;
 }
 
 .popup-form .form-group {
@@ -735,7 +739,6 @@ html, body {
   font-size: 16px;
   margin-bottom: 15px;
   transition: border-color 0.3s ease;
-  font-weight: bold;
 }
 
 .popup-form select.form-control:focus {
@@ -751,6 +754,7 @@ html, body {
   border-radius: 5px;
   padding: 10px 20px;
   cursor: pointer;
+  font-family: 'Courier New', Courier, monospace;
   transition: background-color 0.3s ease;
 }
 
@@ -769,6 +773,14 @@ html, body {
 .popup-form select:focus {
   border-color: #007BFF;
   outline: none;
+}
+
+.popup-form input[type="text"] {
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.form-group .form-control {
+  font-family:'Courier New', Courier, monospace
 }
 
 .leaflet-bottom .leaflet-control {
