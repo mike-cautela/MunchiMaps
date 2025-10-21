@@ -245,3 +245,190 @@ Currently only logs to console. To wire it up to your backend:
 
 * No CORS needed if the frontend and backend are the same origin (which they are in your current setup on port 5000).
 
+# **API Endpoints (from `scripts/`)**
+
+### **`scripts/buildings.js`**
+
+**`GET /api/buildings`** → Returns a list of all campus buildings with vending machine data.
+
+ `[`
+
+  `{ "id": 1, "name": "Darrin Communications Center", "machines": [...] },`
+
+  `{ "id": 2, "name": "Union", "machines": [...] }`
+
+`]`
+
+*   
+* **`GET /api/buildings/:id`** → Returns detailed info for a single building.
+
+---
+
+### **`scripts/reviews.js`**
+
+* **`GET /api/reviews?machine_id=123`** → Returns reviews for a given vending machine.
+
+**`POST /api/reviews`** → Adds a new review.  
+ **Request body:**
+
+ `{`
+
+  `"machine_id": 123,`
+
+  `"rating": 4,`
+
+  `"comment": "Snacks were fresh"`
+
+`}`
+
+ **Response:**
+
+ `{ "ok": true }`
+
+* 
+
+---
+
+### **`scripts/report.js`**
+
+**`POST /api/report`** → Logs a user report for a vending machine, location, or app bug.  
+ **Request body:**
+
+ `{`
+
+  `"title": "Machine jammed",`
+
+  `"type": "vending_machine",`
+
+  `"description": "The snack machine in DCC is not dispensing."`
+
+`}`
+
+ **Response:**
+
+ `{ "ok": true }`
+
+* 
+
+---
+
+# **Database Schema (from `scripts/database.js` \+ `database/`)**
+
+The SQLite database is initialized on server start. Expected tables:
+
+* **`buildings`**
+
+  * `id` (PK)
+
+  * `name` (text)
+
+  * `lat` / `lng` (coordinates)
+
+  * `description`
+
+* **`machines`**
+
+  * `id` (PK)
+
+  * `building_id` (FK → buildings.id)
+
+  * `type` (“food”, “drink”, “both”)
+
+  * `status` (“open”, “closed”, “warning”)
+
+* **`reviews`**
+
+  * `id` (PK)
+
+  * `machine_id` (FK → machines.id)
+
+  * `rating` (int 1–5)
+
+  * `comment` (text)
+
+  * `created_at` (timestamp)
+
+* **`reports`**
+
+  * `id` (PK)
+
+  * `title`
+
+  * `type` (enum: vending\_machine, location, app\_functionality, other)
+
+  * `description`
+
+  * `created_at` (timestamp)
+
+---
+
+# **Data Processing (`scripts/processData.js`)**
+
+* Runs **after server startup**.
+
+* Likely responsibilities:
+
+  * Load building \+ machine data into memory for fast API responses.
+
+  * Precompute pathfinding adjacency lists from the database.
+
+  * Clean or validate raw dataset files.
+
+This ensures consistent and fast behavior when serving requests.
+
+---
+
+# **Pathfinding Algorithms (`Pathfinder/` and `algorithm/`)**
+
+* Implemented in **C++**.
+
+* Uses a graph model of campus (buildings \= nodes, walkways \= edges).
+
+* Likely algorithms:
+
+  * **Dijkstra’s algorithm** for shortest paths.
+
+  * **A\*** for heuristic-based routing.
+
+* Output: fastest path (sequence of building IDs/coordinates).
+
+* Integration: either called by `processData.js` during startup or through a dedicated API route (`/api/path?start=A&end=B`).
+
+---
+
+# **Frontend Script (`Website/js/script.js`)**
+
+Responsible for client-side logic:
+
+* **Map initialization**
+
+  * Creates Leaflet map inside `#map`
+
+  * Adds building/machine markers
+
+  * Binds popups to markers (reviews, report buttons, etc.)
+
+* **Dark mode**
+
+  * Enables/disables `dark.css` or overrides color variables.
+
+* **Popup handlers**
+
+  * Implements `openHelp()`, `closeHelp()`, `openMapKey()`, `closeMapKey()`, `openSearch()`, `closeSearch()`, `openPopup()`, `closePopup()`.
+
+* **Data loading**
+
+  * Fetches buildings and machine data from `/api/buildings`.
+
+  * Stores them in the global `buildings` array for search and display.
+
+* **Search integration**
+
+  * Defines `showInfoHelper(i)` to highlight a building marker on the map.
+
+  * Displays building information (machines, reviews, report button).
+
+* **Report/Review submission**
+
+  * Wires frontend forms to `POST /api/report` and `POST /api/reviews`.
+
