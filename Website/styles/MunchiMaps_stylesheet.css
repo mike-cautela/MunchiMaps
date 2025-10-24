@@ -503,6 +503,9 @@ html, body {
   .rating span:hover~span{
     filter: brightness(200%);
   }
+  .rating span.selected {
+    filter: brightness(200%);
+  }
   
   .submit-review button {
     align-self: flex-start;

@@ -208,10 +208,18 @@ class icon extends EventEmitter {
       ratingStars.forEach(star => {
         star.addEventListener('click', () => {
           selectedRating = parseInt(star.getAttribute('rating-star'));
-          ratingStars.forEach(s => s.classList.remove('selected'));
-          star.classList.add('selected');
+          
+          // We want to highlight all stars with lower or equal rating
+          ratingStars.forEach(s => {
+            const starRating = parseInt(s.getAttribute('rating-star'));
+            if (starRating <= selectedRating) {
+              s.classList.add('selected');
+            } else {
+              s.classList.remove('selected');
+            }
+          });
+          document.getElementById('selected-rating').value = selectedRating;
         });
-        document.getElementById('selected-rating').value = selectedRating;
       });
       
       const reviewForm = document.querySelector('.submit-review');
