@@ -116,6 +116,7 @@ class icon extends EventEmitter {
     this.images = setImages(this.name, this.num_snack_machines, this.num_drink_machines);
   }
 
+  // Display existing reviews
   getReviewsHTML() {
     if (this.reviews.length === 0) { 
       return "<div>No reviews yet.</div>";
@@ -150,7 +151,6 @@ class icon extends EventEmitter {
             <div class="reviews">
               ${this.getReviewsHTML()}
             </div>
-            <h4>Write a Review</h4>
             <div class="rating_block">
               <form class="submit-review">
                 <textarea id="review-text" placeholder="Write your review here..." required></textarea>
@@ -170,10 +170,10 @@ class icon extends EventEmitter {
       </div>`;
   }
 
-  plot() {
+  plot() { // Handle event listeners and info window content
     this.marker = L.marker([this.x_coord, this.y_coord], { icon: options[this.img_icon] }).addTo(map);
 
-    this.marker.on('click', () => {
+    this.marker.on('click', () => { // On click, handle popup and cookie rating events
       this.updateInfoWindowContent();
       this.infoWindow = L.popup({ maxWidth: 500 })
         .setLatLng([this.x_coord, this.y_coord])
@@ -213,30 +213,30 @@ class icon extends EventEmitter {
         });
         document.getElementById('selected-rating').value = selectedRating;
       });
+      
+      const reviewForm = document.querySelector('.submit-review');
+      if (reviewForm) {
+        reviewForm.addEventListener('submit', (event) => {
+          event.preventDefault(); // Stops page from refreshing on submit
+          const reviewText = document.getElementById('review-text').value.trim();
+          const rating = parseInt(document.getElementById('selected-rating').value);
+
+          if (!reviewText || !rating) {
+            alert('Please provide both a review and a rating.');
+            return;
+          }
+
+          this.reviews.push({ text: reviewText, rating: rating });
+
+          // Re-render info window
+          this.updateInfoWindowContent();
+          this.infoWindow.setContent(this.infoWindowContent);
+
+          // Reattach event listeners
+          this.marker.fire('click');
+        })
+      }
     });
-
-    const reviewForm = document.querySelector('.submit-review');
-    if (reviewForm) {
-      reviewForm.addEventListener('submit', (event) => {
-        event.preventDefault();
-        const reviewText = document.getElementById('review-text').value.trim();
-        const rating = parseInt(document.getElementById('selected-rating').value);
-
-        if (!reviewText || !rating) {
-          alert('Please provide both a review and a rating.');
-          return;
-        }
-
-        this.reviews.push({ text: reviewText, rating: rating });
-
-        // Re-render info window
-        this.updateInfoWindowContent();
-        this.infoWindow.setContent(this.infoWindowContent);
-
-        // Reattach event listeners
-        this.marker.fire('click');
-      })
-    }
   }
 } // End icon object declaration
 
@@ -333,10 +333,10 @@ if (mapKeyButton) {
 } else {
   console.log("MapKey button not found");
 }
-  //Puts the zoom in bottom left corner
+  // Puts the zoom in bottom left corner
   map.zoomControl.setPosition('bottomleft');
 
-  //Gets the icon for vending machines available from github.
+  // Gets the icon for vending machines available from GitHub
   const foodanddrink = L.icon({
     iconUrl: 'https://github.com/mike-cautela/MunchiMaps/blob/main/Website/MunchiMaps%20Assets/Map%20Icons/Food&Drink.png?raw=true',
     iconSize: [80, 50],
