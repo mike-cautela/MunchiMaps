@@ -1,3 +1,28 @@
+// We want to cleanly handle the URL paths used for icons
+const ASSETS_BASE_URL = "https://github.com/mike-cautela/MunchiMaps/blob/main/Website/MunchiMaps%20Assets";
+const ICONS_PATH = `${ASSETS_BASE_URL}/Map%20Icons`;
+
+const PAYMENT_ICONS = {
+    CREDIT: {
+        CHECK: `${ICONS_PATH}/CreditCheck.png?raw=true`,
+        X: `${ICONS_PATH}/CreditX.png?raw=true`
+    },
+    CASH: {
+        CHECK: `${ICONS_PATH}/CashCheck.png?raw=true`,
+        X: `${ICONS_PATH}/CashX.png?raw=true`
+    },
+    PHONE: {
+        CHECK: `${ICONS_PATH}/PhoneCheck.png?raw=true`,
+        X: `${ICONS_PATH}/PhoneX.png?raw=true`
+    }
+};
+
+const MAP_ICONS = {
+    FOOD_AND_DRINK: `${ICONS_PATH}/Food&Drink.png?raw=true`,
+    FOOD: `${ICONS_PATH}/Food.png?raw=true`,
+    DRINK: `${ICONS_PATH}/Drink.png?raw=true`
+};
+
 class EventEmitter {
   constructor() {
     this.events = {};
@@ -11,39 +36,31 @@ class EventEmitter {
   }
 }
 
-// Generating the description based on image that it is given
+// This generates the blurb underneath the payment icons
 function generatedescription(image1, image2, image3) {
   let results = ["This vending machine accepts: "];
   
-  if (image1 === "https://github.com/mike-cautela/MunchiMaps/blob/main/Website/MunchiMaps%20Assets/Map%20Icons/CreditCheck.png?raw=true") {
+  if (image1 === PAYMENT_ICONS.CREDIT.CHECK) {
       results.push("card");
-  } else if (image1 === "https://github.com/mike-cautela/MunchiMaps/blob/main/Website/MunchiMaps%20Assets/Map%20Icons/CreditX.png?raw=true") {
-      results.push("");
   }
-  
-  if (image2 === "https://github.com/mike-cautela/MunchiMaps/blob/main/Website/MunchiMaps%20Assets/Map%20Icons/CashCheck.png?raw=true") {
-      if (image1 === "https://github.com/mike-cautela/MunchiMaps/blob/main/Website/MunchiMaps%20Assets/Map%20Icons/CreditX.png?raw=true") {
-          results.push("cash");
+  if (image2 === PAYMENT_ICONS.CASH.CHECK) {
+      if (image1 === PAYMENT_ICONS.CREDIT.X) {
+          results.push("cash"); // Cash and no card
       } else {
           results.push(", cash");
       }
-  } else if (image2 === "https://github.com/mike-cautela/MunchiMaps/blob/main/Website/MunchiMaps%20Assets/Map%20Icons/CashX.png?raw=true") {
-      results.push("");
   }
-  
-  if (image3 === "https://github.com/mike-cautela/MunchiMaps/blob/main/Website/MunchiMaps%20Assets/Map%20Icons/PhoneCheck.png?raw=true") {
-      if (image1 === "https://github.com/mike-cautela/MunchiMaps/blob/main/Website/MunchiMaps%20Assets/Map%20Icons/CreditX.png?raw=true" && image2 === "https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/CashX.png?raw=true") {
-          results.push("wireless payments");
+  if (image3 === PAYMENT_ICONS.PHONE.CHECK) {
+      if (image1 === PAYMENT_ICONS.CREDIT.X && image2 === PAYMENT_ICONS.CASH.X) {
+          results.push("wireless payments"); // No cash or credit
       } else {
           results.push(", wireless payments");
       }
-  } else if (image3 === "https://github.com/mike-cautela/MunchiMaps/blob/main/Website/MunchiMaps%20Assets/Map%20Icons/PhoneX.png?raw=true.png") {
-      results.push("");
   }
-  return results.join("");
+  return results.join(""); // We end up with a fully-formed sentence
 }
 
-function vendingOffered(numSnack, numDrinks) {
+function vendingOffered(numSnack, numDrinks) { // These are the blue and gray markers throughout the map
   let img_icon;
   if(numSnack > 0 && numDrinks > 0) {
     img_icon = 0;
@@ -84,12 +101,7 @@ function setImages(name, numSnack, numDrinks) {
   return images;
 }
 
-// Generate images for payment
-function paymentOptions(images, hasCash, hasCard, hasTap) {
-
-}
-
-// Icons for vending machines object class
+// This represents a given location on the map
 class icon extends EventEmitter {
   constructor(name, x_coord, y_coord, time_opens, time_closes, num_snack_machines, num_drink_machines, num_ratings, average_ratings, needs_service) {
     super();
@@ -103,21 +115,18 @@ class icon extends EventEmitter {
     this.num_ratings = num_ratings;
     this.average_ratings = average_ratings;
     this.needs_service = needs_service;
-    this.reviews = []; // will be stored as {text, rating}
+    this.reviews = []; // Will be stored as {text, rating}
 
-    this.image1 = "https://github.com/mike-cautela/MunchiMaps/blob/main/Website/MunchiMaps%20Assets/Map%20Icons/CreditCheck.png?raw=true";
-    this.image2 = "https://github.com/mike-cautela/MunchiMaps/blob/main/Website/MunchiMaps%20Assets/Map%20Icons/CashCheck.png?raw=true";
-    this.image3 = "https://github.com/mike-cautela/MunchiMaps/blob/main/Website/MunchiMaps%20Assets/Map%20Icons/PhoneX.png?raw=true";
+    this.image1 = PAYMENT_ICONS.CREDIT.CHECK;
+    this.image2 = PAYMENT_ICONS.CASH.CHECK;
+    this.image3 = PAYMENT_ICONS.PHONE.X;
 
     this.description = generatedescription(this.image1, this.image2, this.image3);
-    // this.payments = paymentOptions(images, 1, 1, 1);
     this.img_icon = vendingOffered(this.num_snack_machines, this.num_drink_machines);
-
     this.images = setImages(this.name, this.num_snack_machines, this.num_drink_machines);
   }
 
-  // Display existing reviews
-  getReviewsHTML() {
+  getReviewsHTML() { // Display existing reviews
     if (this.reviews.length === 0) { 
       return "<div>No reviews yet.</div>";
     }
@@ -129,7 +138,7 @@ class icon extends EventEmitter {
     `).join('');
   }
 
-  updateInfoWindowContent() {
+  updateInfoWindowContent() { // Build the popup when clicking on a marker
     this.infoWindowContent = `
       <div class="info-window-content">
         <div class="info-window-image">
@@ -346,21 +355,21 @@ if (mapKeyButton) {
 
   // Gets the icon for vending machines available from GitHub
   const foodanddrink = L.icon({
-    iconUrl: 'https://github.com/mike-cautela/MunchiMaps/blob/main/Website/MunchiMaps%20Assets/Map%20Icons/Food&Drink.png?raw=true',
+    iconUrl: MAP_ICONS.FOOD_AND_DRINK,
     iconSize: [80, 50],
     iconAnchor: [50, 25]
     
   });
 
   const food = L.icon({
-    iconUrl: 'https://github.com/mike-cautela/MunchiMaps/blob/main/Website/MunchiMaps%20Assets/Map%20Icons/Food.png?raw=true',
+    iconUrl: MAP_ICONS.FOOD,
     iconSize: [50, 50],
     iconAnchor: [50, 25]
     
   });
 
   const drink = L.icon({
-    iconUrl: 'https://github.com/mike-cautela/MunchiMaps/blob/main/Website/MunchiMaps%20Assets/Map%20Icons/Drink.png?raw=true',
+    iconUrl: MAP_ICONS.DRINK,
     iconSize: [50, 50],
     iconAnchor: [50, 25]
     
