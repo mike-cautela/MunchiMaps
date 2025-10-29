@@ -484,23 +484,24 @@ html, body {
   .rating{
     display:flex;
     justify-content: flex-start;
-    /*flex-direction:row-reverse;*/
     margin-left: -10px;
   }
   .rating span {
-    cursor: pointer;
+    cursor: pointer; /* Change cursor to pointer on hover */
     transition: color .3s, transform .3s;
-    font-size:30px;
   }
   .rating span img{
-    filter: brightness(40%);
-    transition: fitler .3s;
+    filter: brightness(40%); /* Dimmed stars by default */
+    transition: filter .3s;
   }
   .rating span:hover{
     filter: brightness(200%);
-    transform: scale(1.5);
+    transform: scale(1.2);
   }
   .rating span:hover~span{
+    filter: brightness(200%);
+  }
+  .rating span.selected { /* Highlight selected stars */
     filter: brightness(200%);
   }
   
