@@ -297,7 +297,7 @@
   
   
 
-  <div id="popup-report" class="popup-container">
+  <div id="popup-report" class="popup-report-container">
     <div class="popup">
       <div class="popup-header">
          <span class="popup-close" onclick="closePopup('Report')">&times;</span>
@@ -340,6 +340,9 @@
       console.log("Report Description: ", description);
       
       closePopup('Report');
+
+      document.getElementById('reportTitle').value = '';
+      document.getElementById('reportDescription').value = '';
     });
 
   </script>

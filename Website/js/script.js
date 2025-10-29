@@ -49,12 +49,38 @@ function generatedescription(image1, image2, image3) {
       } else {
           results.push(", cash");
       }
-  }
-  if (image3 === PAYMENT_ICONS.PHONE.CHECK) {
-      if (image1 === PAYMENT_ICONS.CREDIT.X && image2 === PAYMENT_ICONS.CASH.X) {
-          results.push("wireless payments"); // No cash or credit
-      } else {
-          results.push(", wireless payments");
+
+       function setImages(name, numSnack, numDrinks) {
+        console.log("Welcome to setImages");
+        let images;
+        let image = name.split(" ").join("");
+        let active = false;
+        if(numSnack >= 1) {
+          images = "<img src='./MunchiMaps Assets/" + name + "/" + image + "Snack1.jpg'?raw=true\" alt=\"Logo 1\" class=\"active\">";
+          active = true;
+          
+          for(let i = 2; i <= numSnack; i++) {
+            
+            images += "<img src='./MunchiMaps Assets/" + name + "/" + image + "Snack" + i + ".jpg'?raw=true\" alt=\"Logo " + i + "\">";
+            console.log(images);
+          }
+        }
+        //console.log(images);
+        
+        if(numDrinks >= 1) {
+          if(!active) {
+            images = "<img src='./MunchiMaps Assets/" + name + "/" + image + "Drink1.jpg'?raw=true\" alt=\"Logo 1\" class=\"active\">";
+            active = true;
+          } else {
+            images += "<img src='./MunchiMaps Assets/" + name + "/" + image + "Drink1.jpg'?raw=true\" alt=\"Logo 1\">";
+          }
+          for(let i = 2; i <= numDrinks; i++) {
+            images += "<img src='./MunchiMaps Assets/" + name + "/" + image + "Drink" + i + ".jpg'?raw=true\" alt=\"Logo " + i + "\">";
+          }
+        }
+        
+        //console.log(images);
+        return images;
       }
   }
   return results.join(""); // We end up with a fully-formed sentence

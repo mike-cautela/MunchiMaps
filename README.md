@@ -17,4 +17,4 @@ Public Server to be found and shared soon for those curious to visit our website
 
 Original site faceted-pear-amaryllis.glitch.me (Summer 2024 Original site RIP)
 https://uneven-gilded-omelet.glitch.me (Fall 2024 site RIP) **
-*Glitch's servers have shut down, links as such are no longer usable*
+https://4kr44l-5000.csb.app/ (CURRENT LIVE SITE  -- on CodeSandbox.io)
