@@ -367,6 +367,59 @@ const infoWindowContent = `
           currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
           showImage(currentIndex);
         });
+
+        const muellercenter_info = `
+        <div class="info-window-content">
+          <div class="info-window-image">
+
+              <img src="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Mueller Center/MuellerCenterDrink1.jpg?raw=true" alt="Logo 1" class="active">
+
+            <div class="carousel-controls">
+              <button class="prev">&lt;</button>
+              <button class="next">&gt;</button>
+            </div>
+          </div>
+          <div class="info-window-text">
+            <div class="info-window-title">Mueller Center</div>
+            <div class="info-window-icons">
+
+              <img src="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/CreditCheck.png?raw=true">
+              <img src="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/CashCheck.png?raw=true" alt="Image 2">
+              <img src="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/PhoneX.png?raw=true" alt="Image 3">
+
+            </div>
+            <div class="info-window-subtitle">This machine accepts cash and credit cards.</div>
+          </div>
+        </div>
+      `;
+
+      jrowl.on('click', function () {
+        const infoWindow = L.popup({maxWidth: 500})
+          .setLatLng([42.7288, -73.6804])
+          .setContent(jrowl_info)
+          .openOn(map);
+
+        const images = document.querySelectorAll('.info-window-image img');
+        const prevButton = document.querySelector('.prev');
+        const nextButton = document.querySelector('.next');
+        let currentIndex = 0;
+
+        function showImage(index) {
+          images.forEach((img, i) => {
+            img.classList.toggle('active', i === index);
+          });
+        }
+
+        prevButton.addEventListener('click', () => {
+          currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
+          showImage(currentIndex);
+        });
+
+        nextButton.addEventListener('click', () => {
+          currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
+          showImage(currentIndex);
+        });
+      });
         
         //review section javascript
         const submitReview = document.querySelector('.submit-review');
@@ -441,6 +494,8 @@ const infoWindowContent = `
           showImage(currentIndex);
         });
       });
+
+      
 
       /* OBSOLETE IGNORE
       //Dark mode code.

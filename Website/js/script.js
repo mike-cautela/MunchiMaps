@@ -49,39 +49,6 @@ function generatedescription(image1, image2, image3) {
       } else {
           results.push(", cash");
       }
-
-       function setImages(name, numSnack, numDrinks) {
-        console.log("Welcome to setImages");
-        let images;
-        let image = name.split(" ").join("");
-        let active = false;
-        if(numSnack >= 1) {
-          images = "<img src='./MunchiMaps Assets/" + name + "/" + image + "Snack1.jpg'?raw=true\" alt=\"Logo 1\" class=\"active\">";
-          active = true;
-          
-          for(let i = 2; i <= numSnack; i++) {
-            
-            images += "<img src='./MunchiMaps Assets/" + name + "/" + image + "Snack" + i + ".jpg'?raw=true\" alt=\"Logo " + i + "\">";
-            console.log(images);
-          }
-        }
-        //console.log(images);
-        
-        if(numDrinks >= 1) {
-          if(!active) {
-            images = "<img src='./MunchiMaps Assets/" + name + "/" + image + "Drink1.jpg'?raw=true\" alt=\"Logo 1\" class=\"active\">";
-            active = true;
-          } else {
-            images += "<img src='./MunchiMaps Assets/" + name + "/" + image + "Drink1.jpg'?raw=true\" alt=\"Logo 1\">";
-          }
-          for(let i = 2; i <= numDrinks; i++) {
-            images += "<img src='./MunchiMaps Assets/" + name + "/" + image + "Drink" + i + ".jpg'?raw=true\" alt=\"Logo " + i + "\">";
-          }
-        }
-        
-        //console.log(images);
-        return images;
-      }
   }
   return results.join(""); // We end up with a fully-formed sentence
 }
@@ -99,32 +66,36 @@ function vendingOffered(numSnack, numDrinks) { // These are the blue and gray ma
 }
 
 function setImages(name, numSnack, numDrinks) {
-  let images;
-  let image = name.split(" ").join("");
-  let active = false;
-  if(numSnack >= 1) {
-    images = "<img src='../MunchiMaps Assets/" + name + "/" + image + "Snack1.jpg'?raw=true\" alt=\"Logo 1\" class=\"active\">";
-    active = true;
-    
-    for(let i = 2; i <= numSnack; i++) {
-      images += "<img src='../MunchiMaps Assets/" + name + "/" + image + "Snack" + i + ".jpg'?raw=true\" alt=\"Logo " + i + "\">";
-      console.log(images);
+  // new.html lives in /Website, and static root is /Website → '/'
+  const base = `MunchiMaps Assets/${name}/`;
+  const slug = name.replace(/\s+/g, ''); // "Mueller Center" -> "MuellerCenter"
+
+  const imgs = [];
+  let madeActive = false;
+
+  // Snack images
+  if (numSnack >= 1) {
+    imgs.push(`<img src="${base}${slug}Snack1.jpg" alt="Snack 1" class="active">`);
+    madeActive = true;
+    for (let i = 2; i <= numSnack; i++) {
+      imgs.push(`<img src="${base}${slug}Snack${i}.jpg" alt="Snack ${i}">`);
     }
   }
-  
-  if(numDrinks >= 1) {
-    if(!active) {
-      images = "<img src='../MunchiMaps Assets/" + name + "/"+image+"Drink1.jpg'?raw=true\" alt=\"Logo 1\" class=\"active\">";
-      active = true;
+
+  // Drink images
+  if (numDrinks >= 1) {
+    if (!madeActive) {
+      imgs.push(`<img src="${base}${slug}Drink1.jpg" alt="Drink 1" class="active">`);
+      madeActive = true;
     } else {
-      images += "<img src='../MunchiMaps Assets/" + name + "/" + image + "Drink1.jpg'?raw=true\" alt=\"Logo 1\">";
+      imgs.push(`<img src="${base}${slug}Drink1.jpg" alt="Drink 1">`);
     }
-    for(let i = 2; i <= numDrinks; i++) {
-      images += "<img src='../MunchiMaps Assets/" + name + "/" + image + "Drink" +i + ".jpg'?raw=true\" alt=\"Logo " + i + "\">";
+    for (let i = 2; i <= numDrinks; i++) {
+      imgs.push(`<img src="${base}${slug}Drink${i}.jpg" alt="Drink ${i}">`);
     }
   }
-  
-  return images;
+
+  return imgs.join('');
 }
 
 // This represents a given location on the map
