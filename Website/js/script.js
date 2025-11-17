@@ -157,12 +157,18 @@ class icon extends EventEmitter {
       return "<div>No reviews yet.</div>";
     }
     const cookieImg = `<img src="${ASSETS_BASE_URL}/CookieFavicon.png?raw=true" alt="cookie" width="20" height="20">`;
-    return this.reviews.map(r => `
-      <div class="review">
-        <div class="review-rating">${cookieImg.repeat(r.rating)}</div>
-        <div class="review-text">${r.text}</div>
-      </div>
-    `).join('');
+    return this.reviews.map(r => {
+      const author = r.author || 'Anonymous';
+      return `
+        <div class="review">
+          <div class="review-header">
+            <div class="review-author">${author}</div>
+            <div class="review-rating">${cookieImg.repeat(r.rating)}</div>
+          </div>
+          <div class="review-text">${r.text}</div>
+        </div>
+      `;
+    }).join('');
   }
 
   updateInfoWindowContent() { // Build the popup when clicking on a marker

@@ -481,7 +481,7 @@ html, body {
     border-radius: 5px;
   }
   
-  .rating{
+  .rating {
     display:flex;
     justify-content: flex-start;
     margin-left: -10px;
@@ -490,21 +490,21 @@ html, body {
     cursor: pointer; /* Change cursor to pointer on hover */
     transition: color .3s, transform .3s;
   }
-  .rating span img{
+  .rating span img {
     filter: brightness(40%); /* Dimmed stars by default */
     transition: filter .3s;
   }
-  .rating span:hover{
+  .rating span:hover {
     filter: brightness(200%);
     transform: scale(1.2);
   }
-  .rating span:hover~span{
+  .rating span:hover~span {
     filter: brightness(200%);
   }
   .rating span.selected { /* Highlight selected stars */
     filter: brightness(200%);
   }
-  
+
   .submit-review button {
     align-self: flex-start;
     padding: 5px 10px;
@@ -843,7 +843,27 @@ html, body {
   z-index: 100 !important;   /* below 5000 */
   pointer-events: none;      /* don't steal clicks from modals */
 }
- 
-  
 
-   
+/* Cookie stars within existing reviews */
+.review-rating img {
+  filter: brightness(80%);
+}
+
+/* review header: author + cookie icons inline */
+.review-header {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* space between name and cookies */
+}
+
+.review-author {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #333;
+}
+.review-rating img {
+  width: 20px;
+  height: 20px;
+  margin: 0 2px 0 0;
+  filter: brightness(.8);
+}
