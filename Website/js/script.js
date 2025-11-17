@@ -156,7 +156,6 @@ class icon extends EventEmitter {
     if (this.reviews.length === 0) {
       return "<div>No reviews yet.</div>";
     }
-    // Cookie favicon lives in the root MunchiMaps Assets folder — use ASSETS_BASE_URL
     const cookieImg = `<img src="${ASSETS_BASE_URL}/CookieFavicon.png?raw=true" alt="cookie" width="20" height="20">`;
     return this.reviews.map(r => `
       <div class="review">
@@ -192,11 +191,11 @@ class icon extends EventEmitter {
               <form class="submit-review">
                 <textarea id="review-text" placeholder="Write your review here..." required></textarea>
                 <div class="rating">
-                  <span rating-star="5"><img src="https://github.com/mike-cautela/MunchiMaps/blob/main/Website/MunchiMaps%20Assets/CookieFavicon.png?raw=true" alt="Star 5" width="30" height="30"></span>
-                  <span rating-star="4"><img src="https://github.com/mike-cautela/MunchiMaps/blob/main/Website/MunchiMaps%20Assets/CookieFavicon.png?raw=true" alt="Star 4" width="30" height="30"></span>
-                  <span rating-star="3"><img src="https://github.com/mike-cautela/MunchiMaps/blob/main/Website/MunchiMaps%20Assets/CookieFavicon.png?raw=true" alt="Star 3" width="30" height="30"></span>
-                  <span rating-star="2"><img src="https://github.com/mike-cautela/MunchiMaps/blob/main/Website/MunchiMaps%20Assets/CookieFavicon.png?raw=true" alt="Star 2" width="30" height="30"></span>
-                  <span rating-star="1"><img src="https://github.com/mike-cautela/MunchiMaps/blob/main/Website/MunchiMaps%20Assets/CookieFavicon.png?raw=true" alt="Star 1" width="30" height="30"></span>
+                  <span rating-star="5"><img src="${ASSETS_BASE_URL}/CookieFavicon.png?raw=true" alt="Star 5" width="30" height="30"></span>
+                  <span rating-star="4"><img src="${ASSETS_BASE_URL}/CookieFavicon.png?raw=true" alt="Star 4" width="30" height="30"></span>
+                  <span rating-star="3"><img src="${ASSETS_BASE_URL}/CookieFavicon.png?raw=true" alt="Star 3" width="30" height="30"></span>
+                  <span rating-star="2"><img src="${ASSETS_BASE_URL}/CookieFavicon.png?raw=true" alt="Star 2" width="30" height="30"></span>
+                  <span rating-star="1"><img src="${ASSETS_BASE_URL}/CookieFavicon.png?raw=true" alt="Star 1" width="30" height="30"></span>
                 </div>
                 <input type="hidden" id="selected-rating" value="0">
                 <button type="submit">Submit</button>
