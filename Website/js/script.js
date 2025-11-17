@@ -73,31 +73,31 @@ function vendingOffered(numSnack, numDrinks) { // These are the blue and gray ma
 }
 
 function setImages(name, numSnack, numDrinks) {
-  let images;
-  let image = name.split(" ").join("");
+  let images = '';
+  const folder = `../MunchiMaps Assets/${name}`;
+  const image = name.split(" ").join("");
   let active = false;
-  if(numSnack >= 1) {
-    images = "<img src='../MunchiMaps Assets/" + name + "/" + image + "Snack1.jpg'?raw=true\" alt=\"Logo 1\" class=\"active\">";
+
+  if (numSnack >= 1) {
+    images += `<img src="${encodeURI(`${folder}/${image}Snack1.jpg`)}" alt="Snack 1" class="active">`;
     active = true;
-    
-    for(let i = 2; i <= numSnack; i++) {
-      images += "<img src='../MunchiMaps Assets/" + name + "/" + image + "Snack" + i + ".jpg'?raw=true\" alt=\"Logo " + i + "\">";
-      console.log(images);
+    for (let i = 2; i <= numSnack; i++) {
+      images += `<img src="${encodeURI(`${folder}/${image}Snack${i}.jpg`)}" alt="Snack ${i}">`;
     }
   }
-  
-  if(numDrinks >= 1) {
-    if(!active) {
-      images = "<img src='../MunchiMaps Assets/" + name + "/"+image+"Drink1.jpg'?raw=true\" alt=\"Logo 1\" class=\"active\">";
+
+  if (numDrinks >= 1) {
+    if (!active) {
+      images += `<img src="${encodeURI(`${folder}/${image}Drink1.jpg`)}" alt="Drink 1" class="active">`;
       active = true;
     } else {
-      images += "<img src='../MunchiMaps Assets/" + name + "/" + image + "Drink1.jpg'?raw=true\" alt=\"Logo 1\">";
+      images += `<img src="${encodeURI(`${folder}/${image}Drink1.jpg`)}" alt="Drink 1">`;
     }
-    for(let i = 2; i <= numDrinks; i++) {
-      images += "<img src='../MunchiMaps Assets/" + name + "/" + image + "Drink" +i + ".jpg'?raw=true\" alt=\"Logo " + i + "\">";
+    for (let i = 2; i <= numDrinks; i++) {
+      images += `<img src="${encodeURI(`${folder}/${image}Drink${i}.jpg`)}" alt="Drink ${i}">`;
     }
   }
-  
+
   return images;
 }
 
@@ -127,12 +127,14 @@ class icon extends EventEmitter {
   }
 
   getReviewsHTML() { // Display existing reviews
-    if (this.reviews.length === 0) { 
+    if (this.reviews.length === 0) {
       return "<div>No reviews yet.</div>";
     }
+    // Cookie favicon lives in the root MunchiMaps Assets folder — use ASSETS_BASE_URL
+    const cookieImg = `<img src="${ASSETS_BASE_URL}/CookieFavicon.png?raw=true" alt="cookie" width="20" height="20">`;
     return this.reviews.map(r => `
       <div class="review">
-        <div class="review-rating">${'🍪'.repeat(r.rating)}</div>
+        <div class="review-rating">${cookieImg.repeat(r.rating)}</div>
         <div class="review-text">${r.text}</div>
       </div>
     `).join('');
