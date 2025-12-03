@@ -141,7 +141,9 @@ class icon extends EventEmitter {
     this.num_ratings = num_ratings;
     this.average_ratings = average_ratings;
     this.needs_service = needs_service;
-    this.reviews = []; // Will be stored as {text, rating}
+    // Load reviews from localStorage if available
+    const storedReviews = localStorage.getItem(`reviews_${this.name}`);
+    this.reviews = storedReviews ? JSON.parse(storedReviews) : [];
 
     this.image1 = PAYMENT_ICONS.CREDIT.CHECK;
     this.image2 = PAYMENT_ICONS.CASH.CHECK;
@@ -322,6 +324,8 @@ class icon extends EventEmitter {
           }
 
           this.reviews.push({ text: reviewText, rating: rating });
+          // Save reviews to localStorage
+          localStorage.setItem(`reviews_${this.name}`, JSON.stringify(this.reviews));
 
           // Re-render info window
           this.updateInfoWindowContent();
