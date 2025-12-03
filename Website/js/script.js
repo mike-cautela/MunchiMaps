@@ -159,18 +159,27 @@ class icon extends EventEmitter {
       return "<div>No reviews yet.</div>";
     }
     const cookieImg = `<img src="${ASSETS_BASE_URL}/CookieFavicon.png?raw=true" alt="cookie" width="20" height="20">`;
-    return this.reviews.map(r => {
+    return this.reviews.map((r, index) => {
       const author = r.author || 'Anonymous';
       return `
         <div class="review">
           <div class="review-header">
             <div class="review-author">${author}</div>
             <div class="review-rating">${cookieImg.repeat(r.rating)}</div>
+            <button class="review-delete-btn" data-review-index="${index}" title="Delete review">&times;</button>
           </div>
           <div class="review-text">${r.text}</div>
         </div>
       `;
     }).join('');
+  }
+
+  deleteReview(index) { // Delete a review by index
+    if (index >= 0 && index < this.reviews.length) {
+      this.reviews.splice(index, 1);
+      // Save updated reviews to localStorage
+      localStorage.setItem(`reviews_${this.name}`, JSON.stringify(this.reviews));
+    }
   }
 
   updateInfoWindowContent() { // Build the popup when clicking on a marker
@@ -335,6 +344,22 @@ class icon extends EventEmitter {
           this.marker.fire('click');
         })
       }
+
+      const deleteButtons = document.querySelectorAll('.review-delete-btn');
+      deleteButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+          e.preventDefault();
+          const reviewIndex = parseInt(button.getAttribute('data-review-index'));
+          this.deleteReview(reviewIndex);
+          
+          // Re-render info window
+          this.updateInfoWindowContent();
+          this.infoWindow.setContent(this.infoWindowContent);
+          
+          // Reattach event listeners
+          this.marker.fire('click');
+        });
+      });
     });
   }
 } // End icon object declaration
