@@ -481,11 +481,12 @@ html, body {
     border-radius: 5px;
   }
   
-  .rating {
-    display:flex;
-    justify-content: flex-start;
-    margin-left: -10px;
+  .rating-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
   }
+
   .rating span {
     cursor: pointer; /* Change cursor to pointer on hover */
     transition: color .3s, transform .3s;
@@ -513,13 +514,13 @@ html, body {
     color: white;
     border-radius: 5px;
     cursor: pointer;
+    font-weight: bold;
+    font-size: 12px;
   }
   
   .submit-review button:hover {
     background-color: #0056b3;
   }
-
-
 
 #popup-search {
     position: fixed;

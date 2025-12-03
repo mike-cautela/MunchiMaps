@@ -193,15 +193,17 @@ class icon extends EventEmitter {
             <div class="rating_block">
               <form class="submit-review">
                 <textarea id="review-text" placeholder="Write your review here..." required></textarea>
-                <div class="rating">
-                  <span rating-star="5"><img src="${ASSETS_BASE_URL}/CookieFavicon.png?raw=true" alt="Star 5" width="30" height="30"></span>
-                  <span rating-star="4"><img src="${ASSETS_BASE_URL}/CookieFavicon.png?raw=true" alt="Star 4" width="30" height="30"></span>
-                  <span rating-star="3"><img src="${ASSETS_BASE_URL}/CookieFavicon.png?raw=true" alt="Star 3" width="30" height="30"></span>
-                  <span rating-star="2"><img src="${ASSETS_BASE_URL}/CookieFavicon.png?raw=true" alt="Star 2" width="30" height="30"></span>
-                  <span rating-star="1"><img src="${ASSETS_BASE_URL}/CookieFavicon.png?raw=true" alt="Star 1" width="30" height="30"></span>
+                <div class="rating-row">
+                  <div class="rating">
+                    <span rating-star="5"><img src="${ASSETS_BASE_URL}/CookieFavicon.png?raw=true" alt="Star 5" width="30" height="30"></span>
+                    <span rating-star="4"><img src="${ASSETS_BASE_URL}/CookieFavicon.png?raw=true" alt="Star 4" width="30" height="30"></span>
+                    <span rating-star="3"><img src="${ASSETS_BASE_URL}/CookieFavicon.png?raw=true" alt="Star 3" width="30" height="30"></span>
+                    <span rating-star="2"><img src="${ASSETS_BASE_URL}/CookieFavicon.png?raw=true" alt="Star 2" width="30" height="30"></span>
+                    <span rating-star="1"><img src="${ASSETS_BASE_URL}/CookieFavicon.png?raw=true" alt="Star 1" width="30" height="30"></span>
+                  </div>
+                  <input type="hidden" id="selected-rating" value="0">
+                  <button type="submit">SUBMIT</button>
                 </div>
-                <input type="hidden" id="selected-rating" value="0">
-                <button type="submit">Submit</button>
               </form>
             </div>
             <div class="reviews">
