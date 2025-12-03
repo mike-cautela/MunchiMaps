@@ -263,6 +263,11 @@ class icon extends EventEmitter {
             }
           });
           document.getElementById('selected-rating').value = selectedRating;
+          // Clear previous validity messages
+          const reviewTextClear = document.getElementById('review-text');
+          if (reviewTextClear) {
+            reviewTextClear.setCustomValidity('');
+          }
         });
       });
       
@@ -270,11 +275,49 @@ class icon extends EventEmitter {
       if (reviewForm) {
         reviewForm.addEventListener('submit', (event) => {
           event.preventDefault(); // Stops page from refreshing on submit
-          const reviewText = document.getElementById('review-text').value.trim();
+          const reviewTextEl = document.getElementById('review-text');
+          const reviewText = reviewTextEl.value.trim();
           const rating = parseInt(document.getElementById('selected-rating').value);
 
-          if (!reviewText || !rating) {
-            alert('Please provide both a review and a rating.');
+          if (!reviewText) {
+            if (reviewTextEl && typeof reviewTextEl.reportValidity === 'function') {
+              reviewTextEl.reportValidity();
+            } else {
+              alert('Please provide a review.');
+            }
+            return;
+          }
+
+          if (!rating) {
+            if (reviewTextEl) {
+              try {
+                const temp = document.createElement('input');
+                temp.type = 'text';
+                temp.required = true;
+                // Position the popup within the viewport bounds
+                const rect = reviewTextEl.getBoundingClientRect();
+                const left = Math.max(rect.left + window.scrollX + 10, 10);
+                const top = Math.max(rect.top + window.scrollY + rect.height + 6, 10);
+                temp.style.position = 'absolute';
+                temp.style.left = left + 'px';
+                temp.style.top = top + 'px';
+                temp.style.width = Math.max(rect.width - 20, 50) + 'px';
+                temp.style.height = '20px';
+                temp.style.opacity = '0';
+                temp.style.zIndex = 100000;
+                document.body.appendChild(temp);
+                try { temp.focus(); } catch (e) { }
+                if (typeof temp.reportValidity === 'function') {
+                  try { temp.reportValidity(); } catch (e) { }
+                }
+                setTimeout(() => {
+                  try { if (temp && temp.parentNode) temp.parentNode.removeChild(temp); } catch (e) { }
+                  try { reviewTextEl.focus(); } catch (e) { }
+                }, 2000);
+              } catch (e) {
+                alert('Please select a rating.');
+              }
+            }
             return;
           }
 
