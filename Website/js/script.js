@@ -245,173 +245,181 @@ class icon extends EventEmitter {
         .setContent(this.infoWindowContent)
         .openOn(map);
 
-      const images = document.querySelectorAll('.info-window-image img');
-      const prevButton = document.querySelector('.prev');
-      const nextButton = document.querySelector('.next');
-      let currentIndex = 0;
+      // Helper to attach popup listeners (use .onclick/.onsubmit to avoid duplicate handlers)
+      const attachPopupListeners = () => {
+        const images = document.querySelectorAll('.info-window-image img');
+        const prevButton = document.querySelector('.prev');
+        const nextButton = document.querySelector('.next');
+        let currentIndex = 0;
 
-      function showImage(index) {
-        images.forEach((img, i) => {
-          img.classList.toggle('active', i === index);
-        });
-      }
-
-      if (prevButton && nextButton) {
-        prevButton.addEventListener('click', () => {
-          currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-          showImage(currentIndex);
-        });
-
-        nextButton.addEventListener('click', () => {
-          currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-          showImage(currentIndex);
-        });
-      }
-
-      let selectedRating = 0;
-      const ratingStars = document.querySelectorAll('.rating span');
-      ratingStars.forEach(star => {
-        star.addEventListener('click', () => {
-          selectedRating = parseInt(star.getAttribute('rating-star'));
-          
-          // We want to highlight all stars with lower or equal rating
-          ratingStars.forEach(s => {
-            const starRating = parseInt(s.getAttribute('rating-star'));
-            if (starRating <= selectedRating) {
-              s.classList.add('selected');
-            } else {
-              s.classList.remove('selected');
-            }
+        function showImage(index) {
+          images.forEach((img, i) => {
+            img.classList.toggle('active', i === index);
           });
-          document.getElementById('selected-rating').value = selectedRating;
-          // Clear previous validity messages
-          const reviewTextClear = document.getElementById('review-text');
-          if (reviewTextClear) {
-            reviewTextClear.setCustomValidity('');
-          }
-        });
-      });
-      
-      const reviewForm = document.querySelector('.submit-review');
-      if (reviewForm) {
-        reviewForm.addEventListener('submit', (event) => {
-          event.preventDefault(); // Stops page from refreshing on submit
-          const reviewTextEl = document.getElementById('review-text');
-          const reviewText = reviewTextEl.value.trim();
-          const rating = parseInt(document.getElementById('selected-rating').value);
+        }
 
-          if (!reviewText) {
-            if (reviewTextEl && typeof reviewTextEl.reportValidity === 'function') {
-              reviewTextEl.reportValidity();
-            } else {
-              alert('Please provide a review.');
-            }
-            return;
-          }
+        if (prevButton) {
+          prevButton.onclick = (ev) => {
+            ev && ev.stopPropagation();
+            currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
+            showImage(currentIndex);
+          };
+        }
+        if (nextButton) {
+          nextButton.onclick = (ev) => {
+            ev && ev.stopPropagation();
+            currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
+            showImage(currentIndex);
+          };
+        }
 
-          if (!rating) {
-            if (reviewTextEl) {
-              try {
-                const temp = document.createElement('input');
-                temp.type = 'text';
-                temp.required = true;
-                // Position the popup within the viewport bounds
-                const rect = reviewTextEl.getBoundingClientRect();
-                const left = Math.max(rect.left + window.scrollX + 10, 10);
-                const top = Math.max(rect.top + window.scrollY + rect.height + 6, 10);
-                temp.style.position = 'absolute';
-                temp.style.left = left + 'px';
-                temp.style.top = top + 'px';
-                temp.style.width = Math.max(rect.width - 20, 50) + 'px';
-                temp.style.height = '20px';
-                temp.style.opacity = '0';
-                temp.style.zIndex = 100000;
-                document.body.appendChild(temp);
-                try { temp.focus(); } catch (e) { }
-                if (typeof temp.reportValidity === 'function') {
-                  try { temp.reportValidity(); } catch (e) { }
-                }
-                setTimeout(() => {
-                  try { if (temp && temp.parentNode) temp.parentNode.removeChild(temp); } catch (e) { }
-                  try { reviewTextEl.focus(); } catch (e) { }
-                }, 2000);
-              } catch (e) {
-                alert('Please select a rating.');
+        let selectedRating = 0;
+        const ratingStars = document.querySelectorAll('.rating span');
+        ratingStars.forEach(star => {
+          star.onclick = (ev) => {
+            ev && ev.stopPropagation();
+            selectedRating = parseInt(star.getAttribute('rating-star'));
+
+            // We want to highlight all stars with lower or equal rating
+            ratingStars.forEach(s => {
+              const starRating = parseInt(s.getAttribute('rating-star'));
+              if (starRating <= selectedRating) {
+                s.classList.add('selected');
+              } else {
+                s.classList.remove('selected');
               }
+            });
+            const selEl = document.getElementById('selected-rating');
+            if (selEl) selEl.value = selectedRating;
+            // Clear previous validity messages
+            const reviewTextClear = document.getElementById('review-text');
+            if (reviewTextClear) {
+              reviewTextClear.setCustomValidity('');
             }
-            return;
-          }
-
-          this.reviews.push({ text: reviewText, rating: rating });
-          // Save reviews to localStorage
-          localStorage.setItem(`reviews_${this.name}`, JSON.stringify(this.reviews));
-
-          // Re-render info window
-          this.updateInfoWindowContent();
-          this.infoWindow.setContent(this.infoWindowContent);
-
-          // Reattach event listeners
-          this.marker.fire('click');
-        })
-      }
-
-      const deleteButtons = document.querySelectorAll('.review-delete-btn');
-      deleteButtons.forEach(button => {
-        button.addEventListener('click', (e) => {
-          e.preventDefault();
-          const reviewIndex = parseInt(button.getAttribute('data-review-index'));
-          this.deleteReview(reviewIndex);
-          
-          // Re-render info window
-          this.updateInfoWindowContent();
-          this.infoWindow.setContent(this.infoWindowContent);
-          
-          // Reattach event listeners
-          this.marker.fire('click');
+          };
         });
-      });
 
-      // Add edit button event listeners
-      const editButtons = document.querySelectorAll('.review-edit-btn');
-      editButtons.forEach(button => {
-        button.addEventListener('click', (e) => {
-          e.preventDefault();
-          const reviewIndex = parseInt(button.getAttribute('data-review-index'));
-          const review = this.reviews[reviewIndex];
-          
-          // Get the current review text and rating
-          const currentText = review.text;
-          const currentRating = review.rating;
-          
-          // Prompt user to edit text (you could use a modal for better UX)
-          const newText = prompt('Edit your review:', currentText);
-          if (newText === null) return; // User cancelled
-          if (!newText.trim()) {
-            alert('Review text cannot be empty');
-            return;
-          }
-          
-          // Prompt user to edit rating
-          const newRatingStr = prompt('Edit your rating (1-5):', currentRating.toString());
-          if (newRatingStr === null) return; // User cancelled
-          
-          const newRating = parseInt(newRatingStr);
-          if (isNaN(newRating) || newRating < 1 || newRating > 5) {
-            alert('Please enter a valid rating between 1 and 5');
-            return;
-          }
-          
-          // Update the review
-          this.editReview(reviewIndex, newText, newRating);
-          
-          // Re-render info window
-          this.updateInfoWindowContent();
-          this.infoWindow.setContent(this.infoWindowContent);
-          
-          // Reattach event listeners
-          this.marker.fire('click');
+        const reviewForm = document.querySelector('.submit-review');
+        if (reviewForm) {
+          reviewForm.onsubmit = (event) => {
+            event.preventDefault(); // Stops page from refreshing on submit
+            event.stopPropagation();
+            const reviewTextEl = document.getElementById('review-text');
+            const reviewText = reviewTextEl.value.trim();
+            const rating = parseInt(document.getElementById('selected-rating').value);
+
+            if (!reviewText) {
+              if (reviewTextEl && typeof reviewTextEl.reportValidity === 'function') {
+                reviewTextEl.reportValidity();
+              } else {
+                alert('Please provide a review.');
+              }
+              return;
+            }
+
+            if (!rating) {
+              if (reviewTextEl) {
+                try {
+                  const temp = document.createElement('input');
+                  temp.type = 'text';
+                  temp.required = true;
+                  // Position the popup within the viewport bounds
+                  const rect = reviewTextEl.getBoundingClientRect();
+                  const left = Math.max(rect.left + window.scrollX + 10, 10);
+                  const top = Math.max(rect.top + window.scrollY + rect.height + 6, 10);
+                  temp.style.position = 'absolute';
+                  temp.style.left = left + 'px';
+                  temp.style.top = top + 'px';
+                  temp.style.width = Math.max(rect.width - 20, 50) + 'px';
+                  temp.style.height = '20px';
+                  temp.style.opacity = '0';
+                  temp.style.zIndex = 100000;
+                  document.body.appendChild(temp);
+                  try { temp.focus(); } catch (e) { }
+                  if (typeof temp.reportValidity === 'function') {
+                    try { temp.reportValidity(); } catch (e) { }
+                  }
+                  setTimeout(() => {
+                    try { if (temp && temp.parentNode) temp.parentNode.removeChild(temp); } catch (e) { }
+                    try { reviewTextEl.focus(); } catch (e) { }
+                  }, 2000);
+                } catch (e) {
+                  alert('Please select a rating.');
+                }
+              }
+              return;
+            }
+
+            this.reviews.push({ text: reviewText, rating: rating });
+            // Save reviews to localStorage
+            localStorage.setItem(`reviews_${this.name}`, JSON.stringify(this.reviews));
+
+            // Re-render info window content and reattach listeners without closing popup
+            this.updateInfoWindowContent();
+            if (this.infoWindow) this.infoWindow.setContent(this.infoWindowContent);
+            // Reattach listeners for new content
+            attachPopupListeners();
+          };
+        }
+
+        // Attach delete handlers
+        const deleteButtons = document.querySelectorAll('.review-delete-btn');
+        deleteButtons.forEach(button => {
+          button.onclick = (ev) => {
+            ev && ev.stopPropagation();
+            const reviewIndex = parseInt(button.getAttribute('data-review-index'));
+            this.deleteReview(reviewIndex);
+
+            // Re-render info window content and reattach listeners without closing popup
+            this.updateInfoWindowContent();
+            if (this.infoWindow) this.infoWindow.setContent(this.infoWindowContent);
+            attachPopupListeners();
+          };
         });
-      });
+
+        // Attach edit handlers
+        const editButtons = document.querySelectorAll('.review-edit-btn');
+        editButtons.forEach(button => {
+          button.onclick = (ev) => {
+            ev && ev.stopPropagation();
+            const reviewIndex = parseInt(button.getAttribute('data-review-index'));
+            const review = this.reviews[reviewIndex];
+
+            // Get the current review text and rating
+            const currentText = review.text;
+            const currentRating = review.rating;
+
+            // Prompt user to edit text (you could use a modal for better UX)
+            const newText = prompt('Edit your review:', currentText);
+            if (newText === null) return; // User cancelled
+            if (!newText.trim()) {
+              alert('Review text cannot be empty');
+              return;
+            }
+
+            // Prompt user to edit rating
+            const newRatingStr = prompt('Edit your rating (1-5):', currentRating.toString());
+            if (newRatingStr === null) return; // User cancelled
+
+            const newRating = parseInt(newRatingStr);
+            if (isNaN(newRating) || newRating < 1 || newRating > 5) {
+              alert('Please enter a valid rating between 1 and 5');
+              return;
+            }
+
+            // Update the review
+            this.editReview(reviewIndex, newText, newRating);
+
+            // Re-render info window content and reattach listeners without closing popup
+            this.updateInfoWindowContent();
+            if (this.infoWindow) this.infoWindow.setContent(this.infoWindowContent);
+            attachPopupListeners();
+          };
+        });
+      };
+
+      // Initial attach of listeners after popup is opened
+      attachPopupListeners();
     });
   }
 } // End icon object declaration
