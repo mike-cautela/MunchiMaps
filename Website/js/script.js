@@ -190,9 +190,6 @@ class icon extends EventEmitter {
           </div>
           <div class="info-window-subtitle">${this.description}</div>
           <div class="review-section">
-            <div class="reviews">
-              ${this.getReviewsHTML()}
-            </div>
             <div class="rating_block">
               <form class="submit-review">
                 <textarea id="review-text" placeholder="Write your review here..." required></textarea>
@@ -206,6 +203,9 @@ class icon extends EventEmitter {
                 <input type="hidden" id="selected-rating" value="0">
                 <button type="submit">Submit</button>
               </form>
+            </div>
+            <div class="reviews">
+              ${this.getReviewsHTML()}
             </div>
           </div>
       </div>
