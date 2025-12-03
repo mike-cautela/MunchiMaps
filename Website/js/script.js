@@ -166,12 +166,22 @@ class icon extends EventEmitter {
           <div class="review-header">
             <div class="review-author">${author}</div>
             <div class="review-rating">${cookieImg.repeat(r.rating)}</div>
+            <button class="review-edit-btn" data-review-index="${index}" title="Edit review">&#9998;</button>
             <button class="review-delete-btn" data-review-index="${index}" title="Delete review">&times;</button>
           </div>
           <div class="review-text">${r.text}</div>
         </div>
       `;
     }).join('');
+  }
+
+  editReview(index, newText, newRating) { // Edit a review by index
+    if (index >= 0 && index < this.reviews.length) {
+      this.reviews[index].text = newText;
+      this.reviews[index].rating = newRating;
+      // Save updated reviews to localStorage
+      localStorage.setItem(`reviews_${this.name}`, JSON.stringify(this.reviews));
+    }
   }
 
   deleteReview(index) { // Delete a review by index
@@ -351,6 +361,48 @@ class icon extends EventEmitter {
           e.preventDefault();
           const reviewIndex = parseInt(button.getAttribute('data-review-index'));
           this.deleteReview(reviewIndex);
+          
+          // Re-render info window
+          this.updateInfoWindowContent();
+          this.infoWindow.setContent(this.infoWindowContent);
+          
+          // Reattach event listeners
+          this.marker.fire('click');
+        });
+      });
+
+      // Add edit button event listeners
+      const editButtons = document.querySelectorAll('.review-edit-btn');
+      editButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+          e.preventDefault();
+          const reviewIndex = parseInt(button.getAttribute('data-review-index'));
+          const review = this.reviews[reviewIndex];
+          
+          // Get the current review text and rating
+          const currentText = review.text;
+          const currentRating = review.rating;
+          
+          // Prompt user to edit text (you could use a modal for better UX)
+          const newText = prompt('Edit your review:', currentText);
+          if (newText === null) return; // User cancelled
+          if (!newText.trim()) {
+            alert('Review text cannot be empty');
+            return;
+          }
+          
+          // Prompt user to edit rating
+          const newRatingStr = prompt('Edit your rating (1-5):', currentRating.toString());
+          if (newRatingStr === null) return; // User cancelled
+          
+          const newRating = parseInt(newRatingStr);
+          if (isNaN(newRating) || newRating < 1 || newRating > 5) {
+            alert('Please enter a valid rating between 1 and 5');
+            return;
+          }
+          
+          // Update the review
+          this.editReview(reviewIndex, newText, newRating);
           
           // Re-render info window
           this.updateInfoWindowContent();
