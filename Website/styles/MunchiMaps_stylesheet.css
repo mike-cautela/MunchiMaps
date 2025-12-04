@@ -882,11 +882,12 @@ html, body {
   margin-right: 2px;
   line-height: 1;
   transition: color 0.2s ease;
+  transform: scaleX(-1);
 }
 
 .review-edit-btn:hover {
   color: #449d44;
-  transform: scale(1.2);
+  transform: scaleX(-1) scale(1.2);
 }
 
 .review-delete-btn {

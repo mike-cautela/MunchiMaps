@@ -533,7 +533,7 @@ to {
 
 .review-edit-btn:hover {
   color: #449d44;
-  transform: scale(1.2);
+  transform: scaleX(-1) scale(1.2);
 }
 
 
