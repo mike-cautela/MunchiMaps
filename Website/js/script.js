@@ -483,7 +483,6 @@ function onLocationFound(e) {
 // Function to handle location errors
 function onLocationError(e) {
     console.log("Location error: ", e.message);
-    alert(e.message);
 }
 
 // Initial location finding

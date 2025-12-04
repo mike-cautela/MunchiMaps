@@ -97,7 +97,6 @@ html, body {
 }
 
 .help-button{
-
   position: absolute;
   top: 5px;
   right: 5px;
@@ -109,7 +108,6 @@ html, body {
   
   }
 
-
 .help-button:hover {
     
   transform: scale(1.1); /* Increase the size of the button */
@@ -117,6 +115,7 @@ html, body {
 .help-button:active {
   transform: translateY(2px); /* Slightly move the button down */
 }
+
 .help-button-img {
     height: 30px; /* Adjust the height of the image */
     width: auto; /* Maintain the aspect ratio */
@@ -155,8 +154,6 @@ html, body {
   max-width: 600px; 
   font-family: 'Courier New'; 
   border-radius: 20px;
-
-
 }
 
 .close {
@@ -275,8 +272,6 @@ html, body {
   text-decoration: none;
   cursor: pointer;
 }
-
-
 
   /* For popups from buttons at bottom of screen */
   .popup-container {
