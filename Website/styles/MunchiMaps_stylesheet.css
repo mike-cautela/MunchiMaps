@@ -481,10 +481,12 @@ html, body {
     border-radius: 5px;
   }
   
+  
   .rating{
     display:flex;
     justify-content: flex-start;
     margin-left: -10px;
+    flex-direction: row-reverse;
   }
   .rating span {
     cursor: pointer; /* Change cursor to pointer on hover */
@@ -504,22 +506,20 @@ html, body {
   .rating span.selected { /* Highlight selected stars */
     filter: brightness(200%);
   }
-  
+
   .submit-review button {
-    align-self: flex-start;
-    padding: 5px 10px;
-    border: none;
-    background-color: #007bff;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .submit-review button:hover {
-    background-color: #0056b3;
-  }
+  align-self: flex-start;
+  padding: 5px 10px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
 
-
+.submit-review button:hover {
+  background-color: #0056b3;
+}
 
 #popup-search {
     position: fixed;
