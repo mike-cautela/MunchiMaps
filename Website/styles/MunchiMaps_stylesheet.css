@@ -475,6 +475,13 @@ html, body {
     border: 1px solid #ddd;
     border-radius: 5px;
   }
+
+  .rating{
+    display:flex;
+    justify-content: flex-start;
+    margin-left: -10px;
+    flex-direction: row-reverse;
+  }
   
   .rating-row {
     display: flex;
