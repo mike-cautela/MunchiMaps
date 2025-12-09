@@ -581,6 +581,8 @@ html, body {
     height: 500px; 
     font-family: 'Courier New'; 
     font-weight: bold;
+    border-radius: 16px;
+
 }
 
 /* Small screens (e.g., mobile) */
@@ -797,8 +799,8 @@ html, body {
 /* === POPUP LAYER FIXES === */
 .help-popup,
 .map-key-popup,
-.popup-report-container,
-#popup-search {
+.popup-report-container
+/* #popup-search */ {
   position: fixed;
   inset: 0;                 /* top/right/bottom/left: 0 */
   display: none;            /* shown via JS */
@@ -810,8 +812,8 @@ html, body {
 
 .help-popup.show,
 .map-key-popup.show,
-.popup-report-container.show,
-#popup-search.show {
+.popup-report-container.show
+/* #popup-search.show */{
   display: grid;            /* turn on and center */
   place-items: center;
 }
@@ -819,8 +821,8 @@ html, body {
 /* Center the inner cards and prevent margin-based drifting */
 .help-content,
 .map-key-content,
-.popup,            /* the Report modal uses .popup as the card */
-.search-bar {      /* search modal's inner card */
+.popup           /* the Report modal uses .popup as the card */
+ /*.search-bar*/  {      /* search modal's inner card */
   margin: 0;                  /* override existing 15% auto margins */
   width: min(92vw, 600px);
   max-height: 85vh;
@@ -829,12 +831,14 @@ html, body {
   box-shadow: 0 10px 30px rgba(0,0,0,.5);
 }
 
-/* Search modal: remove its extra fixed centering so the overlay does it */
+
+/* Search modal: remove its extra fixed centering so the overlay does it 
 .search-bar {
   position: static !important;
   transform: none !important;
-  height: auto;              /* let content drive size */
+  height: auto;              /* let content drive size 
 }
+*/
 
 /* Keep the logo from blocking clicks and layer it lower than modals */
 .logo-title {
