@@ -95,6 +95,7 @@
       const eaton = L.marker([42.730310, -73.682501], { icon: drink}).addTo(map);
       const greene = L.marker([42.730136, -73.681213], { icon: foodanddrink }).addTo(map);
       const academy = L.marker([42.727497, -73.678723], { icon: foodanddrink }).addTo(map);
+      const mueller = L.marker([42.72891902003062, -73.67684441122128], { icon: foodanddrink }).addTo(map);
 
       
       //generating the description based on image that it is given
@@ -367,6 +368,7 @@ const infoWindowContent = `
           currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
           showImage(currentIndex);
         });
+      });
         
         //review section javascript
         const submitReview = document.querySelector('.submit-review');
@@ -441,6 +443,60 @@ const infoWindowContent = `
           showImage(currentIndex);
         });
       });
+
+      const muellercenter_info = `
+        <div class="info-window-content">
+          <div class="info-window-image">
+            <img src="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Mueller%20Center/MuellerCenterDrink1.jpg?raw=true"
+                alt="Mueller Center Vending" class="active">
+            <div class="carousel-controls">
+              <button class="prev">&lt;</button>
+              <button class="next">&gt;</button>
+            </div>
+          </div>
+          <div class="info-window-text">
+            <div class="info-window-title">Mueller Center</div>
+            <div class="info-window-icons">
+              <img src="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/CreditCheck.png?raw=true">
+              <img src="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/CashCheck.png?raw=true" alt="Cash">
+              <img src="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Map%20Icons/PhoneX.png?raw=true" alt="No Tap">
+            </div>
+            <div class="info-window-subtitle">This machine accepts cash and credit cards.</div>
+          </div>
+        </div>
+      `;
+
+      mueller.on('click', function () {
+        const infoWindow = L.popup({ maxWidth: 500 })
+          .setLatLng([42.72891902003062, -73.67684441122128])
+          .setContent(muellercenter_info)
+          .openOn(map);
+
+        const images = document.querySelectorAll('.info-window-image img');
+        const prevButton = document.querySelector('.prev');
+        const nextButton = document.querySelector('.next');
+        let currentIndex = 0;
+
+        function showImage(index) {
+          images.forEach((img, i) => {
+            img.classList.toggle('active', i === index);
+          });
+        }
+
+        if (prevButton && nextButton) {
+          prevButton.addEventListener('click', () => {
+            currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
+            showImage(currentIndex);
+          });
+
+          nextButton.addEventListener('click', () => {
+            currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
+            showImage(currentIndex);
+          });
+        }
+      });
+
+      
 
       /* OBSOLETE IGNORE
       //Dark mode code.
