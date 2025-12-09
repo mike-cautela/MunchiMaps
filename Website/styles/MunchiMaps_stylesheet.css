@@ -97,7 +97,6 @@ html, body {
 }
 
 .help-button{
-
   position: absolute;
   top: 5px;
   right: 5px;
@@ -109,7 +108,6 @@ html, body {
   
   }
 
-
 .help-button:hover {
     
   transform: scale(1.1); /* Increase the size of the button */
@@ -117,6 +115,7 @@ html, body {
 .help-button:active {
   transform: translateY(2px); /* Slightly move the button down */
 }
+
 .help-button-img {
     height: 30px; /* Adjust the height of the image */
     width: auto; /* Maintain the aspect ratio */
@@ -155,8 +154,6 @@ html, body {
   max-width: 600px; 
   font-family: 'Courier New'; 
   border-radius: 20px;
-
-
 }
 
 .close {
@@ -275,8 +272,6 @@ html, body {
   text-decoration: none;
   cursor: pointer;
 }
-
-
 
   /* For popups from buttons at bottom of screen */
   .popup-container {
@@ -481,30 +476,33 @@ html, body {
     border-radius: 5px;
   }
   
-  .rating{
-    display:flex;
-    justify-content: flex-start;
-    margin-left: -10px;
+  .rating-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ddd;
   }
+
   .rating span {
     cursor: pointer; /* Change cursor to pointer on hover */
     transition: color .3s, transform .3s;
   }
-  .rating span img{
+  .rating span img {
     filter: brightness(40%); /* Dimmed stars by default */
     transition: filter .3s;
   }
-  .rating span:hover{
+  .rating span:hover {
     filter: brightness(200%);
     transform: scale(1.2);
   }
-  .rating span:hover~span{
+  .rating span:hover~span {
     filter: brightness(200%);
   }
   .rating span.selected { /* Highlight selected stars */
     filter: brightness(200%);
   }
-  
+
   .submit-review button {
     align-self: flex-start;
     padding: 5px 10px;
@@ -513,13 +511,13 @@ html, body {
     color: white;
     border-radius: 5px;
     cursor: pointer;
+    font-weight: bold;
+    font-size: 12px;
   }
   
   .submit-review button:hover {
     background-color: #0056b3;
   }
-
-
 
 #popup-search {
     position: fixed;
@@ -583,6 +581,8 @@ html, body {
     height: 500px; 
     font-family: 'Courier New'; 
     font-weight: bold;
+    border-radius: 16px;
+
 }
 
 /* Small screens (e.g., mobile) */
@@ -799,8 +799,8 @@ html, body {
 /* === POPUP LAYER FIXES === */
 .help-popup,
 .map-key-popup,
-.popup-report-container,
-#popup-search {
+.popup-report-container
+/* #popup-search */ {
   position: fixed;
   inset: 0;                 /* top/right/bottom/left: 0 */
   display: none;            /* shown via JS */
@@ -812,8 +812,8 @@ html, body {
 
 .help-popup.show,
 .map-key-popup.show,
-.popup-report-container.show,
-#popup-search.show {
+.popup-report-container.show
+/* #popup-search.show */{
   display: grid;            /* turn on and center */
   place-items: center;
 }
@@ -821,8 +821,8 @@ html, body {
 /* Center the inner cards and prevent margin-based drifting */
 .help-content,
 .map-key-content,
-.popup,            /* the Report modal uses .popup as the card */
-.search-bar {      /* search modal's inner card */
+.popup           /* the Report modal uses .popup as the card */
+ /*.search-bar*/  {      /* search modal's inner card */
   margin: 0;                  /* override existing 15% auto margins */
   width: min(92vw, 600px);
   max-height: 85vh;
@@ -831,19 +831,76 @@ html, body {
   box-shadow: 0 10px 30px rgba(0,0,0,.5);
 }
 
-/* Search modal: remove its extra fixed centering so the overlay does it */
+
+/* Search modal: remove its extra fixed centering so the overlay does it 
 .search-bar {
   position: static !important;
   transform: none !important;
-  height: auto;              /* let content drive size */
+  height: auto;              /* let content drive size 
 }
+*/
 
 /* Keep the logo from blocking clicks and layer it lower than modals */
 .logo-title {
   z-index: 100 !important;   /* below 5000 */
   pointer-events: none;      /* don't steal clicks from modals */
 }
- 
-  
 
-   
+/* Cookie stars within existing reviews */
+.review-rating img {
+  filter: brightness(80%);
+}
+
+/* review header: author + cookie icons inline */
+.review-header {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* space between name and cookies */
+}
+
+.review-author {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #333;
+}
+.review-rating img {
+  width: 20px;
+  height: 20px;
+  margin: 0 2px 0 0;
+  filter: brightness(.8);
+}
+
+.review-edit-btn {
+  background: none;
+  border: none;
+  color: #5cb85c;
+  font-size: 1.3rem;
+  cursor: pointer;
+  padding: 0;
+  margin-left: auto;
+  margin-right: 2px;
+  line-height: 1;
+  transition: color 0.2s ease;
+  transform: scaleX(-1);
+}
+
+.review-edit-btn:hover {
+  color: #449d44;
+  transform: scaleX(-1) scale(1.2);
+}
+
+.review-delete-btn {
+  background: none;
+  border: none;
+  color: #d9534f;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  transition: color 0.2s ease;
+}
+
+.review-delete-btn:hover {
+  color: #c9302c;
+  transform: scale(1.2);
+}

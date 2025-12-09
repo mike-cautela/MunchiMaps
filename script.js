@@ -447,7 +447,7 @@ const infoWindowContent = `
       const muellercenter_info = `
         <div class="info-window-content">
           <div class="info-window-image">
-            <img src="https://github.com/mike-cautela/MunchiMaps/blob/main/MunchiMaps%20Assets/Mueller%20Center/MuellerCenterDrink1.jpg?raw=true"
+            <img src="https://github.com/mike-cautela/MunchiMaps/blob/main/Website/MunchiMaps%20Assets/Mueller%20Center/MuellerCenterDrink1.jpeg"
                 alt="Mueller Center Vending" class="active">
             <div class="carousel-controls">
               <button class="prev">&lt;</button>
@@ -583,14 +583,39 @@ const infoWindowContent = `
     });
 }
 
-   document.addEventListener('DOMContentLoaded', function () {
-      initMap();
-    });
+  //  document.addEventListener('DOMContentLoaded', function () {
+  //     initMap();
+  //   });
 // Handle report form submission
-document.addEventListener('DOMContentLoaded', function () {
-    initMap();
+// document.addEventListener('DOMContentLoaded', function () {
+//     initMap();
 
-    const reportForm = document.getElementById('reportForm');
+//     const reportForm = document.getElementById('reportForm');
+//     reportForm.addEventListener('submit', function(event) {
+//         event.preventDefault();
+//         const reportTitle = document.getElementById('reportTitle').value;
+//         const reportDescription = document.getElementById('reportDescription').value;
+
+//         // Handle the form data (e.g., send it to a server or display it)
+//         console.log('Report Title:', reportTitle);
+//         console.log('Report Description:', reportDescription);
+
+//         // Display a confirmation message or handle the submission
+//         alert('Report submitted successfully!');
+
+//         // Close the popup
+//         closePopup('Report');
+
+//         // Clear the form
+//         reportForm.reset();
+//     });
+// });
+
+document.addEventListener('DOMContentLoaded', function () {
+  initMap();
+
+  const reportForm = document.getElementById('reportForm');
+  if (reportForm) {
     reportForm.addEventListener('submit', function(event) {
         event.preventDefault();
         const reportTitle = document.getElementById('reportTitle').value;
@@ -609,5 +634,6 @@ document.addEventListener('DOMContentLoaded', function () {
         // Clear the form
         reportForm.reset();
     });
-});
+    }
+  });
 

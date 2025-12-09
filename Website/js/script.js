@@ -112,7 +112,9 @@ class icon extends EventEmitter {
     this.num_ratings = num_ratings;
     this.average_ratings = average_ratings;
     this.needs_service = needs_service;
-    this.reviews = []; // Will be stored as {text, rating}
+    // Load reviews from localStorage if available
+    const storedReviews = localStorage.getItem(`reviews_${this.name}`);
+    this.reviews = storedReviews ? JSON.parse(storedReviews) : [];
 
     this.image1 = PAYMENT_ICONS.CREDIT.CHECK;
     this.image2 = PAYMENT_ICONS.CASH.CHECK;
@@ -124,15 +126,41 @@ class icon extends EventEmitter {
   }
 
   getReviewsHTML() { // Display existing reviews
-    if (this.reviews.length === 0) { 
+    if (this.reviews.length === 0) {
       return "<div>No reviews yet.</div>";
     }
-    return this.reviews.map(r => `
-      <div class="review">
-        <div class="review-rating">${'🍪'.repeat(r.rating)}</div>
-        <div class="review-text">${r.text}</div>
-      </div>
-    `).join('');
+    const cookieImg = `<img src="${ASSETS_BASE_URL}/CookieFavicon.png?raw=true" alt="cookie" width="20" height="20">`;
+    return this.reviews.map((r, index) => {
+      const author = r.author || 'Anonymous';
+      return `
+        <div class="review">
+          <div class="review-header">
+            <div class="review-author">${author}</div>
+            <div class="review-rating">${cookieImg.repeat(r.rating)}</div>
+            <button class="review-edit-btn" data-review-index="${index}" title="Edit review">&#9998;</button>
+            <button class="review-delete-btn" data-review-index="${index}" title="Delete review">&times;</button>
+          </div>
+          <div class="review-text">${r.text}</div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  editReview(index, newText, newRating) { // Edit a review by index
+    if (index >= 0 && index < this.reviews.length) {
+      this.reviews[index].text = newText;
+      this.reviews[index].rating = newRating;
+      // Save updated reviews to localStorage
+      localStorage.setItem(`reviews_${this.name}`, JSON.stringify(this.reviews));
+    }
+  }
+
+  deleteReview(index) { // Delete a review by index
+    if (index >= 0 && index < this.reviews.length) {
+      this.reviews.splice(index, 1);
+      // Save updated reviews to localStorage
+      localStorage.setItem(`reviews_${this.name}`, JSON.stringify(this.reviews));
+    }
   }
 
   updateInfoWindowContent() { // Build the popup when clicking on a marker
@@ -154,22 +182,24 @@ class icon extends EventEmitter {
           </div>
           <div class="info-window-subtitle">${this.description}</div>
           <div class="review-section">
-            <div class="reviews">
-              ${this.getReviewsHTML()}
-            </div>
             <div class="rating_block">
               <form class="submit-review">
                 <textarea id="review-text" placeholder="Write your review here..." required></textarea>
-                <div class="rating">
-                  <span rating-star="5"><img src="https://github.com/mike-cautela/MunchiMaps/blob/main/Website/MunchiMaps%20Assets/CookieFavicon.png?raw=true" alt="Star 5" width="30" height="30"></span>
-                  <span rating-star="4"><img src="https://github.com/mike-cautela/MunchiMaps/blob/main/Website/MunchiMaps%20Assets/CookieFavicon.png?raw=true" alt="Star 4" width="30" height="30"></span>
-                  <span rating-star="3"><img src="https://github.com/mike-cautela/MunchiMaps/blob/main/Website/MunchiMaps%20Assets/CookieFavicon.png?raw=true" alt="Star 3" width="30" height="30"></span>
-                  <span rating-star="2"><img src="https://github.com/mike-cautela/MunchiMaps/blob/main/Website/MunchiMaps%20Assets/CookieFavicon.png?raw=true" alt="Star 2" width="30" height="30"></span>
-                  <span rating-star="1"><img src="https://github.com/mike-cautela/MunchiMaps/blob/main/Website/MunchiMaps%20Assets/CookieFavicon.png?raw=true" alt="Star 1" width="30" height="30"></span>
+                <div class="rating-row">
+                  <div class="rating">
+                    <span rating-star="5"><img src="${ASSETS_BASE_URL}/CookieFavicon.png?raw=true" alt="Star 5" width="30" height="30"></span>
+                    <span rating-star="4"><img src="${ASSETS_BASE_URL}/CookieFavicon.png?raw=true" alt="Star 4" width="30" height="30"></span>
+                    <span rating-star="3"><img src="${ASSETS_BASE_URL}/CookieFavicon.png?raw=true" alt="Star 3" width="30" height="30"></span>
+                    <span rating-star="2"><img src="${ASSETS_BASE_URL}/CookieFavicon.png?raw=true" alt="Star 2" width="30" height="30"></span>
+                    <span rating-star="1"><img src="${ASSETS_BASE_URL}/CookieFavicon.png?raw=true" alt="Star 1" width="30" height="30"></span>
+                  </div>
+                  <input type="hidden" id="selected-rating" value="0">
+                  <button type="submit">SUBMIT</button>
                 </div>
-                <input type="hidden" id="selected-rating" value="0">
-                <button type="submit">Submit</button>
               </form>
+            </div>
+            <div class="reviews">
+              ${this.getReviewsHTML()}
             </div>
           </div>
       </div>
@@ -186,70 +216,181 @@ class icon extends EventEmitter {
         .setContent(this.infoWindowContent)
         .openOn(map);
 
-      const images = document.querySelectorAll('.info-window-image img');
-      const prevButton = document.querySelector('.prev');
-      const nextButton = document.querySelector('.next');
-      let currentIndex = 0;
+      // Helper to attach popup listeners (use .onclick/.onsubmit to avoid duplicate handlers)
+      const attachPopupListeners = () => {
+        const images = document.querySelectorAll('.info-window-image img');
+        const prevButton = document.querySelector('.prev');
+        const nextButton = document.querySelector('.next');
+        let currentIndex = 0;
 
-      function showImage(index) {
-        images.forEach((img, i) => {
-          img.classList.toggle('active', i === index);
-        });
-      }
-
-      if (prevButton && nextButton) {
-        prevButton.addEventListener('click', () => {
-          currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
-          showImage(currentIndex);
-        });
-
-        nextButton.addEventListener('click', () => {
-          currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
-          showImage(currentIndex);
-        });
-      }
-
-      let selectedRating = 0;
-      const ratingStars = document.querySelectorAll('.rating span');
-      ratingStars.forEach(star => {
-        star.addEventListener('click', () => {
-          selectedRating = parseInt(star.getAttribute('rating-star'));
-          
-          // We want to highlight all stars with lower or equal rating
-          ratingStars.forEach(s => {
-            const starRating = parseInt(s.getAttribute('rating-star'));
-            if (starRating <= selectedRating) {
-              s.classList.add('selected');
-            } else {
-              s.classList.remove('selected');
-            }
+        function showImage(index) {
+          images.forEach((img, i) => {
+            img.classList.toggle('active', i === index);
           });
-          document.getElementById('selected-rating').value = selectedRating;
+        }
+
+        if (prevButton) {
+          prevButton.onclick = (ev) => {
+            ev && ev.stopPropagation();
+            currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
+            showImage(currentIndex);
+          };
+        }
+        if (nextButton) {
+          nextButton.onclick = (ev) => {
+            ev && ev.stopPropagation();
+            currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
+            showImage(currentIndex);
+          };
+        }
+
+        let selectedRating = 0;
+        const ratingStars = document.querySelectorAll('.rating span');
+        ratingStars.forEach(star => {
+          star.onclick = (ev) => {
+            ev && ev.stopPropagation();
+            selectedRating = parseInt(star.getAttribute('rating-star'));
+
+            // We want to highlight all stars with lower or equal rating
+            ratingStars.forEach(s => {
+              const starRating = parseInt(s.getAttribute('rating-star'));
+              if (starRating <= selectedRating) {
+                s.classList.add('selected');
+              } else {
+                s.classList.remove('selected');
+              }
+            });
+            const selEl = document.getElementById('selected-rating');
+            if (selEl) selEl.value = selectedRating;
+            // Clear previous validity messages
+            const reviewTextClear = document.getElementById('review-text');
+            if (reviewTextClear) {
+              reviewTextClear.setCustomValidity('');
+            }
+          };
         });
-      });
-      
-      const reviewForm = document.querySelector('.submit-review');
-      if (reviewForm) {
-        reviewForm.addEventListener('submit', (event) => {
-          event.preventDefault(); // Stops page from refreshing on submit
-          const reviewText = document.getElementById('review-text').value.trim();
-          const rating = parseInt(document.getElementById('selected-rating').value);
 
-          if (!reviewText || !rating) {
-            alert('Please provide both a review and a rating.');
-            return;
-          }
+        const reviewForm = document.querySelector('.submit-review');
+        if (reviewForm) {
+          reviewForm.onsubmit = (event) => {
+            event.preventDefault(); // Stops page from refreshing on submit
+            event.stopPropagation();
+            const reviewTextEl = document.getElementById('review-text');
+            const reviewText = reviewTextEl.value.trim();
+            const rating = parseInt(document.getElementById('selected-rating').value);
 
-          this.reviews.push({ text: reviewText, rating: rating });
+            if (!reviewText) {
+              if (reviewTextEl && typeof reviewTextEl.reportValidity === 'function') {
+                reviewTextEl.reportValidity();
+              } else {
+                alert('Please provide a review.');
+              }
+              return;
+            }
 
-          // Re-render info window
-          this.updateInfoWindowContent();
-          this.infoWindow.setContent(this.infoWindowContent);
+            if (!rating) {
+              if (reviewTextEl) {
+                try {
+                  const temp = document.createElement('input');
+                  temp.type = 'text';
+                  temp.required = true;
+                  // Position the popup within the viewport bounds
+                  const rect = reviewTextEl.getBoundingClientRect();
+                  const left = Math.max(rect.left + window.scrollX + 10, 10);
+                  const top = Math.max(rect.top + window.scrollY + rect.height + 6, 10);
+                  temp.style.position = 'absolute';
+                  temp.style.left = left + 'px';
+                  temp.style.top = top + 'px';
+                  temp.style.width = Math.max(rect.width - 20, 50) + 'px';
+                  temp.style.height = '20px';
+                  temp.style.opacity = '0';
+                  temp.style.zIndex = 100000;
+                  document.body.appendChild(temp);
+                  try { temp.focus(); } catch (e) { }
+                  if (typeof temp.reportValidity === 'function') {
+                    try { temp.reportValidity(); } catch (e) { }
+                  }
+                  setTimeout(() => {
+                    try { if (temp && temp.parentNode) temp.parentNode.removeChild(temp); } catch (e) { }
+                    try { reviewTextEl.focus(); } catch (e) { }
+                  }, 2000);
+                } catch (e) {
+                  alert('Please select a rating.');
+                }
+              }
+              return;
+            }
 
-          // Reattach event listeners
-          this.marker.fire('click');
-        })
-      }
+            this.reviews.push({ text: reviewText, rating: rating });
+            // Save reviews to localStorage
+            localStorage.setItem(`reviews_${this.name}`, JSON.stringify(this.reviews));
+
+            // Re-render info window content and reattach listeners without closing popup
+            this.updateInfoWindowContent();
+            if (this.infoWindow) this.infoWindow.setContent(this.infoWindowContent);
+            // Reattach listeners for new content
+            attachPopupListeners();
+          };
+        }
+
+        // Attach delete handlers
+        const deleteButtons = document.querySelectorAll('.review-delete-btn');
+        deleteButtons.forEach(button => {
+          button.onclick = (ev) => {
+            ev && ev.stopPropagation();
+            const reviewIndex = parseInt(button.getAttribute('data-review-index'));
+            this.deleteReview(reviewIndex);
+
+            // Re-render info window content and reattach listeners without closing popup
+            this.updateInfoWindowContent();
+            if (this.infoWindow) this.infoWindow.setContent(this.infoWindowContent);
+            attachPopupListeners();
+          };
+        });
+
+        // Attach edit handlers
+        const editButtons = document.querySelectorAll('.review-edit-btn');
+        editButtons.forEach(button => {
+          button.onclick = (ev) => {
+            ev && ev.stopPropagation();
+            const reviewIndex = parseInt(button.getAttribute('data-review-index'));
+            const review = this.reviews[reviewIndex];
+
+            // Get the current review text and rating
+            const currentText = review.text;
+            const currentRating = review.rating;
+
+            // Prompt user to edit text (you could use a modal for better UX)
+            const newText = prompt('Edit your review:', currentText);
+            if (newText === null) return; // User cancelled
+            if (!newText.trim()) {
+              alert('Review text cannot be empty');
+              return;
+            }
+
+            // Prompt user to edit rating
+            const newRatingStr = prompt('Edit your rating (1-5):', currentRating.toString());
+            if (newRatingStr === null) return; // User cancelled
+
+            const newRating = parseInt(newRatingStr);
+            if (isNaN(newRating) || newRating < 1 || newRating > 5) {
+              alert('Please enter a valid rating between 1 and 5');
+              return;
+            }
+
+            // Update the review
+            this.editReview(reviewIndex, newText, newRating);
+
+            // Re-render info window content and reattach listeners without closing popup
+            this.updateInfoWindowContent();
+            if (this.infoWindow) this.infoWindow.setContent(this.infoWindowContent);
+            attachPopupListeners();
+          };
+        });
+      };
+
+      // Initial attach of listeners after popup is opened
+      attachPopupListeners();
     });
   }
 } // End icon object declaration
@@ -313,7 +454,6 @@ function onLocationFound(e) {
 // Function to handle location errors
 function onLocationError(e) {
     console.log("Location error: ", e.message);
-    alert(e.message);
 }
 
 // Initial location finding
