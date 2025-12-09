@@ -257,7 +257,7 @@ function getX(name, callback){
   const stmt = "SELECT x_coord FROM building WHERE name = ?;";
   db.get(stmt, [name], (err, row) => {
     if(err){
-      console.err(err.message);
+      console.error(err.message);
     }
     else{
       callback(null, row);
@@ -269,10 +269,10 @@ function getX(name, callback){
 function getY(name, callback){
   const stmt = "SELECT y_coord FROM building WHERE name = ?;";
   db.get(stmt, [name], (err, row) => {
-    if(err){
-      console.err(err.message);
+    if(err) {
+      console.error(err.message);
     }
-    else{
+    else {
       callback(null, row);
     }
   });
@@ -296,7 +296,7 @@ function getNumSnackMachines(name, callback){
   const stmt = "SELECT num_snack_machines FROM building WHERE name = ?;";
   db.get(stmt, [name], (err,row) => {
     if(err) {
-      console.err(err.message);
+      console.error(err.message);
     }
     else {
       callback(null, row);
@@ -308,7 +308,7 @@ function getNumDrinkMachines(name, callback){
   const stmt = "SELECT num_drink_machines FROM building WHERE name = ?;";
   db.get(stmt, [name], (err,row) => {
     if(err) {
-      console.err(err.message);
+      console.error(err.message);
     }
     else {
       callback(null, row);
@@ -330,7 +330,7 @@ module.exports = {
   getNumDrinkMachines,
   
   addReport: async (building_id, title, description) => {
-    try{
+    try {
       db.run("INSERT INTO building (building_id, title, description) VALUES (?, ?, ?)", [building_id, title, description]);
     }
     catch(dbError) {
@@ -339,7 +339,7 @@ module.exports = {
   },
   
   insertBuilding: async (name, x_coord, y_coord, time_opens, time_closes, num_snack_machines, num_drink_machines, num_ratings, average_ratings, needs_service) => {
-    try{
+    try {
       await db.run('INSERT INTO building (name, x_coord, y_coord, time_opens, time_closes, num_snack_machines, num_drink_machines, num_ratings, sum_ratings, average_ratings, needs_service) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
         [name, x_coord, y_coord, time_opens, time_closes, num_snack_machines, num_drink_machines, num_ratings, average_ratings, needs_service]); 
     }
@@ -370,7 +370,7 @@ module.exports = {
   },
 
   fetchAllBuildings: async() => {
-    try{
+    try {
       return await db.all('SELECT * FROM building');
     }
     catch(dbError){
@@ -379,7 +379,7 @@ module.exports = {
   },
   
   fetchAllReviews: async() => {
-    try{
+    try {
       return await db.all('SELECT * FROM review');
     }
     catch(dbError){
