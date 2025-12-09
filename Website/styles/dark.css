@@ -26,6 +26,7 @@ background: #000
   width: 100%;
   z-index: 0;
 }
+
 /* Buttons at bottom of screen */
 #buttons-container {
 
@@ -63,7 +64,6 @@ background: #000
 }
 
 .button {
- 
   padding: 5px 40px;
   cursor: pointer;
   background-color: rgba(255, 255, 255, 0); /* Fully transparent */
@@ -92,7 +92,6 @@ background: #000
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
   transform: scale(1.1); /* Increase the size of the button */
 }
-
 .button:active {
   background-color: #7A9C9E; /* Darker shade for pressed effect */
   transform: scale(0.95); /* Slightly move the button down */
@@ -500,6 +499,40 @@ to {
 
 .submit-review button:hover {
   background-color: #0056b3;
+}
+
+.review-delete-btn {
+  background: none;
+  border: none;
+  color: #d9534f;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  transition: color 0.2s ease;
+}
+
+.review-delete-btn:hover {
+  color: #c9302c;
+  transform: scale(1.2);
+}
+
+.review-edit-btn {
+  background: none;
+  border: none;
+  color: #5cb85c;
+  font-size: 1.3rem;
+  cursor: pointer;
+  padding: 0;
+  margin-left: auto;
+  margin-right: 2px;
+  line-height: 1;
+  transition: color 0.2s ease;
+}
+
+.review-edit-btn:hover {
+  color: #449d44;
+  transform: scaleX(-1) scale(1.2);
 }
 
 
