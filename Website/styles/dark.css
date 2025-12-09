@@ -590,6 +590,8 @@ to {
   height: 500px; 
   font-family: 'Courier New'; 
   font-weight: bold;
+  border-radius: 16px;
+
 }
 
 /* Small screens (e.g., mobile) */
